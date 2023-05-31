@@ -558,11 +558,11 @@ void AutoController::eliminar()
 
 		mostrarRegistro(obj);
 
-		rlutil::locate(11, 18);
+		rlutil::locate(11, 15);
 		cout << char(168) << "Est" << char(160) << " seguro que desea eliminar el registro?";
-		rlutil::locate(11, 19);
+		rlutil::locate(11, 17);
 		cout << "1 _ ELIMINAR";
-		rlutil::locate(11, 20);
+		rlutil::locate(11, 18);
 		cout << "9 _ CANCELAR/VOLVER";
 		do
 		{
