@@ -2,6 +2,7 @@
 #include "rlutil.h"
 #include <iostream>
 #include "AutoController.h"
+#include "EmpleadoController.h"
 
 using namespace std;
 
@@ -25,8 +26,7 @@ void Funciones::MenuPrincipal()
 			break;
 		case 2:
 			system("cls");
-			cout << "EMPLEADOS" << endl;
-			system("pause");
+			EmpleadoController().mostrarMenu();
 			system("cls");
 			break;
 		case 3:
