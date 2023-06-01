@@ -13,7 +13,7 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		rlutil::locate(39, 22);
+		rlutil::locate(25, 22);
 		cin >> opcion;
 
 		switch (opcion)
@@ -35,13 +35,32 @@ void Funciones::MenuPrincipal()
 			system("pause");
 			system("cls");
 			break;
+		case 4:
+			system("cls");
+			cout << "CLIENTES" << endl;
+			system("pause");
+			system("cls");
+			break;
+		case 5:
+			system("cls");
+			cout << "REPORTES" << endl;
+			system("pause");
+			system("cls");
+			break;
+		case 6:
+			system("cls");
+			cout << "CONFIGURACIONES" << endl;
+			system("pause");
+			system("cls");
+			break;
 		case 0:
 			break;
 		default:
 			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(26, 23);
+			rlutil::locate(25, 22);
 			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
 			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(42, 22);
 			rlutil::anykey();
 			break;
 		}
@@ -69,40 +88,55 @@ void Funciones::DibujarMenu()
 	cout << "  /_______/ /______/  \\_____/    /__/   /__/  \\______/ /__/  |___/" << endl;
 
 
-	rlutil::locate(27, 16);
-	cout << "1  _  AUTOS" << endl;
-	rlutil::locate(27, 17);
-	cout << "2  _  EMPLEADOS" << endl;
-	rlutil::locate(27, 18);
-	cout << "3  _  ALQUILERES" << endl;
-	rlutil::locate(27, 20);
-	cout << "0  _  SALIR" << endl;
+	rlutil::locate(12, 16);
+	cout << "1 _ AUTOS" << endl;
+	rlutil::locate(12, 17);
+	cout << "2 _ EMPLEADOS" << endl;
+	rlutil::locate(12, 18);
+	cout << "3 _ ALQUILERES" << endl;
 
-	rlutil::locate(26, 22);
-	cout << "SELECCI" << char(224) << "NE: " << endl;
+	rlutil::locate(30, 16);
+	cout << "4 _ CLIENTES" << endl;
+	rlutil::locate(30, 17);
+	cout << "5 _ REPORTES" << endl;
+	rlutil::locate(30, 18);
+	cout << "6 _ CONFIGURACIONES" << endl;
 
-	rlutil::locate(21, 14);
+	rlutil::locate(14, 20);
+	cout << "0 _ SALIR" << endl;
+
+	rlutil::locate(14, 22);
+	cout << "SELECCI" << char(224) << "N: " << endl;
+
+
+
+	rlutil::locate(9, 14);
 	cout << char(201);
-	for (int i = 0; i < 24; i++)
-	{
-		cout << char(205);
-	}
+	rlutil::locate(55, 14);
 	cout << char(187);
 
-	rlutil::locate(21, 24);
+	rlutil::locate(9, 24);
 	cout << char(200);
-	for (int i = 0; i < 24; i++)
+	rlutil::locate(55, 24);
+	cout << char(188);
+
+
+	for (int i = 0; i < 45; i++)
 	{
+		rlutil::locate(10+i, 14);
+		cout << char(205);
+		rlutil::locate(10+i, 24);
 		cout << char(205);
 	}
-	cout << char(188);
 
 	for (int i = 0; i < 9; i++)
 	{
-		rlutil::locate(21, 15 + i);
+		rlutil::locate(9, 15 + i);
 		cout << char(186);
-		rlutil::locate(46, 15 + i);
+		rlutil::locate(55, 15 + i);
 		cout << char(186);
 	}
+
+
 
 }
