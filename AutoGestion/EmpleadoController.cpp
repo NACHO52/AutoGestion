@@ -523,9 +523,9 @@ void EmpleadoController::listarPorEstado()
 				rlutil::locate(3, 4 + registrosDisponibles * 2);
 				cout << obj.getId();
 				rlutil::locate(8, 4 + registrosDisponibles * 2);
-				cout << obj.getApellido();
-				rlutil::locate(26, 4 + registrosDisponibles * 2);
 				cout << obj.getNombre();
+				rlutil::locate(26, 4 + registrosDisponibles * 2);
+				cout << obj.getApellido();
 				rlutil::locate(44, 4 + registrosDisponibles * 2);
 				cout << obj.getMail();
 				rlutil::locate(62, 4 + registrosDisponibles * 2);
