@@ -13,5 +13,7 @@ public:
 	void eliminar();
 	void mostrarRegistro(Auto obj);
 	void imprimirNoHayRegistros();
+	void listarPorEstado();
+	void buscarPorId();
 };
 

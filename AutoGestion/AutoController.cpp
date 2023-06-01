@@ -14,7 +14,7 @@ void AutoController::mostrarMenu()
 
 		dibujarMenu();
 
-		rlutil::locate(34, 14);
+		rlutil::locate(32, 15);
 		cin >> opcion;
 
 		switch (opcion)
@@ -29,15 +29,22 @@ void AutoController::mostrarMenu()
 			listar();
 			break;
 		case 4:
+			listarPorEstado();
+			break;
+		case 5:
+			buscarPorId();
+			break;
+		case 6:
 			eliminar();
 			break;
 		case 0:
 			break;
 		default:
 			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(22, 16);
+			rlutil::locate(23, 17);
 			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
 			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(40, 17);
 			rlutil::anykey();
 			break;
 		}
@@ -57,33 +64,35 @@ void AutoController::dibujarMenu() {
 	rlutil::locate(24, 8);
 	cout << "3 _ LISTAR TODOS" << endl;
 	rlutil::locate(24, 9);
-	cout << "4 _ ELIMINAR" << endl;
+	cout << "4 _ LISTAR POR ESTADO" << endl;
+	rlutil::locate(24, 10);
+	cout << "5 _ BUSCAR POR ID" << endl;
 	rlutil::locate(24, 11);
+	cout << "6 _ ELIMINAR" << endl;
+	rlutil::locate(24, 13);
 	cout << "0 _ VOLVER" << endl;
 
-	rlutil::locate(24, 14);
+	rlutil::locate(24, 15);
 	cout << "OPCI" << char(224) << "N: " << endl;
 
 	rlutil::locate(15, 4);
 	cout << char(201);
-
 	rlutil::locate(47, 4);
 	cout << char(187);
 
-	rlutil::locate(15, 17);
+	rlutil::locate(15, 18);
 	cout << char(200);
-
-	rlutil::locate(47, 17);
+	rlutil::locate(47, 18);
 	cout << char(188);
 
 	for (int i = 0; i < 31; i++)
 	{
 		rlutil::locate(16 + i, 4);
 		cout << char(205);
-		rlutil::locate(16 + i, 17);
+		rlutil::locate(16 + i, 18);
 		cout << char(205);
 	}
-	for (int i = 0; i < 12; i++)
+	for (int i = 0; i < 13; i++)
 	{
 		rlutil::locate(15, 5 + i);
 		cout << char(186);
@@ -369,7 +378,7 @@ void AutoController::listar()
 	}
 	else
 	{
-		for (int j = 1; j < cant; j++)
+		for (int j = 1; j <= cant; j++)
 		{
 			Auto obj;
 			obj = archivo.buscar(j);
@@ -468,6 +477,262 @@ void AutoController::listar()
 	}
 
 	rlutil::locate(1, registrosImpresos * 2 + 8);
+	cout << endl << endl << endl << system("pause");
+}
+
+void AutoController::listarPorEstado()
+{
+	rlutil::cls();
+	listaHeader();
+	
+	AutoArchivo archivo;
+	int registrosDisponibles = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0)
+	{
+		imprimirNoHayRegistros();
+	}
+	else
+	{
+
+		for (int j = 1; j < cant; j++)
+		{
+			Auto obj;
+			obj = archivo.buscar(j);
+			if (obj.getEliminado() == 1)
+			{
+				continue;
+			}
+			else if (obj.getEstado() == AutoEstado::Disponible) 
+			{
+				rlutil::locate(1, 3 + registrosDisponibles * 2);
+				cout << char(195);
+				rlutil::locate(1, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(78, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(7, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(18, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(36, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(51, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(57, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(78, 3 + registrosDisponibles * 2);
+				cout << char(180);
+
+				rlutil::setColor(rlutil::LIGHTGREEN);
+				rlutil::locate(3, 4 + registrosDisponibles * 2);
+				cout << obj.getId();
+				rlutil::locate(9, 4 + registrosDisponibles * 2);
+				cout << obj.getPatente();
+				rlutil::locate(21, 4 + registrosDisponibles * 2);
+				cout << obj.getMarca();
+				rlutil::locate(39, 4 + registrosDisponibles * 2);
+				cout << obj.getModelo();
+				rlutil::locate(53, 4 + registrosDisponibles * 2);
+				cout << obj.getAnio();
+				rlutil::locate(60, 4 + registrosDisponibles * 2);
+				cout << obj.getEstadoStr();
+				rlutil::setColor(rlutil::WHITE);
+
+				rlutil::locate(7, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(18, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(36, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(51, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(57, 4 + registrosDisponibles * 2);
+				cout << char(179);
+
+				rlutil::locate(1, 5 + registrosDisponibles * 2);
+				cout << char(192);
+				rlutil::locate(78, 5 + registrosDisponibles * 2);
+				cout << char(217);
+				for (int j = 0; j < 76; j++)
+				{
+					rlutil::locate(2 + j, 5 + registrosDisponibles * 2);
+					cout << char(196);
+				}
+				rlutil::locate(7, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(18, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(36, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(51, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(57, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				registrosDisponibles++;
+			}
+		}
+
+		for (int j = registrosDisponibles; j < cant; j++)
+		{
+			Auto obj;
+			obj = archivo.buscar(j);
+			if (obj.getEliminado() == 1)
+			{
+				continue;
+			}
+			if (obj.getEstado() == AutoEstado::EnUso)
+			{
+				rlutil::locate(1, 3 + registrosDisponibles * 2);
+				cout << char(195);
+				rlutil::locate(1, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(78, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(7, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(18, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(36, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(51, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(57, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(78, 3 + registrosDisponibles * 2);
+				cout << char(180);
+
+				rlutil::setColor(rlutil::YELLOW);
+				rlutil::locate(3, 4 + registrosDisponibles * 2);
+				cout << obj.getId();
+				rlutil::locate(9, 4 + registrosDisponibles * 2);
+				cout << obj.getPatente();
+				rlutil::locate(21, 4 + registrosDisponibles * 2);
+				cout << obj.getMarca();
+				rlutil::locate(39, 4 + registrosDisponibles * 2);
+				cout << obj.getModelo();
+				rlutil::locate(53, 4 + registrosDisponibles * 2);
+				cout << obj.getAnio();
+				rlutil::locate(60, 4 + registrosDisponibles * 2);
+				cout << obj.getEstadoStr();
+				rlutil::setColor(rlutil::WHITE);
+
+				rlutil::locate(7, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(18, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(36, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(51, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(57, 4 + registrosDisponibles * 2);
+				cout << char(179);
+
+				rlutil::locate(1, 5 + registrosDisponibles * 2);
+				cout << char(192);
+				rlutil::locate(78, 5 + registrosDisponibles * 2);
+				cout << char(217);
+				for (int j = 0; j < 76; j++)
+				{
+					rlutil::locate(2 + j, 5 + registrosDisponibles * 2);
+					cout << char(196);
+				}
+				rlutil::locate(7, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(18, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(36, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(51, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(57, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				registrosDisponibles++;
+			}
+		}
+
+
+		for (int j = registrosDisponibles; j < cant; j++)
+		{
+			Auto obj;
+			obj = archivo.buscar(j);
+			if (obj.getEliminado() == 1)
+			{
+				continue;
+			}
+			else if (obj.getEstado() == AutoEstado::FueraDeServicio)
+			{
+				rlutil::locate(1, 3 + registrosDisponibles * 2);
+				cout << char(195);
+				rlutil::locate(1, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(78, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(7, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(18, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(36, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(51, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(57, 3 + registrosDisponibles * 2);
+				cout << char(197);
+				rlutil::locate(78, 3 + registrosDisponibles * 2);
+				cout << char(180);
+
+				rlutil::setColor(rlutil::LIGHTRED);
+				rlutil::locate(3, 4 + registrosDisponibles * 2);
+				cout << obj.getId();
+				rlutil::locate(9, 4 + registrosDisponibles * 2);
+				cout << obj.getPatente();
+				rlutil::locate(21, 4 + registrosDisponibles * 2);
+				cout << obj.getMarca();
+				rlutil::locate(39, 4 + registrosDisponibles * 2);
+				cout << obj.getModelo();
+				rlutil::locate(53, 4 + registrosDisponibles * 2);
+				cout << obj.getAnio();
+				rlutil::locate(60, 4 + registrosDisponibles * 2);
+				cout << obj.getEstadoStr();
+				rlutil::setColor(rlutil::WHITE);
+
+				rlutil::locate(7, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(18, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(36, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(51, 4 + registrosDisponibles * 2);
+				cout << char(179);
+				rlutil::locate(57, 4 + registrosDisponibles * 2);
+				cout << char(179);
+
+				rlutil::locate(1, 5 + registrosDisponibles * 2);
+				cout << char(192);
+				rlutil::locate(78, 5 + registrosDisponibles * 2);
+				cout << char(217);
+				for (int j = 0; j < 76; j++)
+				{
+					rlutil::locate(2 + j, 5 + registrosDisponibles * 2);
+					cout << char(196);
+				}
+				rlutil::locate(7, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(18, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(36, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(51, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				rlutil::locate(57, 5 + registrosDisponibles * 2);
+				cout << char(193);
+				registrosDisponibles++;
+			}
+		}
+
+	}
+
+	rlutil::locate(1, registrosDisponibles * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
 
@@ -607,4 +872,44 @@ void AutoController::eliminar()
 		cout << system("pause");
 	}
 
+}
+
+void AutoController::buscarPorId()
+{
+	rlutil::cls();
+	rlutil::locate(37, 2);
+	cout << "BUSCAR AUTO";
+
+	Auto obj;
+	AutoArchivo archivo;
+	int id;
+	rlutil::locate(11, 3);
+	cout << "INGRESE EL ID: ";
+	cin >> id;
+
+	obj = archivo.buscar(id);
+	if (obj.getId() > 0)
+	{
+		if (obj.getEliminado()) {
+			rlutil::locate(2, 8);
+			cout << "El registro con Id " << id << " no se encuentra en el sistema." << endl;
+			rlutil::locate(2, 16);
+			system("pause");
+			return;
+		}
+		mostrarRegistro(obj);
+		cout << endl;
+
+		int nuevoEstado;
+
+
+	}
+	else
+	{
+		rlutil::locate(2, 8);
+		cout << "El registro con Id " << id << " no se encuentra en el sistema." << endl;
+	}
+
+	rlutil::locate(2, 21);
+	system("pause");
 }

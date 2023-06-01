@@ -60,7 +60,7 @@ Auto AutoArchivo::buscar(int ID)
     int cant = getCantidadRegistros();
     Auto obj;
     bool encontro = false;
-    for (i = 1; i < cant; i++)
+    for (i = 1; i <= cant; i++)
     {
 
         FILE* p = fopen(_ruta.c_str(), "rb");
