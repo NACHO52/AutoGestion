@@ -1,6 +1,6 @@
-#include "Funciones.h"
-#include "rlutil.h"
 #include <iostream>
+#include "rlutil.h"
+#include "Funciones.h"
 #include "AutoController.h"
 #include "EmpleadoController.h"
 
@@ -9,7 +9,7 @@ using namespace std;
 
 void Funciones::MenuPrincipal()
 {
-	int opcion;
+	int opcion = 0;
 	do
 	{
 		rlutil::cls();
@@ -17,41 +17,31 @@ void Funciones::MenuPrincipal()
 		rlutil::locate(25, 22);
 		cin >> opcion;
 
+		system("cls");
 		switch (opcion)
 		{
 		case 1:
 			rlutil::cls();
 			AutoController().mostrarMenu();
-			rlutil::cls();
 			break;
 		case 2:
-			system("cls");
 			EmpleadoController().mostrarMenu();
-			system("cls");
 			break;
 		case 3:
-			system("cls");
 			cout << "ALQUILERES" << endl;
 			system("pause");
-			system("cls");
 			break;
 		case 4:
-			system("cls");
 			cout << "CLIENTES" << endl;
 			system("pause");
-			system("cls");
 			break;
 		case 5:
-			system("cls");
 			cout << "REPORTES" << endl;
 			system("pause");
-			system("cls");
 			break;
 		case 6:
-			system("cls");
 			cout << "CONFIGURACIONES" << endl;
 			system("pause");
-			system("cls");
 			break;
 		case 0:
 			break;
@@ -64,6 +54,7 @@ void Funciones::MenuPrincipal()
 			rlutil::anykey();
 			break;
 		}
+		system("cls");
 	} while (opcion != 0);
 }
 
@@ -73,14 +64,14 @@ void Funciones::DibujarMenu()
 	rlutil::setColor(rlutil::WHITE);
 
 
-	cout << "         _____    ___  ___ ________ _____" << endl;
+	cout << "         ______   ___  ___ ________ ______" << endl;
 	cout << "       /  ___  \\ /  / /  //__   __//  __  \\" << endl;
 	cout << "      /  /  /  //  / /  /   /  /  /  / /  /" << endl;
 	cout << "     /  /__/  //  / /  /   /  /  /  / /  /              _" << endl;
 	cout << "    /  __    //  /_/  /   /  /  /  /_/  /              / /" << endl;
 	cout << "   /__/  /__/ \\______/   /__/   \\_____ /              /_/" << endl;
 
-	cout << "        _______   ______  _____     ________  ___  _____     ___    ___" << endl;
+	cout << "        ________  ______  ______    ________  ___  ______    ___    ___" << endl;
 	cout << "       /  _____/ / ____/ /  __  \\  /__   __/ /  / /  __  \\  /   |  /  /" << endl;
 	cout << "      / / ___   / /___   \\  \\ \\__\\   /  /   /  / /  / /  / /    | /  /" << endl;
 	cout << "     / / /_  / / ____/___ \\  \\      /  /   /  / /  / /  / /  /| |/  /" << endl;
@@ -136,7 +127,4 @@ void Funciones::DibujarMenu()
 		rlutil::locate(55, 15 + i);
 		cout << char(186);
 	}
-
-
-
 }
