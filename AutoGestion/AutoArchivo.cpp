@@ -54,7 +54,7 @@ bool AutoArchivo::guardar(Auto reg)
     return guardo;
 }
 
-Auto AutoArchivo::buscar(int ID)
+Auto AutoArchivo::buscar(int Id)
 {
     int i;
     int cant = getCantidadRegistros();
@@ -73,7 +73,7 @@ Auto AutoArchivo::buscar(int ID)
         fclose(p);
 
 
-        if (obj.getId() == ID)
+        if (obj.getId() == Id)
         {
             encontro = true;
             break;

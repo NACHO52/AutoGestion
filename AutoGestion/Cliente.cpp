@@ -1,5 +1,16 @@
 #include "Cliente.h"
 
+Cliente::Cliente()
+{
+    _id = 0;
+    strcpy(_nombre, "");
+    strcpy(_apellido, "");
+    _fechaDeNacimiento = Fecha();
+    strcpy(_dni, "");
+    strcpy(_mail, "");
+    strcpy(_telefono, "");
+}
+
 int Cliente::getId()
 {
     return _id;

@@ -3,6 +3,7 @@
 #include "Funciones.h"
 #include "AutoController.h"
 #include "EmpleadoController.h"
+#include "AlquilerController.h"
 
 using namespace std;
 
@@ -17,7 +18,6 @@ void Funciones::MenuPrincipal()
 		rlutil::locate(25, 22);
 		cin >> opcion;
 
-		system("cls");
 		switch (opcion)
 		{
 		case 1:
@@ -25,21 +25,25 @@ void Funciones::MenuPrincipal()
 			AutoController().mostrarMenu();
 			break;
 		case 2:
+			rlutil::cls();
 			EmpleadoController().mostrarMenu();
 			break;
 		case 3:
-			cout << "ALQUILERES" << endl;
-			system("pause");
+			rlutil::cls();
+			AlquilerController().mostrarMenu();
 			break;
 		case 4:
+			rlutil::cls();
 			cout << "CLIENTES" << endl;
 			system("pause");
 			break;
 		case 5:
+			rlutil::cls();
 			cout << "REPORTES" << endl;
 			system("pause");
 			break;
 		case 6:
+			rlutil::cls();
 			cout << "CONFIGURACIONES" << endl;
 			system("pause");
 			break;

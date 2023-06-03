@@ -82,3 +82,32 @@ Cliente ClienteArchivo::buscar(int ID)
     if (encontro) return obj;
     else return Cliente();
 }
+
+Cliente ClienteArchivo::buscarPorDNI(std::string dni)
+{
+    int i;
+    int cant = getCantidadRegistros();
+    Cliente obj;
+    bool encontro = false;
+    for (i = 1; i <= cant; i++)
+    {
+
+        FILE* p = fopen(_ruta.c_str(), "rb");
+        if (p == NULL)
+        {
+            return obj;
+        }
+        fseek(p, (i - 1) * sizeof(Cliente), SEEK_SET);
+        fread(&obj, sizeof(Cliente), 1, p);
+        fclose(p);
+
+
+        if (strcmp(obj.getDni().c_str(), dni.c_str()) == 0)
+        {
+            encontro = true;
+            break;
+        }
+    }
+    if (encontro) return obj;
+    else return Cliente();
+}

@@ -10,6 +10,7 @@ public:
 	void crear();
 	void editar();
 	void listar();
+	void dibujarFila(int registrosImpresos, Empleado& obj);
 	void eliminar();
 	void mostrarRegistro(Empleado obj);
 	void imprimirNoHayRegistros();

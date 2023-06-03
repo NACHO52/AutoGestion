@@ -7,7 +7,8 @@ class ClienteArchivo
 public:
 	int getCantidadRegistros();
 	bool guardar(Cliente reg);
-	Cliente buscar(int ID);
+	Cliente buscar(int id);
+	Cliente buscarPorDNI(std::string dni);
 
 	ClienteArchivo();
 	ClienteArchivo(std::string ruta);

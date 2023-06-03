@@ -14,32 +14,33 @@ class Alquiler
 {
 private:
 	int _id;
-	Cliente _cliente;
-	Auto _auto;
+	int _clienteId;
+	int _autoId;
 	Fecha _fechaDesde;
 	Fecha _fechaHasta;
 	float _precio;
-	Empleado _empleado;
+	int _empleadoId;
 	AlquilerEstado _estado;
 
 public:
+	Alquiler();
 	int getId();
-	Cliente getCliente();
-	Auto getAuto();
+	int getClienteId();
+	int getAutoId();
 	Fecha getFechaDesde();
 	Fecha getFechaHasta();
 	float getPrecio();
-	Empleado getEmpleado();
+	int getEmpleadoId();
 	AlquilerEstado getEstado();
 	std::string getEstadoStr();
 
 	void setId(int id);
-	void setCliente(Cliente cliente);
-	void setAuto(Auto a);
+	void setClienteId(int clienteId);
+	void setAutoId(int aId);
 	void setFechaDesde(Fecha fechaDesde);
 	void setFechaHasta(Fecha fechaHasta);
 	void setPrecio(float precio);
-	void setEmpleado(Empleado empleado);
-	void setEstado();
+	void setEmpleadoId(int empleadoId);
+	void setEstado(AlquilerEstado estado);
 };
 

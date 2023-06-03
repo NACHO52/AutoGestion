@@ -1,18 +1,26 @@
 #include "Alquiler.h"
 
+Alquiler::Alquiler()
+{
+    _id = 0;
+    _fechaDesde.hoy();
+    _precio = 0;
+    _estado = AlquilerEstado::Vigente;
+}
+
 int Alquiler::getId()
 {
     return _id;
 }
 
-Cliente Alquiler::getCliente()
+int Alquiler::getClienteId()
 {
-    return _cliente;
+    return _clienteId;
 }
 
-Auto Alquiler::getAuto()
+int Alquiler::getAutoId()
 {
-    return _auto;
+    return _autoId;
 }
 
 Fecha Alquiler::getFechaDesde()
@@ -30,9 +38,9 @@ float Alquiler::getPrecio()
     return _precio;
 }
 
-Empleado Alquiler::getEmpleado()
+int Alquiler::getEmpleadoId()
 {
-    return _empleado;
+    return _empleadoId;
 }
 
 AlquilerEstado Alquiler::getEstado()
@@ -57,7 +65,7 @@ std::string Alquiler::getEstadoStr()
     default:
         break;
     }
-    return std::string();
+    return estado;
 }
 
 void Alquiler::setId(int id)
@@ -65,14 +73,14 @@ void Alquiler::setId(int id)
     _id = id;
 }
 
-void Alquiler::setCliente(Cliente cliente)
+void Alquiler::setClienteId(int clienteId)
 {
-    _cliente = cliente;
+    _clienteId = clienteId;
 }
 
-void Alquiler::setAuto(Auto a)
+void Alquiler::setAutoId(int a)
 {
-    _auto = a;
+    _autoId = a;
 }
 
 void Alquiler::setFechaDesde(Fecha fechaDesde)
@@ -90,7 +98,12 @@ void Alquiler::setPrecio(float precio)
     _precio = precio;
 }
 
-void Alquiler::setEmpleado(Empleado empleado)
+void Alquiler::setEmpleadoId(int empleadoId)
 {
-    empleado = _empleado;
+    _empleadoId = empleadoId;
+}
+
+void Alquiler::setEstado(AlquilerEstado estado)
+{
+    _estado = estado;
 }

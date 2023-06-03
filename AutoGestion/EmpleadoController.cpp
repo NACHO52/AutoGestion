@@ -3,6 +3,7 @@
 #include "rlutil.h"
 #include <string>
 #include "EmpleadoArchivo.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -295,9 +296,9 @@ void EmpleadoController::listaHeader() {
 	cout << "ID";
 	rlutil::locate(8, 2);
 	cout << "NOMBRE";
-	rlutil::locate(26, 2);
+	rlutil::locate(25, 2);
 	cout << "APELLIDO";
-	rlutil::locate(44, 2);
+	rlutil::locate(43, 2);
 	cout << "E-MAIL";
 	rlutil::locate(62, 2);
 	cout << "SUELDO";
@@ -308,16 +309,16 @@ void EmpleadoController::listaHeader() {
 	cout << char(218);
 	rlutil::locate(1, 3);
 	cout << char(192);
-	for (int i = 0; i < 78; i++)
+	for (int i = 0; i < 79; i++)
 	{
 		rlutil::locate(2 + i, 1);
 		cout << char(196);
 		rlutil::locate(2 + i, 3);
 		cout << char(196);
 	}
-	rlutil::locate(79, 1);
+	rlutil::locate(80, 1);
 	cout << char(191);
-	rlutil::locate(79, 3);
+	rlutil::locate(80, 3);
 	cout << char(217);
 
 	rlutil::locate(1, 2);
@@ -332,7 +333,7 @@ void EmpleadoController::listaHeader() {
 	cout << char(179);
 	rlutil::locate(69, 2);
 	cout << char(179);
-	rlutil::locate(79, 2);
+	rlutil::locate(80, 2);
 	cout << char(179);
 
 
@@ -385,84 +386,7 @@ void EmpleadoController::listar()
 				continue;
 			}
 
-			rlutil::locate(1, 3 + registrosImpresos * 2);
-			cout << char(195);
-
-			rlutil::locate(1, 4 + registrosImpresos * 2);
-			cout << char(179);
-			rlutil::locate(79, 4 + registrosImpresos * 2);
-			cout << char(179);
-
-			rlutil::locate(6, 3 + registrosImpresos * 2);
-			cout << char(197);
-			rlutil::locate(23, 3 + registrosImpresos * 2);
-			cout << char(197);
-			rlutil::locate(41, 3 + registrosImpresos * 2);
-			cout << char(197);
-			rlutil::locate(60, 3 + registrosImpresos * 2);
-			cout << char(197);
-			rlutil::locate(69, 3 + registrosImpresos * 2);
-			cout << char(197);
-
-			rlutil::locate(79, 3 + registrosImpresos * 2);
-			cout << char(180);
-
-			switch (obj.getEstado())
-			{
-			case EmpleadoEstado::Activo:
-				rlutil::setColor(rlutil::LIGHTGREEN);
-				break;
-			case EmpleadoEstado::Baja:
-				rlutil::setColor(rlutil::LIGHTRED);
-				break;
-			default:
-				break;
-			}
-
-			rlutil::locate(3, 4 + registrosImpresos * 2);
-			cout << obj.getId();
-			rlutil::locate(8, 4 + registrosImpresos * 2);
-			cout << obj.getNombre();
-			rlutil::locate(26, 4 + registrosImpresos * 2);
-			cout << obj.getApellido();
-			rlutil::locate(44, 4 + registrosImpresos * 2);
-			cout << obj.getMail();
-			rlutil::locate(62, 4 + registrosImpresos * 2);
-			cout << obj.getSueldo();
-			rlutil::locate(71, 4 + registrosImpresos * 2);
-			cout << obj.getEstadoStr();
-			rlutil::setColor(rlutil::WHITE);
-
-			rlutil::locate(6, 4 + registrosImpresos * 2);
-			cout << char(179);
-			rlutil::locate(23, 4 + registrosImpresos * 2);
-			cout << char(179);
-			rlutil::locate(41, 4 + registrosImpresos * 2);
-			cout << char(179);
-			rlutil::locate(60, 4 + registrosImpresos * 2);
-			cout << char(179);
-			rlutil::locate(69, 4 + registrosImpresos * 2);
-			cout << char(179);
-
-			rlutil::locate(1, 5 + registrosImpresos * 2);
-			cout << char(192);
-			rlutil::locate(79, 5 + registrosImpresos * 2);
-			cout << char(217);
-			for (int j = 0; j < 77; j++)
-			{
-				rlutil::locate(2 + j, 5 + registrosImpresos * 2);
-				cout << char(196);
-			}
-			rlutil::locate(6, 5 + registrosImpresos * 2);
-			cout << char(193);
-			rlutil::locate(23, 5 + registrosImpresos * 2);
-			cout << char(193);
-			rlutil::locate(41, 5 + registrosImpresos * 2);
-			cout << char(193);
-			rlutil::locate(60, 5 + registrosImpresos * 2);
-			cout << char(193);
-			rlutil::locate(69, 5 + registrosImpresos * 2);
-			cout << char(193);
+			dibujarFila(registrosImpresos, obj);
 			registrosImpresos++;
 		}
 
@@ -473,6 +397,88 @@ void EmpleadoController::listar()
 
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
+}
+
+void EmpleadoController::dibujarFila(int corrimiento, Empleado& obj)
+{
+	rlutil::locate(1, 3 + corrimiento * 2);
+	cout << char(195);
+
+	rlutil::locate(1, 4 + corrimiento * 2);
+	cout << char(179);
+	rlutil::locate(80, 4 + corrimiento * 2);
+	cout << char(179);
+
+	rlutil::locate(6, 3 + corrimiento * 2);
+	cout << char(197);
+	rlutil::locate(23, 3 + corrimiento * 2);
+	cout << char(197);
+	rlutil::locate(41, 3 + corrimiento * 2);
+	cout << char(197);
+	rlutil::locate(60, 3 + corrimiento * 2);
+	cout << char(197);
+	rlutil::locate(69, 3 + corrimiento * 2);
+	cout << char(197);
+
+	rlutil::locate(80, 3 + corrimiento * 2);
+	cout << char(180);
+
+	switch (obj.getEstado())
+	{
+	case EmpleadoEstado::Activo:
+		rlutil::setColor(rlutil::LIGHTGREEN);
+		break;
+	case EmpleadoEstado::Baja:
+		rlutil::setColor(rlutil::LIGHTRED);
+		break;
+	default:
+		break;
+	}
+
+	rlutil::locate(2, 4 + corrimiento * 2);
+	cout << setw(3) << obj.getId();
+	rlutil::locate(7, 4 + corrimiento * 2);
+	cout << setw(15) << obj.getNombre();
+	rlutil::locate(24, 4 + corrimiento * 2);
+	cout << setw(16) << obj.getApellido();
+	rlutil::locate(42, 4 + corrimiento * 2);
+	cout << setw(17) << obj.getMail();
+	rlutil::locate(61, 4 + corrimiento * 2);
+	cout << setw(7) << obj.getSueldo();
+	rlutil::locate(70, 4 + corrimiento * 2);
+	cout << setw(9) << obj.getEstadoStr();
+	rlutil::setColor(rlutil::WHITE);
+
+	rlutil::locate(6, 4 + corrimiento * 2);
+	cout << char(179);
+	rlutil::locate(23, 4 + corrimiento * 2);
+	cout << char(179);
+	rlutil::locate(41, 4 + corrimiento * 2);
+	cout << char(179);
+	rlutil::locate(60, 4 + corrimiento * 2);
+	cout << char(179);
+	rlutil::locate(69, 4 + corrimiento * 2);
+	cout << char(179);
+
+	rlutil::locate(1, 5 + corrimiento * 2);
+	cout << char(192);
+	rlutil::locate(80, 5 + corrimiento * 2);
+	cout << char(217);
+	for (int j = 0; j < 78; j++)
+	{
+		rlutil::locate(2 + j, 5 + corrimiento * 2);
+		cout << char(196);
+	}
+	rlutil::locate(6, 5 + corrimiento * 2);
+	cout << char(193);
+	rlutil::locate(23, 5 + corrimiento * 2);
+	cout << char(193);
+	rlutil::locate(41, 5 + corrimiento * 2);
+	cout << char(193);
+	rlutil::locate(60, 5 + corrimiento * 2);
+	cout << char(193);
+	rlutil::locate(69, 5 + corrimiento * 2);
+	cout << char(193);
 }
 
 void EmpleadoController::listarPorEstado()
@@ -500,7 +506,7 @@ void EmpleadoController::listarPorEstado()
 			}
 			else if (obj.getEstado() == EmpleadoEstado::Activo)
 			{
-				rlutil::locate(1, 3 + registrosDisponibles * 2);
+				/*rlutil::locate(1, 3 + registrosDisponibles * 2);
 				cout << char(195);
 				rlutil::locate(1, 4 + registrosDisponibles * 2);
 				cout << char(179);
@@ -563,7 +569,8 @@ void EmpleadoController::listarPorEstado()
 				rlutil::locate(60, 5 + registrosDisponibles * 2);
 				cout << char(193);
 				rlutil::locate(69, 5 + registrosDisponibles * 2);
-				cout << char(193);
+				cout << char(193);*/
+				dibujarFila(registrosDisponibles, obj);
 				registrosDisponibles++;
 			}
 		}
@@ -578,7 +585,7 @@ void EmpleadoController::listarPorEstado()
 			}
 			if (obj.getEstado() == EmpleadoEstado::Baja)
 			{
-				rlutil::locate(1, 3 + registrosDisponibles * 2);
+				/*rlutil::locate(1, 3 + registrosDisponibles * 2);
 				cout << char(195);
 				rlutil::locate(1, 4 + registrosDisponibles * 2);
 				cout << char(179);
@@ -641,7 +648,8 @@ void EmpleadoController::listarPorEstado()
 				rlutil::locate(60, 5 + registrosDisponibles * 2);
 				cout << char(193);
 				rlutil::locate(69, 5 + registrosDisponibles * 2);
-				cout << char(193);
+				cout << char(193);*/
+				dibujarFila(registrosDisponibles, obj);
 				registrosDisponibles++;
 			}
 		}

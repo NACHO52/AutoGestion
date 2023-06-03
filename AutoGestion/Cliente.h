@@ -14,6 +14,7 @@ private:
 	char _telefono[50];
 
 public:
+	Cliente();
 	int getId();
 	std::string getNombre();
 	std::string getApellido();
