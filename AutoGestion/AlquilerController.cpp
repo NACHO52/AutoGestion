@@ -29,13 +29,13 @@ void AlquilerController::mostrarMenu()
 			crear();
 			break;
 		case 2:
-			listar();
+			listar(0,0);
 			break;
 		case 3:
-			listarVigentes();
+			listarVigentes(0,0);
 			break;
 		case 4:
-			listarTerminados();
+			listarTerminados(0,0);
 			break;
 		case 5:
 			editar();
@@ -244,131 +244,131 @@ void AlquilerController::crear()
 
 }
 
-void AlquilerController::listaHeader() {
+void AlquilerController::listaHeader(int x, int y) {
 
-	rlutil::locate(3, 2);
+	rlutil::locate(x + 3, y + 2);
 	cout << "ID";
-	rlutil::locate(7, 2);
+	rlutil::locate(x + 7, y + 2);
 	cout << "CLIENTE ID";
-	rlutil::locate(18, 2);
+	rlutil::locate(x + 18, y + 2);
 	cout << "AUTO ID";
-	rlutil::locate(28, 2);
+	rlutil::locate(x + 28, y + 2);
 	cout << "DESDE";
-	rlutil::locate(39, 2);
+	rlutil::locate(x + 39, y + 2);
 	cout << "HASTA";
-	rlutil::locate(49, 2);
+	rlutil::locate(x + 49, y + 2);
 	cout << "ESTADO";
-	rlutil::locate(59, 2);
+	rlutil::locate(x + 59, y + 2);
 	cout << "PRECIO";
-	rlutil::locate(67, 2);
+	rlutil::locate(x + 67, y + 2);
 	cout << "EMPLEADO ID";
 
-	rlutil::locate(1, 1);
+	rlutil::locate(x + 1, y + 1);
 	cout << char(218);
 	for (int i = 0; i < 78; i++)
 	{
-		rlutil::locate(2 + i, 1);
+		rlutil::locate(x + 2 + i, y + 1);
 		cout << char(196);
-		rlutil::locate(2 + i, 3);
+		rlutil::locate(x + 2 + i, y + 3);
 		cout << char(196);
 	}
-	rlutil::locate(79, 1);
+	rlutil::locate(x + 79, y + 1);
 	cout << char(191);
 
-	rlutil::locate(1, 2);
+	rlutil::locate(x + 1, y + 2);
 	cout << char(179);
-	rlutil::locate(6, 2);
+	rlutil::locate(x + 6, y + 2);
 	cout << char(179);
-	rlutil::locate(17, 2);
+	rlutil::locate(x + 17, y + 2);
 	cout << char(179);
-	rlutil::locate(25, 2);
+	rlutil::locate(x + 25, y + 2);
 	cout << char(179);
-	rlutil::locate(36, 2);
+	rlutil::locate(x + 36, y + 2);
 	cout << char(179);
-	rlutil::locate(47, 2);
+	rlutil::locate(x + 47, y + 2);
 	cout << char(179);
-	rlutil::locate(57, 2);
+	rlutil::locate(x + 57, y + 2);
 	cout << char(179);
-	rlutil::locate(66, 2);
+	rlutil::locate(x + 66, y + 2);
 	cout << char(179);
-	rlutil::locate(79, 2);
+	rlutil::locate(x + 79, y + 2);
 	cout << char(179);
 
 
-	rlutil::locate(6, 1);
+	rlutil::locate(x + 6, y + 1);
 	cout << char(194);
-	rlutil::locate(17, 1);
+	rlutil::locate(x + 17, y + 1);
 	cout << char(194);
-	rlutil::locate(25, 1);
+	rlutil::locate(x + 25, y + 1);
 	cout << char(194);
-	rlutil::locate(36, 1);
+	rlutil::locate(x + 36, y + 1);
 	cout << char(194);
-	rlutil::locate(47, 1);
+	rlutil::locate(x + 47, y + 1);
 	cout << char(194);
-	rlutil::locate(57, 1);
+	rlutil::locate(x + 57, y + 1);
 	cout << char(194);
-	rlutil::locate(66, 1);
+	rlutil::locate(x + 66, y + 1);
 	cout << char(194);
 
 }
-void AlquilerController::imprimirNoHayRegistros()
+void AlquilerController::imprimirNoHayRegistros(int x, int y)
 {
-	rlutil::locate(27, 5);
+	rlutil::locate(x + 27, y + 5);
 	cout << "No hay registros cargados.";
 
-	rlutil::locate(6, 3);
+	rlutil::locate(x + 6, y + 3);
 	cout << char(193);
-	rlutil::locate(17, 3);
+	rlutil::locate(x + 17, y + 3);
 	cout << char(193);
-	rlutil::locate(25, 3);
+	rlutil::locate(x + 25, y + 3);
 	cout << char(193);
-	rlutil::locate(36, 3);
+	rlutil::locate(x + 36, y + 3);
 	cout << char(193);
-	rlutil::locate(47, 3);
+	rlutil::locate(x + 47, y + 3);
 	cout << char(193);
-	rlutil::locate(57, 3);
+	rlutil::locate(x + 57, y + 3);
 	cout << char(193);
-	rlutil::locate(66, 3);
+	rlutil::locate(x + 66, y + 3);
 	cout << char(193);
 
-	rlutil::locate(1, 6);
+	rlutil::locate(x + 1, y + 6);
 	cout << char(192);
-	rlutil::locate(1, 4);
+	rlutil::locate(x + 1, y + 4);
 	cout << char(179);
-	rlutil::locate(1, 5);
+	rlutil::locate(x + 1, y + 5);
 	cout << char(179);
-	rlutil::locate(79, 4);
+	rlutil::locate(x + 79, y + 4);
 	cout << char(179);
-	rlutil::locate(79, 5);
+	rlutil::locate(x + 79, y + 5);
 	cout << char(179);
-	rlutil::locate(79, 6);
+	rlutil::locate(x + 79, y + 6);
 	cout << char(217);
 
-	rlutil::locate(1, 3);
+	rlutil::locate(x + 1, y + 3);
 	cout << char(195);
 
-	rlutil::locate(79, 3);
+	rlutil::locate(x + 79, y + 3);
 	cout << char(180);
 	for (int i = 0; i < 77; i++)
 	{
-		rlutil::locate(2 + i, 6);
+		rlutil::locate(x + 2 + i, y + 6);
 		cout << char(196);
 	}
 
 	cout << endl;
 }
 
-void AlquilerController::listar()
+void AlquilerController::listar(int x, int y)
 {
 	rlutil::cls();
-	listaHeader();
+	listaHeader(x,y);
 
 	AlquilerArchivo archivo;
 	int registrosImpresos = 0;
 	int cant = archivo.getCantidadRegistros();
 	if (cant == 0)
 	{
-		imprimirNoHayRegistros();
+		imprimirNoHayRegistros(x,y);
 	}
 	else
 	{
@@ -377,12 +377,12 @@ void AlquilerController::listar()
 			Alquiler obj;
 			obj = archivo.buscar(j);
 
-			DibujarFila(registrosImpresos, obj);
+			DibujarFila(x, y, registrosImpresos, obj);
 			registrosImpresos++;
 		}
 
 		if (registrosImpresos == 0) {
-			imprimirNoHayRegistros();
+			imprimirNoHayRegistros(x,y);
 		}
 	}
 
@@ -391,32 +391,65 @@ void AlquilerController::listar()
 }
 
 
-void AlquilerController::DibujarFila(int corrimiento, Alquiler& obj)
+int AlquilerController::listarPorCliente(int x, int y, int clienteId)
 {
-	rlutil::locate(1, 3 + corrimiento * 2);
+	listaHeader(x, y);
+
+	AlquilerArchivo archivo;
+	int registrosImpresos = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0)
+	{
+		imprimirNoHayRegistros(x, y);
+	}
+	else
+	{
+		for (int j = 1; j <= cant; j++)
+		{
+			Alquiler obj;
+			obj = archivo.buscar(j);
+
+			if (obj.getClienteId() == clienteId)
+			{
+				DibujarFila(x, y, registrosImpresos, obj);
+				registrosImpresos++;
+			}
+		}
+
+		if (registrosImpresos == 0) {
+			imprimirNoHayRegistros(x, y);
+		}
+	}
+
+	return registrosImpresos;
+}
+
+void AlquilerController::DibujarFila(int x, int y, int corrimiento, Alquiler& obj)
+{
+	rlutil::locate(x + 1, 3 + corrimiento * 2 + y);
 	cout << char(195);
 
-	rlutil::locate(1, 4 + corrimiento * 2);
+	rlutil::locate(x + 1, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(79, 4 + corrimiento * 2);
+	rlutil::locate(x + 79, 4 + corrimiento * 2 + y);
 	cout << char(179);
 
-	rlutil::locate(6, 3 + corrimiento * 2);
+	rlutil::locate(x + 6, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(17, 3 + corrimiento * 2);
+	rlutil::locate(x + 17, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(25, 3 + corrimiento * 2);
+	rlutil::locate(x + 25, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(36, 3 + corrimiento * 2);
+	rlutil::locate(x + 36, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(47, 3 + corrimiento * 2);
+	rlutil::locate(x + 47, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(57, 3 + corrimiento * 2);
+	rlutil::locate(x + 57, 3 + corrimiento * 2 + y);
 	cout << char(197);
-	rlutil::locate(66, 3 + corrimiento * 2);
+	rlutil::locate(x + 66, 3 + corrimiento * 2 + y);
 	cout << char(197);
 
-	rlutil::locate(79, 3 + corrimiento * 2);
+	rlutil::locate(x + 79, 3 + corrimiento * 2 + y);
 	cout << char(180);
 
 	switch (obj.getEstado())
@@ -434,77 +467,77 @@ void AlquilerController::DibujarFila(int corrimiento, Alquiler& obj)
 		break;
 	}
 
-	rlutil::locate(2, 4 + corrimiento * 2);
+	rlutil::locate(x + 2, 4 + corrimiento * 2 + y);
 	cout << setw(4) << obj.getId();
-	rlutil::locate(7, 4 + corrimiento * 2);
+	rlutil::locate(x + 7, 4 + corrimiento * 2 + y);
 	cout << setw(9) << obj.getClienteId();
-	rlutil::locate(18, 4 + corrimiento * 2);
+	rlutil::locate(x + 18, 4 + corrimiento * 2 + y);
 	cout << setw(6) << obj.getAutoId();
-	rlutil::locate(26, 4 + corrimiento * 2);
+	rlutil::locate(x + 26, 4 + corrimiento * 2 + y);
 	cout << setw(10) << obj.getFechaDesde().FechaStr();
-	rlutil::locate(37, 4 + corrimiento * 2);
+	rlutil::locate(x + 37, 4 + corrimiento * 2 + y);
 	cout << setw(10) << obj.getFechaHasta().FechaStr();
-	rlutil::locate(48, 4 + corrimiento * 2);
+	rlutil::locate(x + 48, 4 + corrimiento * 2 + y);
 	cout << setw(9) << obj.getEstadoStr();
-	rlutil::locate(58, 4 + corrimiento * 2);
+	rlutil::locate(x + 58, 4 + corrimiento * 2 + y);
 	cout << setw(8) << obj.getPrecio();
-	rlutil::locate(67, 4 + corrimiento * 2);
+	rlutil::locate(x + 67, 4 + corrimiento * 2 + y);
 	cout << setw(11) << obj.getEmpleadoId();
 	rlutil::setColor(rlutil::WHITE);
 
-	rlutil::locate(6, 4 + corrimiento * 2);
+	rlutil::locate(x + 6, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(17, 4 + corrimiento * 2);
+	rlutil::locate(x + 17, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(25, 4 + corrimiento * 2);
+	rlutil::locate(x + 25, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(36, 4 + corrimiento * 2);
+	rlutil::locate(x + 36, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(47, 4 + corrimiento * 2);
+	rlutil::locate(x + 47, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(57, 4 + corrimiento * 2);
+	rlutil::locate(x + 57, 4 + corrimiento * 2 + y);
 	cout << char(179);
-	rlutil::locate(66, 4 + corrimiento * 2);
+	rlutil::locate(x + 66, 4 + corrimiento * 2 + y);
 	cout << char(179);
 
-	rlutil::locate(1, 5 + corrimiento * 2);
+	rlutil::locate(x + 1, 5 + corrimiento * 2 + y);
 	cout << char(192);
-	rlutil::locate(79, 5 + corrimiento * 2);
+	rlutil::locate(x + 79, 5 + corrimiento * 2 + y);
 	cout << char(217);
 
 	for (int j = 0; j < 77; j++)
 	{
-		rlutil::locate(2 + j, 5 + corrimiento * 2);
+		rlutil::locate(x + 2 + j, 5 + corrimiento * 2 + y);
 		cout << char(196);
 	}
 
-	rlutil::locate(6, 5 + corrimiento * 2);
+	rlutil::locate(x + 6, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(17, 5 + corrimiento * 2);
+	rlutil::locate(x + 17, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(25, 5 + corrimiento * 2);
+	rlutil::locate(x + 25, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(36, 5 + corrimiento * 2);
+	rlutil::locate(x + 36, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(47, 5 + corrimiento * 2);
+	rlutil::locate(x + 47, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(57, 5 + corrimiento * 2);
+	rlutil::locate(x + 57, 5 + corrimiento * 2 + y);
 	cout << char(193);
-	rlutil::locate(66, 5 + corrimiento * 2);
+	rlutil::locate(x + 66, 5 + corrimiento * 2 + y);
 	cout << char(193);
 }
 
-void AlquilerController::listarVigentes()
+void AlquilerController::listarVigentes(int x, int y)
 {
 	rlutil::cls();
-	listaHeader();
+	listaHeader(x,y);
 
 	AlquilerArchivo archivo;
 	int registrosImpresos = 0;
 	int cant = archivo.getCantidadRegistros();
 	if (cant == 0)
 	{
-		imprimirNoHayRegistros();
+		imprimirNoHayRegistros(x,y);
 	}
 	else
 	{
@@ -514,30 +547,30 @@ void AlquilerController::listarVigentes()
 			obj = archivo.buscar(j);
 			if (obj.getEstado() == AlquilerEstado::Vigente)
 			{
-				DibujarFila(registrosImpresos, obj);
+				DibujarFila(x,y,registrosImpresos, obj);
 				registrosImpresos++;
 			}
 		}
 
 		if (registrosImpresos == 0) {
-			imprimirNoHayRegistros();
+			imprimirNoHayRegistros(x,y);
 		}
 	}
 
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
-void AlquilerController::listarTerminados()
+void AlquilerController::listarTerminados(int x, int y)
 {
 	rlutil::cls();
-	listaHeader();
+	listaHeader(x,y);
 
 	AlquilerArchivo archivo;
 	int registrosImpresos = 0;
 	int cant = archivo.getCantidadRegistros();
 	if (cant == 0)
 	{
-		imprimirNoHayRegistros();
+		imprimirNoHayRegistros(x,y);
 	}
 	else
 	{
@@ -547,19 +580,20 @@ void AlquilerController::listarTerminados()
 			obj = archivo.buscar(j);
 			if (obj.getEstado() == AlquilerEstado::TerminadoCorrecto || obj.getEstado() == AlquilerEstado::TerminadoConVencimiento)
 			{
-				DibujarFila(registrosImpresos, obj);
+				DibujarFila(x, y, registrosImpresos, obj);
 				registrosImpresos++;
 			}
 		}
 
 		if (registrosImpresos == 0) {
-			imprimirNoHayRegistros();
+			imprimirNoHayRegistros(x,y);
 		}
 	}
 
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
+
 
 void AlquilerController::buscarPorId()
 {

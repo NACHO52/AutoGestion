@@ -4,6 +4,7 @@
 #include "AutoController.h"
 #include "EmpleadoController.h"
 #include "AlquilerController.h"
+#include "ClienteController.h"
 
 using namespace std;
 
@@ -34,8 +35,7 @@ void Funciones::MenuPrincipal()
 			break;
 		case 4:
 			rlutil::cls();
-			cout << "CLIENTES" << endl;
-			system("pause");
+			ClienteController().mostrarMenu();
 			break;
 		case 5:
 			rlutil::cls();
