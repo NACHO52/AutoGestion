@@ -4,6 +4,8 @@
 #include <string>
 #include "AutoArchivo.h"
 #include <iomanip>
+#include "AlquilerController.h"
+#include "AlquilerArchivo.h"
 
 using namespace std;
 
@@ -233,44 +235,60 @@ void AutoController::editar()
 			system("pause");
 			return;
 		}
+
 		mostrarRegistro(obj);
-		cout << endl;
+		int registrosImpresos = historialAlquiler(0, 11, obj);
+
+		if (registrosImpresos == 0)
+		{
+
+			for (int i = 0; i < 80; i++)
+			{
+				for (int j = 11; j < 19; j++)
+				{
+					rlutil::locate(i, j);
+					cout << " ";
+				}
+			}
+		}
 
 		int nuevoEstado;
 
-		rlutil::locate(11, 12);
+		rlutil::locate(10, registrosImpresos * 2 + 3 + 12);
 		cout << "1 _ DISPONIBLE";
-		rlutil::locate(11, 13);
-		cout << "2 _ FUERA DE SERVICIO";
-		rlutil::locate(11, 15);
+		if (registrosImpresos == 0)
+		{
+			rlutil::locate(10, registrosImpresos * 2 + 3 + 13);
+			cout << "2 _ FUERA DE SERVICIO";
+		}
+		rlutil::locate(10, registrosImpresos * 2 + 3 + 14);
 		cout << "0 _ CANCELAR/VOLVER";
 
 
 		do
 		{
-			rlutil::locate(23, 19);
-			cout << "                   ";
-			rlutil::locate(11, 17);
+			rlutil::locate(24, registrosImpresos * 2 + 3 + 16);
 			cout << "                                                       ";
-			rlutil::locate(11, 17);
+			rlutil::locate(10, registrosImpresos * 2 + 3 + 16);
 			cout << "NUEVO ESTADO: ";
+			rlutil::locate(24, registrosImpresos * 2 + 3 + 16);
 			cin >> nuevoEstado;
-			if (nuevoEstado == 1 || nuevoEstado == 2)
+			if (nuevoEstado == 1 || (nuevoEstado == 2 && registrosImpresos == 0))
 			{
 				obj.setEstado((AutoEstado)nuevoEstado);
 				archivo.guardar(obj);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 
-				rlutil::locate(23, 19);
+				rlutil::locate(15, registrosImpresos * 2 + 3 + 17);
 				cout << "GUARDADO EXITOSO";
 				rlutil::setColor(rlutil::WHITE);
-				rlutil::locate(2, 21);
+				rlutil::locate(24, registrosImpresos * 2 + 3 + 19);
 				system("pause");
 				break;
 			}
 			else if (nuevoEstado != 0)
 			{
-				rlutil::locate(23, 19);
+				rlutil::locate(24, registrosImpresos * 2 + 3 + 16);
 				rlutil::setColor(rlutil::LIGHTRED);
 				cout << "ESTADO INCORRECTO";
 				rlutil::setColor(rlutil::WHITE);
@@ -618,10 +636,19 @@ void AutoController::mostrarRegistro(Auto obj)
 	cout << obj.getEstadoStr();
 }
 
+int AutoController::historialAlquiler(int x, int y, Auto obj)
+{
+	rlutil::locate(x+1, y);
+	cout << "HISTORIAL DE ALQUILER";
+
+	return AlquilerController().listarPorAuto(x,y,obj.getId());
+
+}
+
 void AutoController::eliminar()
 {
 	rlutil::cls();
-	rlutil::locate(37, 2);
+	rlutil::locate(30, 2);
 	cout << "ELIMINAR AUTO";
 
 	Auto obj;
@@ -637,24 +664,43 @@ void AutoController::eliminar()
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0 && !obj.getEliminado())
 	{
-
 		mostrarRegistro(obj);
+		int registrosImpresos = historialAlquiler(0,12, obj);
+		if (registrosImpresos > 0)
+		{
+			rlutil::locate(2, registrosImpresos * 2 + 19);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "El auto no puede ser eliminado porque posee alquileres asociados." << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(2, registrosImpresos * 2 + 20);
+			cout << system("pause");
+			return;
+		}
+		else
+		{
+			for (int i = 0; i < 80; i++)
+			{
+				for (int j = 11; j < 19; j++)
+				{
+					rlutil::locate(i, j);
+					cout << " ";
+				}
+			}
+		}
 
-		rlutil::locate(11, 15);
+		rlutil::locate(11, 14);
 		cout << char(168) << "Est" << char(160) << " seguro que desea eliminar el registro?";
-		rlutil::locate(11, 17);
+		rlutil::locate(11, 15);
 		cout << "1 _ ELIMINAR";
-		rlutil::locate(11, 18);
+		rlutil::locate(11, 16);
 		cout << "0 _ CANCELAR/VOLVER";
 		do
 		{
-			rlutil::locate(23, 23);
+			rlutil::locate(23, 20);
 			cout << "                                                                        ";
-			rlutil::locate(23, 21);
-			cout << "                                                                        ";
-			rlutil::locate(11, 21);
+			rlutil::locate(11, 20);
 			cout << "SELECCI" << char(224) << "N: ";
-			rlutil::locate(23, 21);
+			rlutil::locate(23, 20);
 			cin >> opcion;
 
 			switch (opcion)
@@ -662,7 +708,7 @@ void AutoController::eliminar()
 			case 1:
 				obj.setEliminado(true);
 				archivo.guardar(obj);
-				rlutil::locate(17, 23);
+				rlutil::locate(17, 22);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 				cout << "El auto con Id " << id << ", fu" << char(130) << " eliminado exitosamente." << endl;
 				rlutil::setColor(rlutil::WHITE);
@@ -673,9 +719,10 @@ void AutoController::eliminar()
 				break;
 			default:
 				rlutil::setColor(rlutil::LIGHTRED);
-				rlutil::locate(23, 23);
+				rlutil::locate(23, 20);
 				cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
 				rlutil::setColor(rlutil::WHITE);
+				rlutil::locate(23, 20);
 				rlutil::anykey();
 				break;
 			}
@@ -715,20 +762,20 @@ void AutoController::buscarPorId()
 			return;
 		}
 		mostrarRegistro(obj);
+		int registrosImpresos = historialAlquiler(0,11, obj);
 		cout << endl;
-
-		int nuevoEstado;
-
-
+		rlutil::locate(2, registrosImpresos * 2 + 17);
+		cout << endl << endl << endl << endl << endl;
+		system("pause");
 	}
 	else
 	{
 		rlutil::locate(2, 8);
 		cout << "El registro con Id " << id << " no se encuentra en el sistema." << endl;
+		rlutil::locate(2, 21);
+		system("pause");
 	}
 
-	rlutil::locate(2, 21);
-	system("pause");
 }
 
 int AutoController::ventanaAutosDisponibles(int x, int y)
@@ -861,7 +908,6 @@ void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros)
 		}
 	}
 }
-
 //1 =>  5 = 1 + 4 = 1 + 3 + 1 = 3 +  2 = 3 + 2 * 1 
 //2 =>  7 = 2 + 5 = 2 + 3 + 2 = 3 +  4 = 3 + 2 * 2
 //3 =>  9 = 3 + 6 = 3 + 3 + 3 = 3 +  6 = 3 + 2 * 3

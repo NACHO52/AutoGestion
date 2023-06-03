@@ -18,5 +18,6 @@ public:
 	void buscarPorId();
 	int ventanaAutosDisponibles(int x, int y);
 	void limpiarVentanaAutosDisponibles(int x, int y, int registros);
+	int historialAlquiler(int x, int y, Auto obj);
 };
 

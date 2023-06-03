@@ -424,6 +424,39 @@ int AlquilerController::listarPorCliente(int x, int y, int clienteId)
 	return registrosImpresos;
 }
 
+int AlquilerController::listarPorAuto(int x, int y, int autoId)
+{
+	listaHeader(x, y);
+
+	AlquilerArchivo archivo;
+	int registrosImpresos = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0)
+	{
+		imprimirNoHayRegistros(x, y);
+	}
+	else
+	{
+		for (int j = 1; j <= cant; j++)
+		{
+			Alquiler obj;
+			obj = archivo.buscar(j);
+
+			if (obj.getAutoId() == autoId)
+			{
+				DibujarFila(x, y, registrosImpresos, obj);
+				registrosImpresos++;
+			}
+		}
+
+		if (registrosImpresos == 0) {
+			imprimirNoHayRegistros(x, y);
+		}
+	}
+
+	return registrosImpresos;
+}
+
 void AlquilerController::DibujarFila(int x, int y, int corrimiento, Alquiler& obj)
 {
 	rlutil::locate(x + 1, 3 + corrimiento * 2 + y);
