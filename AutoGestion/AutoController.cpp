@@ -254,10 +254,10 @@ void AutoController::editar()
 
 		int nuevoEstado;
 
-		rlutil::locate(10, registrosImpresos * 2 + 3 + 12);
-		cout << "1 _ DISPONIBLE";
 		if (registrosImpresos == 0)
 		{
+			rlutil::locate(10, registrosImpresos * 2 + 3 + 12);
+			cout << "1 _ DISPONIBLE";
 			rlutil::locate(10, registrosImpresos * 2 + 3 + 13);
 			cout << "2 _ FUERA DE SERVICIO";
 		}
@@ -273,7 +273,7 @@ void AutoController::editar()
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(24, registrosImpresos * 2 + 3 + 16);
 			cin >> nuevoEstado;
-			if (nuevoEstado == 1 || (nuevoEstado == 2 && registrosImpresos == 0))
+			if ((nuevoEstado == 1 || nuevoEstado == 2) && registrosImpresos == 0)
 			{
 				obj.setEstado((AutoEstado)nuevoEstado);
 				archivo.guardar(obj);
@@ -414,8 +414,8 @@ void AutoController::listar()
 		}
 	}
 
-	rlutil::locate(1, registrosImpresos * 2 + 8);
-	cout << endl << endl << endl << system("pause");
+	rlutil::locate(1, registrosImpresos * 2 + 4);
+	system("pause");
 }
 
 void AutoController::DibujarFila(int corrimiento, Auto& obj)
@@ -533,7 +533,7 @@ void AutoController::listarPorEstado()
 			}
 		}
 
-		for (int j = registrosDisponibles; j <= cant; j++)
+		for (int j = 1; j <= cant; j++)
 		{
 			Auto obj;
 			obj = archivo.buscar(j);
@@ -550,7 +550,7 @@ void AutoController::listarPorEstado()
 		}
 
 
-		for (int j = registrosDisponibles; j <= cant; j++)
+		for (int j = 1; j <= cant; j++)
 		{
 			Auto obj;
 			obj = archivo.buscar(j);
@@ -841,53 +841,53 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 
 		for (int j = 0; j < 75; j++)
 		{
-			rlutil::locate(x + j, y + i+ 3);
+			rlutil::locate(x + j, y + 4 + registrosImpresos *2);
 			cout << char(196);
 		}
 
-		rlutil::locate(x, y + 3 + i);
+		rlutil::locate(x, y + 4 + registrosImpresos *2);
 		cout << char(192);
-		rlutil::locate(x + 6, y + 3 + i);
+		rlutil::locate(x + 6, y + 4 + registrosImpresos *2);
 		cout << char(193);
-		rlutil::locate(x + 38, y + 3 + i);
+		rlutil::locate(x + 38, y + 4 + registrosImpresos *2);
 		cout << char(193);
-		rlutil::locate(x + 69, y + 3 + i);
+		rlutil::locate(x + 69, y + 4 + registrosImpresos *2);
 		cout << char(193);
-		rlutil::locate(x + 75, y + 3 + i);
+		rlutil::locate(x + 75, y + 4 + registrosImpresos *2);
 		cout << char(217);
 
-		rlutil::locate(x, y + 1 + i);
+		rlutil::locate(x, y + 2 + registrosImpresos * 2);
 		cout << char(195);
-		rlutil::locate(x + 6, y + 1 + i);
+		rlutil::locate(x + 6, y + 2 + registrosImpresos * 2);
 		cout << char(197);
-		rlutil::locate(x + 38, y + 1 + i);
+		rlutil::locate(x + 38, y + 2 + registrosImpresos * 2);
 		cout << char(197);
-		rlutil::locate(x + 69, y + 1 + i);
+		rlutil::locate(x + 69, y + 2 + registrosImpresos * 2);
 		cout << char(197);
-		rlutil::locate(x + 75, y + 1 + i);
+		rlutil::locate(x + 75, y + 2 + registrosImpresos * 2);
 		cout << char(180);
 
-		rlutil::locate(x, y + 2 + i);
+		rlutil::locate(x, y + 3 + registrosImpresos * 2);
 		cout << char(179);
-		rlutil::locate(x+6, y + 2 + i);
+		rlutil::locate(x+6, y + 3 + registrosImpresos * 2);
 		cout << char(179);
-		rlutil::locate(x + 38, y + 2 + i);
+		rlutil::locate(x + 38, y + 3 + registrosImpresos * 2);
 		cout << char(179);
-		rlutil::locate(x + 69, y + 2 + i);
+		rlutil::locate(x + 69, y + 3 + registrosImpresos * 2);
 		cout << char(179);
-		rlutil::locate(x + 75, y + 2 + i);
+		rlutil::locate(x + 75, y + 3 + registrosImpresos * 2);
 		cout << char(179);
 
-		rlutil::locate(x + 1, y + 2 + i);
+		rlutil::locate(x + 1, y + 3 + registrosImpresos * 2);
 		cout << setw(4) << obj.getId();
 
-		rlutil::locate(x + 7, y + 2 + i);
+		rlutil::locate(x + 7, y + 3 + registrosImpresos * 2);
 		cout << setw(30) << obj.getMarca();
 
-		rlutil::locate(x + 39, y + 2 + i);
+		rlutil::locate(x + 39, y + 3 + registrosImpresos * 2);
 		cout << setw(29) << obj.getModelo();
 
-		rlutil::locate(x + 70, y + 2 + i);
+		rlutil::locate(x + 70, y + 3 + registrosImpresos * 2);
 		cout << setw(5) << obj.getAnio();
 
 

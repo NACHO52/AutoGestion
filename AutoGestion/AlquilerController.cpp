@@ -145,6 +145,8 @@ void AlquilerController::crear()
 	bool errores;
 	do
 	{
+		rlutil::locate(20, 7);
+		cout << "                                                           ";
 		rlutil::locate(3, 6);
 		cout << "AUTO ID: ";
 
@@ -158,7 +160,7 @@ void AlquilerController::crear()
 			rlutil::setColor(rlutil::LIGHTRED);
 			cout << "EL ID INGRESADO NO PERTENECE A UN AUTO DE LA LISTA";
 			rlutil::setColor(rlutil::WHITE);
-
+			rlutil::anykey();
 			rlutil::locate(9, 6);
 			cout << "                                       ";
 			errores = true;
@@ -219,6 +221,8 @@ void AlquilerController::crear()
 			alquiler.setFechaHasta(Fecha(dia,mes,anio));
 			alquiler.setPrecio(precio);
 			if (AlquilerArchivo().guardar(alquiler)) {
+				obj.setEstado(AutoEstado::EnUso);
+				AutoArchivo().guardar(obj);
 				rlutil::locate(13, 15);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 				cout << "EL REGISTRO SE HA GUARDADO EXITOSAMENTE" << endl;
@@ -311,6 +315,7 @@ void AlquilerController::listaHeader(int x, int y) {
 	cout << char(194);
 
 }
+
 void AlquilerController::imprimirNoHayRegistros(int x, int y)
 {
 	rlutil::locate(x + 27, y + 5);
@@ -389,7 +394,6 @@ void AlquilerController::listar(int x, int y)
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
-
 
 int AlquilerController::listarPorCliente(int x, int y, int clienteId)
 {
@@ -593,6 +597,7 @@ void AlquilerController::listarVigentes(int x, int y)
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
+
 void AlquilerController::listarTerminados(int x, int y)
 {
 	rlutil::cls();
@@ -626,7 +631,6 @@ void AlquilerController::listarTerminados(int x, int y)
 	rlutil::locate(1, registrosImpresos * 2 + 8);
 	cout << endl << endl << endl << system("pause");
 }
-
 
 void AlquilerController::buscarPorId()
 {
@@ -790,56 +794,56 @@ void AlquilerController::mostrarRegistro(Alquiler obj, bool mostrarAuto, bool mo
 	
 	if (mostrarEmpleado)
 	{
-		rlutil::locate(4, 20);
+		rlutil::locate(4, 19);
 		cout << char(218);
-		rlutil::locate(4, 23);
+		rlutil::locate(4, 22);
 		cout << char(192);
-		rlutil::locate(77, 20);
+		rlutil::locate(77, 19);
 		cout << char(191);
-		rlutil::locate(77, 23);
+		rlutil::locate(77, 22);
 		cout << char(217);
 		for (int i = 5; i < 77; i++)
 		{
-			rlutil::locate(i, 20);
+			rlutil::locate(i, 19);
 			cout << char(196);
-			rlutil::locate(i, 23);
+			rlutil::locate(i, 22);
 			cout << char(196);
 		}
-		rlutil::locate(4, 22);
-		cout << char(179);
 		rlutil::locate(4, 21);
+		cout << char(179);
+		rlutil::locate(4, 20);
+		cout << char(179);
+		rlutil::locate(77, 20);
 		cout << char(179);
 		rlutil::locate(77, 21);
 		cout << char(179);
-		rlutil::locate(77, 22);
-		cout << char(179);
 
-		rlutil::locate(5, 19);
-		cout << "EMPLEADO: ";
-		Empleado empleado = EmpleadoArchivo().buscar(obj.getId());
-		rlutil::locate(5, 21);
+		rlutil::locate(5, 18);
+		cout << "EMPLEADO";
+		Empleado empleado = EmpleadoArchivo().buscar(obj.getEmpleadoId());
+		rlutil::locate(5, 20);
 		cout << "ID: ";
-		rlutil::locate(9, 21);
+		rlutil::locate(9, 20);
 		cout << empleado.getId();
-		rlutil::locate(5, 22);
+		rlutil::locate(5, 21);
 		cout << "ESTADO: ";
-		rlutil::locate(13, 22);
+		rlutil::locate(13, 21);
 		cout << empleado.getEstadoStr();
-		rlutil::locate(21, 21);
+		rlutil::locate(21, 20);
 		cout << "NOMBRE: ";
-		rlutil::locate(29, 21);
+		rlutil::locate(29, 20);
 		cout << empleado.getNombre();
-		rlutil::locate(21, 22);
+		rlutil::locate(21, 21);
 		cout << "APELLIDO: ";
-		rlutil::locate(31, 22);
+		rlutil::locate(31, 21);
 		cout << empleado.getApellido();
-		rlutil::locate(49, 21);
+		rlutil::locate(49, 20);
 		cout << "E-MAIL: ";
-		rlutil::locate(57, 21);
+		rlutil::locate(57, 20);
 		cout << empleado.getMail();
-		rlutil::locate(49, 22);
+		rlutil::locate(49, 21);
 		cout << "SUELDO: $";
-		rlutil::locate(58, 22);
+		rlutil::locate(58, 21);
 		cout << empleado.getSueldo();
 	}
 	
@@ -868,12 +872,10 @@ void AlquilerController::editar()
 
 		int nuevoEstado;
 
-		rlutil::locate(17, 18);
-		cout << "1 _ VIGENTE";
 		rlutil::locate(17, 19);
-		cout << "2 _ TERMINADO";
+		cout << "1 _ TERMINADO";
 		rlutil::locate(17, 20);
-		cout << "3 _ TERMINADO/VENCIDO";
+		cout << "2 _ TERMINADO/VENCIDO";
 		rlutil::locate(17, 21);
 		cout << "0 _ CANCELAR/VOLVER";
 
@@ -885,9 +887,19 @@ void AlquilerController::editar()
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(31, 23);
 			cin >> nuevoEstado;
-			if (nuevoEstado == 1 || nuevoEstado == 2 || nuevoEstado == 3)
+			nuevoEstado++;
+			if (nuevoEstado == 2 || nuevoEstado == 3)
 			{
 				obj.setEstado((AlquilerEstado)nuevoEstado);
+				
+				AutoArchivo autoArchivo;
+				Auto aut = autoArchivo.buscar(obj.getAutoId());
+				if (aut.getId() > 0) 
+				{
+					aut.setEstado(AutoEstado::Disponible);
+					autoArchivo.guardar(aut);
+				}
+
 				archivo.guardar(obj);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 

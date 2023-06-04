@@ -411,6 +411,7 @@ void ClienteController::buscarPorId()
     {
         rlutil::locate(2, 8);
         cout << "El registro con Id " << id << " no se encuentra en el sistema." << endl;
+        system("pause");
     }
 }
 
@@ -446,7 +447,9 @@ void ClienteController::mostrarRegistro(Cliente obj)
     rlutil::locate(52, 9);
     cout << obj.getMail();
 
-    int registrosImpresos = AlquilerController().listarPorCliente(0,10, obj.getId());
+    rlutil::locate(1, 11);
+    cout << "HISTORIAL DE ALQUILERES";
+    int registrosImpresos = AlquilerController().listarPorCliente(0,11, obj.getId());
 
 
     rlutil::locate(2, registrosImpresos * 2 + 17);

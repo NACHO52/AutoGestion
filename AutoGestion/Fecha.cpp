@@ -46,9 +46,9 @@ void Fecha::hoy() {
     t = time(NULL);
     struct tm* fecha;
     fecha = localtime(&t);
-    _anio = fecha->tm_year;
+    _anio = fecha->tm_year + 1900;
     _mes = fecha->tm_mon;
-    _dia = fecha->tm_mday + 1900;
+    _dia = fecha->tm_mday;
 }
 
 Fecha::Fecha(int dia, int mes, int anio) {
