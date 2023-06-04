@@ -438,7 +438,7 @@ void ClienteController::mostrarRegistro(Cliente obj)
     cout << obj.getFechaDeNacimiento().FechaStr();
 
     rlutil::locate(44, 7);
-    cout << "TELEF" << char(224) << "NO: ";
+    cout << "TEL" << char(144) << "FONO: ";
     rlutil::locate(54, 7);
     cout << obj.getTelefono();
 

@@ -887,9 +887,9 @@ void AlquilerController::editar()
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(31, 23);
 			cin >> nuevoEstado;
-			nuevoEstado++;
-			if (nuevoEstado == 2 || nuevoEstado == 3)
+			if (nuevoEstado == 1 || nuevoEstado == 2)
 			{
+				nuevoEstado++;
 				obj.setEstado((AlquilerEstado)nuevoEstado);
 				
 				AutoArchivo autoArchivo;
