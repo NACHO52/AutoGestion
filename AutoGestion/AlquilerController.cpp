@@ -171,28 +171,28 @@ void AlquilerController::crear()
 	
 	autoController.limpiarVentanaAutosDisponibles(4, 8, autosObtenidos);
 
-
 	rlutil::locate(42, 6);
-	cout << "FECHA HASTA: __/__/____";
+	cout << "PRECIO: $";
+
 
 	rlutil::locate(3, 8);
-	cout << "PRECIO: $";
+	cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A"<< char(165) <<"O: ";
 
 	rlutil::locate(42, 8);
 	cout << "EMPLEADO: ";
 
-
-	rlutil::locate(55, 6);
-	cin >> dia;
-	rlutil::locate(58, 6);
-	cin >> mes;
-	rlutil::locate(61, 6);
-	cin >> anio;
-
-	rlutil::locate(12, 8);
+	rlutil::locate(52, 6);
 	cin >> precio;
 
-	rlutil::locate(55, 8);
+
+	rlutil::locate(21, 8);
+	cin >> dia;
+	rlutil::locate(29, 8);
+	cin >> mes;
+	rlutil::locate(37, 8);
+	cin >> anio;
+
+	rlutil::locate(52, 8);
 	cin >> empleadoId;
 
 

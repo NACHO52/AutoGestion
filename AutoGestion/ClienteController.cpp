@@ -42,9 +42,7 @@ Cliente ClienteController::ventanaNuevoCliente(std::string dni)
     rlutil::locate(6, 9);
     cout << "APELLIDO:";
     rlutil::locate(6, 11);
-    cout << "FECHA DE NACIMIENTO (DD/MM/AAAA):";
-    rlutil::locate(40, 11);
-    cout << "__/__/____";
+    cout << "FECHA DE NACIMIENTO: D" << char(214) << "A:    MES:    A"<< char(165) <<"O: ";
 
     rlutil::locate(41, 7);
     cout << "TEL"<< char(144) <<"FONO:";
@@ -63,11 +61,11 @@ Cliente ClienteController::ventanaNuevoCliente(std::string dni)
     rlutil::locate(47, 9);
     getline(cin, mail);
 
-    rlutil::locate(40, 11);
+    rlutil::locate(32, 11);
     cin >> dia;
-    rlutil::locate(43, 11);
+    rlutil::locate(40, 11);
     cin >> mes;
-    rlutil::locate(46, 11);
+    rlutil::locate(48, 11);
     cin >> anio;
 
     Fecha fechaNacimiento(dia, mes, anio);
@@ -411,8 +409,9 @@ void ClienteController::buscarPorId()
     {
         rlutil::locate(2, 8);
         cout << "El registro con Id " << id << " no se encuentra en el sistema." << endl;
-        system("pause");
     }
+    cout << endl;
+    system("pause");
 }
 
 void ClienteController::mostrarRegistro(Cliente obj)
@@ -453,5 +452,4 @@ void ClienteController::mostrarRegistro(Cliente obj)
 
 
     rlutil::locate(2, registrosImpresos * 2 + 17);
-    cout << endl << endl << endl << system("pause");
 }

@@ -5,6 +5,7 @@
 #include "EmpleadoController.h"
 #include "AlquilerController.h"
 #include "ClienteController.h"
+#include "Configuracion.h"
 
 using namespace std;
 
@@ -44,8 +45,7 @@ void Funciones::MenuPrincipal()
 			break;
 		case 6:
 			rlutil::cls();
-			cout << "CONFIGURACIONES" << endl;
-			system("pause");
+			Configuracion().Menu();
 			break;
 		case 0:
 			break;
@@ -97,7 +97,7 @@ void Funciones::DibujarMenu()
 	rlutil::locate(30, 18);
 	cout << "6 _ CONFIGURACIONES" << endl;
 
-	rlutil::locate(14, 20);
+	rlutil::locate(12, 20);
 	cout << "0 _ SALIR" << endl;
 
 	rlutil::locate(14, 22);

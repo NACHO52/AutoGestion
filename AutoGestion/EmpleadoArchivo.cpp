@@ -1,5 +1,8 @@
 #include "EmpleadoArchivo.h"
 #include <cstdio>
+#include "Fecha.h"
+#include <iostream>
+#include <fstream>
 
 EmpleadoArchivo::EmpleadoArchivo()
 {
@@ -81,4 +84,99 @@ Empleado EmpleadoArchivo::buscar(int ID)
     }
     if (encontro) return obj;
     else return Empleado();
+}
+
+void EmpleadoArchivo::leer(Empleado* vec, int cantidadRegistrosALeer) {
+    FILE* p = fopen(_ruta.c_str(), "rb");
+    if (p == NULL)
+    {
+        return;
+    }
+
+    fread(vec, sizeof(Empleado), cantidadRegistrosALeer, p);
+    fclose(p);
+}
+
+void EmpleadoArchivo::vaciar() {
+    FILE* p = fopen(_ruta.c_str(), "wb");
+    if (p == NULL)
+    {
+        return;
+    }
+    fclose(p);
+}
+
+bool EmpleadoArchivo::guardar(Empleado* vec, int cantidadRegistrosAEscribir) {
+    FILE* p = fopen(_ruta.c_str(), "ab");
+    if (p == NULL)
+    {
+        return false;
+    }
+
+    int cantidadRegistrosEscritos = fwrite(vec, sizeof(Empleado), cantidadRegistrosAEscribir, p);
+    fclose(p);
+    return cantidadRegistrosEscritos == cantidadRegistrosAEscribir;
+}
+
+bool EmpleadoArchivo::HacerCopiaDeSeguridad()
+{
+    bool exito = false;
+    EmpleadoArchivo archivoBKP("empleados.bkp");
+    EmpleadoArchivo archivo;
+
+    int cantidadRegistros = archivo.getCantidadRegistros();
+    Empleado* vec = new Empleado[cantidadRegistros];
+    if (vec == nullptr) {
+        exito = false;
+    }
+
+    archivo.leer(vec, cantidadRegistros);
+    archivoBKP.vaciar();
+    if (archivoBKP.guardar(vec, cantidadRegistros)) {
+        exito = true;
+    }
+    else {
+        exito = false;
+    }
+    delete[]vec;
+    return exito;
+}
+
+bool EmpleadoArchivo::RestaurarCopiaDeSeguridad() {
+    bool exito = false;
+    EmpleadoArchivo archivoBKP("empleados.bkp");
+    EmpleadoArchivo archivo;
+    int cantidadRegistros = archivoBKP.getCantidadRegistros();
+    Empleado* vec = new Empleado[cantidadRegistros];
+
+    if (vec == nullptr) {
+        exito = false;
+    }
+
+    archivoBKP.leer(vec, cantidadRegistros);
+    archivo.vaciar();
+    if (archivo.guardar(vec, cantidadRegistros)) {
+        exito = true;
+    }
+    else {
+        exito = false;
+    }
+    delete[]vec;
+    return exito;
+}
+
+void EmpleadoArchivo::ExportarDatos()
+{
+    std::fstream fout;
+    fout.open("empleados.csv", std::ios::out);
+
+    int cant = getCantidadRegistros();
+    if (cant == 0) return;
+    fout << "Id,Apellido,Nombre,Estado,Sueldo,Email\n";
+    for (int i = 1; i <= cant; i++)
+    {
+        Empleado obj = buscar(i);
+        fout << obj.getId() << "," << obj.getApellido() << "," << obj.getNombre() << "," << obj.getEstadoStr() << "," << obj.getSueldo() << "," << obj.getMail() << "\n";
+    }
+    fout.close();
 }

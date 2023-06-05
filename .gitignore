@@ -21,3 +21,5 @@ AutoGestion/Debug/AutoGestion.exe
 *.idb
 *.dat
 *.enc
+*.bkp
+*.csv

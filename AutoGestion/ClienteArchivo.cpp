@@ -1,5 +1,7 @@
 #include "ClienteArchivo.h"
 #include <cstdio>
+#include <iostream>
+#include <fstream>
 
 ClienteArchivo::ClienteArchivo()
 {
@@ -110,4 +112,100 @@ Cliente ClienteArchivo::buscarPorDNI(std::string dni)
     }
     if (encontro) return obj;
     else return Cliente();
+}
+
+
+void ClienteArchivo::leer(Cliente* vec, int cantidadRegistrosALeer) {
+    FILE* p = fopen(_ruta.c_str(), "rb");
+    if (p == NULL)
+    {
+        return;
+    }
+
+    fread(vec, sizeof(Cliente), cantidadRegistrosALeer, p);
+    fclose(p);
+}
+
+void ClienteArchivo::vaciar() {
+    FILE* p = fopen(_ruta.c_str(), "wb");
+    if (p == NULL)
+    {
+        return;
+    }
+    fclose(p);
+}
+
+bool ClienteArchivo::guardar(Cliente* vec, int cantidadRegistrosAEscribir) {
+    FILE* p = fopen(_ruta.c_str(), "ab");
+    if (p == NULL)
+    {
+        return false;
+    }
+
+    int cantidadRegistrosEscritos = fwrite(vec, sizeof(Cliente), cantidadRegistrosAEscribir, p);
+    fclose(p);
+    return cantidadRegistrosEscritos == cantidadRegistrosAEscribir;
+}
+
+bool ClienteArchivo::HacerCopiaDeSeguridad()
+{
+    bool exito = false;
+    ClienteArchivo archivoBKP("clientes.bkp");
+    ClienteArchivo archivo;
+
+    int cantidadRegistros = archivo.getCantidadRegistros();
+    Cliente* vec = new Cliente[cantidadRegistros];
+    if (vec == nullptr) {
+        exito = false;
+    }
+
+    archivo.leer(vec, cantidadRegistros);
+    archivoBKP.vaciar();
+    if (archivoBKP.guardar(vec, cantidadRegistros)) {
+        exito = true;
+    }
+    else {
+        exito = false;
+    }
+    delete[]vec;
+    return exito;
+}
+
+bool ClienteArchivo::RestaurarCopiaDeSeguridad() {
+    bool exito = false;
+    ClienteArchivo archivoBKP("clientes.bkp");
+    ClienteArchivo archivo;
+    int cantidadRegistros = archivoBKP.getCantidadRegistros();
+    Cliente* vec = new Cliente[cantidadRegistros];
+
+    if (vec == nullptr) {
+        exito = false;
+    }
+
+    archivoBKP.leer(vec, cantidadRegistros);
+    archivo.vaciar();
+    if (archivo.guardar(vec, cantidadRegistros)) {
+        exito = true;
+    }
+    else {
+        exito = false;
+    }
+    delete[]vec;
+    return exito;
+}
+
+void ClienteArchivo::ExportarDatos()
+{
+    std::fstream fout;
+    fout.open("clientes.csv", std::ios::out);
+
+    int cant = getCantidadRegistros();
+    if (cant == 0) return;
+    fout << "Id,Apellido,Nombre,DNI,FechaDeNacimiento,EMail,Tel"<< char(130) <<"fono\n";
+    for (int i = 1; i <= cant; i++)
+    {
+        Cliente obj = buscar(i);
+        fout << obj.getId() << "," << obj.getApellido() << "," << obj.getNombre() << "," << obj.getDni() << "," << obj.getFechaDeNacimiento().FechaStr() << "," << obj.getMail() << obj.getTelefono() << "\n";
+    }
+    fout.close();
 }

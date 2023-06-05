@@ -8,6 +8,9 @@ private:
     int _mes;
     int _anio;
     bool esBisiesto();
+    int _hora;
+    int _minutos;
+    int _segundos;
 
 public:
     Fecha();
@@ -16,7 +19,12 @@ public:
     int getDia();
     int getMes();
     int getAnio();
+    int getHora();
+    int getMinutos();
+    int getSegundos();
     void agregarDias(int cantidadDias);
     std::string FechaStr();
     void hoy();
+    void ahora();
+    std::string ahoraFormato();
 };
