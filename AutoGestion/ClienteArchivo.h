@@ -5,25 +5,18 @@
 class ClienteArchivo
 {
 public:
-	int getCantidadRegistros();
-	bool guardar(Cliente reg);
-	Cliente buscar(int id);
-	Cliente buscarPorDNI(std::string dni);
-
-	void leer(Cliente* vec, int cantidadRegistrosALeer);
-
-	void vaciar();
-
-	bool guardar(Cliente* vec, int cantidadRegistrosAEscribir);
-
-	bool HacerCopiaDeSeguridad();
-
-	bool RestaurarCopiaDeSeguridad();
-
-	void ExportarDatos();
-
 	ClienteArchivo();
 	ClienteArchivo(std::string ruta);
+	Cliente buscar(int id);
+	Cliente buscarPorDNI(std::string dni);
+	void ExportarDatos();
+	int getCantidadRegistros();
+	bool guardar(Cliente reg);
+	bool guardar(Cliente* vec, int cantidadRegistrosAEscribir);
+	void leer(Cliente* vec, int cantidadRegistrosALeer);
+	bool RestaurarCopiaDeSeguridad();
+	void vaciar();
+	bool HacerCopiaDeSeguridad();
 
 private:
 	std::string _ruta;

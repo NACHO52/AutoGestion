@@ -23,3 +23,8 @@ AutoGestion/Debug/AutoGestion.exe
 *.enc
 *.bkp
 *.csv
+.vs/ProjectSettings.json
+.vs/slnx.sqlite
+.vs/VSWorkspaceState.json
+AutoGestion/ClassDiagram.cd
+AutoGestion/ClassDiagram.png

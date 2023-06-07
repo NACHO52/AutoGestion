@@ -5,14 +5,15 @@
 class ClienteController
 {
 public:
-	Cliente ventanaNuevoCliente(std::string dni);
-	void mostrarMenu();
+	void buscarPorId();
+	void DibujarFila(int corrimiento, Cliente& obj);
 	void dibujarMenu();
+	void imprimirNoHayRegistros();
 	void listar();
 	void listarHeader();
-	void imprimirNoHayRegistros();
-	void DibujarFila(int corrimiento, Cliente& obj);
-	void buscarPorId();
+	void mostrarMenu();
 	void mostrarRegistro(Cliente cliente);
+	Cliente ventanaNuevoCliente(std::string dni);
+
 };
 

@@ -7,17 +7,15 @@ class AutoArchivo
 public:
 	AutoArchivo();
 	AutoArchivo(std::string ruta);
-
+	Auto buscar(int id);
+	void ExportarDatos();
 	int getCantidadRegistros();
 	bool guardar(Auto reg);
-	Auto buscar(int ID);
-	void leer(Auto* vec, int cantidadRegistrosALeer);
-	void vaciar();
 	bool guardar(Auto* vec, int cantidadRegistrosAEscribir);
 	bool HacerCopiaDeSeguridad();
+	void leer(Auto* vec, int cantidadRegistrosALeer);
 	bool RestaurarCopiaDeSeguridad();
-
-	void ExportarDatos();
+	void vaciar();
 
 private:
 	std::string _ruta;
