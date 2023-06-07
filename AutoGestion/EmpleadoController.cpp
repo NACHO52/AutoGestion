@@ -837,3 +837,140 @@ void EmpleadoController::buscarPorId()
 	rlutil::locate(2, 21);
 	system("pause");
 }
+
+int EmpleadoController::getEmpleadosDisponibles()
+{
+	EmpleadoArchivo archivo;
+	int reg = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0) return 0;
+
+	for (int i = 1; i <= cant; i++)
+	{
+		Empleado obj;
+		obj = archivo.buscar(i);
+		if (obj.getEliminado() == 1 || obj.getEstado() == EmpleadoEstado::Baja)
+		{
+			continue;
+		}
+		reg++;
+	}
+	return reg;
+}
+
+int EmpleadoController::ventanaEmpleadosDisponibles(int x, int y)
+{
+	EmpleadoArchivo archivo;
+	int registrosImpresos = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0) return 0;
+
+
+	rlutil::locate(x, y);
+	cout << char(218);
+	rlutil::locate(x + 75, y);
+	cout << char(191);
+
+
+	rlutil::locate(x, y + 1);
+	cout << char(179);
+
+	rlutil::locate(x + 6, y + 1);
+	cout << char(179);
+	rlutil::locate(x + 38, y + 1);
+	cout << char(179);
+
+	rlutil::locate(x + 75, y + 1);
+	cout << char(179);
+
+	for (int i = 1; i < 75; i++)
+	{
+		rlutil::locate(x + i, y);
+		cout << char(196);
+		rlutil::locate(x + i, y + 2);
+		cout << char(196);
+	}
+
+	rlutil::locate(x + 6, y);
+	cout << char(194);
+	rlutil::locate(x + 38, y);
+	cout << char(194);
+
+	rlutil::locate(x + 2, y + 1);
+	cout << "ID";
+	rlutil::locate(x + 8, y + 1);
+	cout << "NOMBRE";
+	rlutil::locate(x + 40, y + 1);
+	cout << "APELLIDO";
+
+
+	for (int i = 1; i <= cant; i++)
+	{
+		Empleado obj;
+		obj = archivo.buscar(i);
+		if (obj.getEliminado() == 1 || obj.getEstado() == EmpleadoEstado::Baja)
+		{
+			continue;
+		}
+
+		for (int j = 0; j < 75; j++)
+		{
+			rlutil::locate(x + j, y + 4 + registrosImpresos * 2);
+			cout << char(196);
+		}
+
+		rlutil::locate(x, y + 4 + registrosImpresos * 2);
+		cout << char(192);
+		rlutil::locate(x + 6, y + 4 + registrosImpresos * 2);
+		cout << char(193);
+		rlutil::locate(x + 38, y + 4 + registrosImpresos * 2);
+		cout << char(193);
+		rlutil::locate(x + 75, y + 4 + registrosImpresos * 2);
+		cout << char(217);
+
+		rlutil::locate(x, y + 2 + registrosImpresos * 2);
+		cout << char(195);
+		rlutil::locate(x + 6, y + 2 + registrosImpresos * 2);
+		cout << char(197);
+		rlutil::locate(x + 38, y + 2 + registrosImpresos * 2);
+		cout << char(197);
+		rlutil::locate(x + 75, y + 2 + registrosImpresos * 2);
+		cout << char(180);
+
+		rlutil::locate(x, y + 3 + registrosImpresos * 2);
+		cout << char(179);
+		rlutil::locate(x + 6, y + 3 + registrosImpresos * 2);
+		cout << char(179);
+		rlutil::locate(x + 38, y + 3 + registrosImpresos * 2);
+		cout << char(179);
+		rlutil::locate(x + 75, y + 3 + registrosImpresos * 2);
+		cout << char(179);
+
+		rlutil::locate(x + 1, y + 3 + registrosImpresos * 2);
+		cout << setw(4) << obj.getId();
+
+		rlutil::locate(x + 7, y + 3 + registrosImpresos * 2);
+		cout << setw(30) << obj.getNombre();
+
+		rlutil::locate(x + 39, y + 3 + registrosImpresos * 2);
+		cout << setw(29) << obj.getApellido();
+
+
+
+		registrosImpresos++;
+	}
+	return registrosImpresos;
+}
+
+void EmpleadoController::limpiarVentanaEmpleaadosDisponibles(int x, int y, int registros)
+{
+	rlutil::locate(x, y);
+	for (int i = 0; i < (3 + registros * 2); i++)
+	{
+		for (int j = 0; j < 76; j++)
+		{
+			rlutil::locate(x + j, y + i);
+			cout << " ";
+		}
+	}
+}

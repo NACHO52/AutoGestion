@@ -88,7 +88,7 @@ Cliente ClienteController::ventanaNuevoCliente(std::string dni)
         }
     }
 
-    return cliente;
+    return ClienteArchivo().buscarPorDNI(dni);
 }
 
 

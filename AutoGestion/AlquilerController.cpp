@@ -9,6 +9,7 @@
 #include "AutoController.h"
 #include "AutoArchivo.h"
 #include "EmpleadoArchivo.h"
+#include "EmpleadoController.h"
 
 using namespace std;
 
@@ -119,6 +120,28 @@ void AlquilerController::crear()
 	rlutil::locate(22, 2);
 	cout << "CREAR ALQUILER";
 
+	if (autoController.getAutosDisponibles() == 0)
+	{
+		rlutil::locate(8, 4);
+		rlutil::setColor(rlutil::LIGHTRED);
+		cout << "NO POSEE AUTOS PARA ALQUILAR." << endl;
+		rlutil::setColor(rlutil::WHITE);
+		system("pause");
+		return;
+	}
+
+	if (EmpleadoController().getEmpleadosDisponibles() == 0)
+	{
+		rlutil::locate(8, 4);
+		rlutil::setColor(rlutil::LIGHTRED);
+		cout << "NO POSEE EMPLEADOS PARA REGISTRAR EL ALQUILER." << endl;
+		rlutil::setColor(rlutil::WHITE);
+		system("pause");
+		return;
+	}
+
+
+
 	rlutil::locate(3, 4);
 	cout << "CLIENTE D.N.I.: ";
 
@@ -173,18 +196,43 @@ void AlquilerController::crear()
 
 	rlutil::locate(42, 6);
 	cout << "PRECIO: $";
-
-
-	rlutil::locate(3, 8);
-	cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A"<< char(165) <<"O: ";
-
-	rlutil::locate(42, 8);
-	cout << "EMPLEADO: ";
-
 	rlutil::locate(52, 6);
 	cin >> precio;
 
 
+
+	int empleadosObtenidos = EmpleadoController().ventanaEmpleadosDisponibles(4, 10);
+	Empleado empleado;
+	do
+	{
+		rlutil::locate(52, 8);
+		cout << "        ";
+		rlutil::locate(42, 8);
+		cout << "EMPLEADO: ";
+
+		rlutil::locate(52, 8);
+		cin >> empleadoId;
+		empleado = EmpleadoArchivo().buscar(empleadoId);
+		if (empleado.getId() == 0 || empleado.getEstado() == EmpleadoEstado::Baja)
+		{
+
+			rlutil::locate(20, 9);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "EL ID INGRESADO NO PERTENECE A UN EMPLEADO DE LA LISTA";
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			rlutil::locate(20, 9);
+			cout << "                                                      ";
+			errores = true;
+		}
+		else errores = false;
+
+	} while (errores);
+
+	EmpleadoController().limpiarVentanaEmpleaadosDisponibles(4, 10, empleadosObtenidos);
+
+	rlutil::locate(3, 8);
+	cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
 	rlutil::locate(21, 8);
 	cin >> dia;
 	rlutil::locate(29, 8);
@@ -192,8 +240,6 @@ void AlquilerController::crear()
 	rlutil::locate(37, 8);
 	cin >> anio;
 
-	rlutil::locate(52, 8);
-	cin >> empleadoId;
 
 
 	int opcion;

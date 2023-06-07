@@ -24,6 +24,7 @@ public:
     int getSegundos();
     void agregarDias(int cantidadDias);
     std::string FechaStr();
+    int diferenciaDias(Fecha desde, Fecha hasta);
     void hoy();
     void ahora();
     std::string ahoraFormato();

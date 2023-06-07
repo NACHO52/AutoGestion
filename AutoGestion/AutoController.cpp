@@ -414,7 +414,7 @@ void AutoController::listar()
 		}
 	}
 
-	rlutil::locate(1, registrosImpresos * 2 + 4);
+	rlutil::locate(1, registrosImpresos * 2 + 8);
 	system("pause");
 }
 
@@ -894,6 +894,26 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 		registrosImpresos++;
 	}
 	return registrosImpresos;
+}
+
+int AutoController::getAutosDisponibles()
+{
+	AutoArchivo archivo;
+	int reg = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0) return 0;
+
+	for (int i = 1; i <= cant; i++)
+	{
+		Auto obj;
+		obj = archivo.buscar(i);
+		if (obj.getEliminado() == 1 || obj.getEstado() != AutoEstado::Disponible)
+		{
+			continue;
+		}
+		reg++;
+	}
+	return reg;
 }
 
 void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros) 

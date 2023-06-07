@@ -50,7 +50,7 @@ void Fecha::hoy() {
     struct tm* fecha;
     fecha = localtime(&t);
     _anio = fecha->tm_year + 1900;
-    _mes = fecha->tm_mon;
+    _mes = fecha->tm_mon + 1;
     _dia = fecha->tm_mday;
     _hora = 0;
     _minutos = 0;
@@ -64,7 +64,7 @@ void Fecha::ahora()
     struct tm* fecha;
     fecha = localtime(&t);
     _anio = fecha->tm_year + 1900;
-    _mes = fecha->tm_mon;
+    _mes = fecha->tm_mon + 1;
     _dia = fecha->tm_mday;
     _hora = fecha->tm_hour;
     _minutos = fecha->tm_min;
@@ -105,6 +105,9 @@ Fecha::Fecha(int dia, int mes, int anio) {
     _dia = 1;
     _mes = 1;
     _anio = 1900;
+    _hora = 0;
+    _minutos = 0;
+    _segundos = 0;
     if (dia <= 0 || mes <= 0 || anio <= 0 || mes > 12) {
         return;
     }
@@ -167,4 +170,17 @@ std::string Fecha::FechaStr() {
     texto = dia + "/" + mes + "/" + anio;
 
     return texto;
+}
+
+int Fecha::diferenciaDias(Fecha desde, Fecha hasta)
+{
+    int resultado = 0;
+
+
+    while (!(desde.getAnio() == hasta.getAnio() && desde.getMes() == hasta.getMes() && desde.getDia() == hasta.getDia()))
+    {
+        desde.agregarDias(1);
+        resultado++;
+    }
+    return resultado;
 }

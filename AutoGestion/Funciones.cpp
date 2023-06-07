@@ -6,6 +6,7 @@
 #include "AlquilerController.h"
 #include "ClienteController.h"
 #include "Configuracion.h"
+#include "ReporteController.h"
 
 using namespace std;
 
@@ -17,7 +18,7 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		rlutil::locate(25, 22);
+		rlutil::locate(27, 22);
 		cin >> opcion;
 
 		switch (opcion)
@@ -40,8 +41,7 @@ void Funciones::MenuPrincipal()
 			break;
 		case 5:
 			rlutil::cls();
-			cout << "REPORTES" << endl;
-			system("pause");
+			ReporteController().mostrarMenu();
 			break;
 		case 6:
 			rlutil::cls();
@@ -51,10 +51,10 @@ void Funciones::MenuPrincipal()
 			break;
 		default:
 			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(25, 22);
+			rlutil::locate(27, 22);
 			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
 			rlutil::setColor(rlutil::WHITE);
-			rlutil::locate(42, 22);
+			rlutil::locate(44, 22);
 			rlutil::anykey();
 			break;
 		}
@@ -83,24 +83,24 @@ void Funciones::DibujarMenu()
 	cout << "   /_______/ /______/  \\_____/    /__/   /__/  \\______/ /__/  |___/" << endl;
 
 
-	rlutil::locate(12, 16);
+	rlutil::locate(14, 16);
 	cout << "1 _ AUTOS" << endl;
-	rlutil::locate(12, 17);
+	rlutil::locate(14, 17);
 	cout << "2 _ EMPLEADOS" << endl;
-	rlutil::locate(12, 18);
+	rlutil::locate(14, 18);
 	cout << "3 _ ALQUILERES" << endl;
 
-	rlutil::locate(30, 16);
+	rlutil::locate(32, 16);
 	cout << "4 _ CLIENTES" << endl;
-	rlutil::locate(30, 17);
+	rlutil::locate(32, 17);
 	cout << "5 _ REPORTES" << endl;
-	rlutil::locate(30, 18);
+	rlutil::locate(32, 18);
 	cout << "6 _ CONFIGURACIONES" << endl;
 
-	rlutil::locate(12, 20);
+	rlutil::locate(14, 20);
 	cout << "0 _ SALIR" << endl;
 
-	rlutil::locate(14, 22);
+	rlutil::locate(16, 22);
 	cout << "SELECCI" << char(224) << "N: " << endl;
 
 

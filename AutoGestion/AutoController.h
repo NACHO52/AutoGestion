@@ -19,5 +19,6 @@ public:
 	void mostrarMenu();
 	void mostrarRegistro(Auto obj);
 	int ventanaAutosDisponibles(int x, int y);
+	int getAutosDisponibles();
 };
 
