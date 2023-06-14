@@ -39,7 +39,7 @@ void Funciones::MenuPrincipal()
 			ClienteController().mostrarMenu();
 			break;
 		case 5:
-			rlutil::cls();0
+			rlutil::cls();
 			break;
 		case 6:
 			rlutil::cls();
