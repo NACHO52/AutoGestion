@@ -1,3 +1,5 @@
+#include <string.h>
+#include <iostream>
 #include "Cliente.h"
 
 Cliente::Cliente()

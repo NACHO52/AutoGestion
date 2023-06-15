@@ -1,7 +1,9 @@
-#include "AlquilerArchivo.h"
 #include <cstdio>
 #include <iostream>
 #include <fstream>
+#include <string.h>
+#include "AlquilerArchivo.h"
+
 
 AlquilerArchivo::AlquilerArchivo()
 {

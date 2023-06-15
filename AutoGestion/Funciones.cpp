@@ -5,6 +5,7 @@
 #include "EmpleadoController.h"
 #include "AlquilerController.h"
 #include "ClienteController.h"
+#include "ReportesController.h"
 #include "Configuracion.h"
 
 using namespace std;
@@ -40,6 +41,7 @@ void Funciones::MenuPrincipal()
 			break;
 		case 5:
 			rlutil::cls();
+			ReportesController().mostrarMenu();
 			break;
 		case 6:
 			rlutil::cls();

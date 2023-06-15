@@ -1,4 +1,7 @@
+#include <iostream>
+#include <string.h>
 #include "Auto.h"
+
 
 Auto::Auto()
 {

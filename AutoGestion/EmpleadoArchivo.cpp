@@ -3,6 +3,7 @@
 #include "Fecha.h"
 #include <iostream>
 #include <fstream>
+#include <string.h>
 
 EmpleadoArchivo::EmpleadoArchivo()
 {

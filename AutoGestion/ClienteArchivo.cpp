@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <iostream>
 #include <fstream>
-
+#include <string.h>
 ClienteArchivo::ClienteArchivo()
 {
     _ruta = "cliente.dat";

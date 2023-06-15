@@ -1,5 +1,5 @@
 #include "Empleado.h"
-
+#include <string.h>
 
 Empleado::Empleado()
 {
