@@ -28,3 +28,7 @@ AutoGestion/Debug/AutoGestion.exe
 .vs/VSWorkspaceState.json
 AutoGestion/ClassDiagram.cd
 AutoGestion/ClassDiagram.png
+AutoGestion/.vscode/tasks.json
+AutoGestion/main.exe
+AutoGestion/.vscode/settings.json
+*.exe

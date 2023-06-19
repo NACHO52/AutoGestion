@@ -582,19 +582,19 @@ void AutoController::imprimirNoHayRegistros()
 	cout << char(179);
 	rlutil::locate(1, 5);
 	cout << char(179);
-	rlutil::locate(78, 4);
+	rlutil::locate(79, 4);
 	cout << char(179);
-	rlutil::locate(78, 5);
+	rlutil::locate(79, 5);
 	cout << char(179);
-	rlutil::locate(78, 6);
+	rlutil::locate(79, 6);
 	cout << char(217);
 
 	rlutil::locate(1, 3);
 	cout << char(195);
 
-	rlutil::locate(78, 3);
+	rlutil::locate(79, 3);
 	cout << char(180);
-	for (int i = 0; i < 76; i++)
+	for (int i = 0; i < 77; i++)
 	{
 		rlutil::locate(2 + i, 6);
 		cout << char(196);
