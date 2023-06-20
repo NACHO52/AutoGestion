@@ -6,6 +6,7 @@
 #include <iomanip>
 #include "AlquilerController.h"
 #include "AlquilerArchivo.h"
+#include <cmath>
 
 using namespace std;
 
@@ -108,6 +109,7 @@ void AutoController::crear() {
 	rlutil::cls();
 	string patente, marca, modelo;
 	int anio;
+	float precio;
 
 	rlutil::locate(37, 2);
 	cout << "CREAR AUTO";
@@ -124,6 +126,9 @@ void AutoController::crear() {
 
 	rlutil::locate(11, 10);
 	cout << "A" << char(165) << "O: ";
+	
+	rlutil::locate(11, 12);
+	cout << "PRECIO POR D" << char(161) << "A: ";
 
 	rlutil::locate(20, 4);
 	cin.ignore();
@@ -134,29 +139,31 @@ void AutoController::crear() {
 	getline(cin, modelo);
 	rlutil::locate(20, 10);
 	cin >> anio;
+	rlutil::locate(28, 12);
+	cin >> precio;
 
 	int opcion;
 	do {
-		rlutil::locate(12, 17);
+		rlutil::locate(12, 18);
 		cout << "                                                                        ";
 
-		rlutil::locate(12, 13);
+		rlutil::locate(12, 14);
 		cout << "                                                                        ";
-		rlutil::locate(12, 13);
+		rlutil::locate(12, 14);
 		cout << "1 _ GUARDAR";
-		rlutil::locate(12, 14);
-		cout << "                                                                        ";
-		rlutil::locate(12, 14);
-		cout << "0 _ CANCELAR/VOLVER";
 		rlutil::locate(12, 15);
 		cout << "                                                                        ";
-
-
+		rlutil::locate(12, 15);
+		cout << "0 _ CANCELAR/VOLVER";
 		rlutil::locate(12, 16);
+		cout << "                                                                        ";
+
+
+		rlutil::locate(12, 17);
 		cout << "SELECCI" << char(224) << "N: " << endl;
-		rlutil::locate(22, 16);
+		rlutil::locate(22, 17);
 		cout << "                                                                                         ";
-		rlutil::locate(22, 16);
+		rlutil::locate(22, 17);
 		cin >> opcion;
 
 		AutoArchivo archivo;
@@ -172,22 +179,23 @@ void AutoController::crear() {
 			obj.setPatente(patente);
 			obj.setEstado(AutoEstado::Disponible);
 			obj.setAnio(anio);
+			obj.setPrecioDia(precio);
 			guardo = archivo.guardar(obj);
 			if (guardo)
 			{
-				rlutil::locate(20, 17);
+				rlutil::locate(20, 18);
 				cout << "                                                                        ";
-				rlutil::locate(20, 17);
+				rlutil::locate(20, 18);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 				cout << "GUARDADO EXITOSO" << endl;
 				rlutil::setColor(rlutil::WHITE);
-				rlutil::locate(10, 20);
+				rlutil::locate(10, 21);
 				system("pause");
 			}
 			else {
-				rlutil::locate(12, 17);
+				rlutil::locate(12, 18);
 				cout << "                                                                        ";
-				rlutil::locate(12, 17);
+				rlutil::locate(12, 18);
 				rlutil::setColor(rlutil::LIGHTRED);
 				cout << "HA OCURRIDO UN ERROR AL GUARDAR EL REGISTRO" << endl;
 				rlutil::setColor(rlutil::WHITE);
@@ -447,7 +455,7 @@ void AutoController::DibujarFila(int corrimiento, Auto& obj)
 	case AutoEstado::Disponible:
 		rlutil::setColor(rlutil::LIGHTGREEN);
 		break;
-	case AutoEstado::EnUso:
+	case AutoEstado::Reservado:
 		rlutil::setColor(rlutil::YELLOW);
 		break;
 	case AutoEstado::FueraDeServicio:
@@ -541,7 +549,7 @@ void AutoController::listarPorEstado()
 			{
 				continue;
 			}
-			if (obj.getEstado() == AutoEstado::EnUso)
+			if (obj.getEstado() == AutoEstado::Reservado)
 			{
 
 				DibujarFila(registrosDisponibles, obj);
@@ -606,9 +614,9 @@ void AutoController::imprimirNoHayRegistros()
 void AutoController::mostrarRegistro(Auto obj)
 {
 	rlutil::locate(5, 5);
-	cout << "ID: ";
-	rlutil::locate(16, 5);
-	cout << obj.getId();
+	cout << "PRECIO POR D"<< char(214) <<"A: ";
+	rlutil::locate(21, 5);
+	cout << obj.getPrecioDia();
 
 	rlutil::locate(5, 7);
 	cout << "PATENTE: ";
@@ -778,30 +786,28 @@ void AutoController::buscarPorId()
 
 }
 
-int AutoController::ventanaAutosDisponibles(int x, int y)
+int AutoController::ventanaAutosDisponibles(int x, int y, int dias, Fecha fechaDesde, Fecha fechaHasta)
 {
 	AutoArchivo archivo;
 	int registrosImpresos = 0;
 	int cant = archivo.getCantidadRegistros();
 	if (cant == 0) return 0;
 
-
 	rlutil::locate(x, y);
 	cout << char(218);
 	rlutil::locate(x + 75, y);
 	cout << char(191);
 
-
 	rlutil::locate(x, y + 1);
 	cout << char(179);
-
 	rlutil::locate(x + 6, y + 1);
 	cout << char(179);
-	rlutil::locate(x + 38, y + 1);
+	rlutil::locate(x + 30, y + 1);
+	cout << char(179);
+	rlutil::locate(x + 54, y + 1);
 	cout << char(179);
 	rlutil::locate(x + 69, y + 1);
 	cout << char(179);
-
 	rlutil::locate(x + 75, y + 1);
 	cout << char(179);
 
@@ -815,26 +821,37 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 
 	rlutil::locate(x + 6, y);
 	cout << char(194);
-	rlutil::locate(x + 38, y);
+	rlutil::locate(x + 30, y);
+	cout << char(194);
+	rlutil::locate(x + 54, y);
 	cout << char(194);
 	rlutil::locate(x + 69, y);
 	cout << char(194);
+	rlutil::locate(x + 75, y);
 
 	rlutil::locate(x + 2, y + 1);
 	cout << "ID";
 	rlutil::locate(x + 8, y + 1);
 	cout << "MARCA";
-	rlutil::locate(x + 40, y + 1);
+	rlutil::locate(x + 32, y + 1);
 	cout << "MODELO";
+	rlutil::locate(x + 56, y + 1);
+	cout << "PRECIO";
 	rlutil::locate(x + 71, y + 1);
 	cout << "A"<< char(165) << "O";
 
 
 	for (int i = 1; i <= cant; i++)
 	{
+		bool reservado = false;
 		Auto obj;
 		obj = archivo.buscar(i);
-		if (obj.getEliminado() == 1 || obj.getEstado() != AutoEstado::Disponible)
+		if (obj.getEliminado() == 1 || obj.getEstado() == AutoEstado::FueraDeServicio)
+		{
+			continue;
+		}
+
+		if(obj.getEstado() == AutoEstado::Reservado && autoPeriodoReservado(fechaDesde, fechaHasta, obj.getId()))
 		{
 			continue;
 		}
@@ -849,7 +866,9 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 		cout << char(192);
 		rlutil::locate(x + 6, y + 4 + registrosImpresos *2);
 		cout << char(193);
-		rlutil::locate(x + 38, y + 4 + registrosImpresos *2);
+		rlutil::locate(x + 30, y + 4 + registrosImpresos *2);
+		cout << char(193);
+		rlutil::locate(x + 54, y + 4 + registrosImpresos *2);
 		cout << char(193);
 		rlutil::locate(x + 69, y + 4 + registrosImpresos *2);
 		cout << char(193);
@@ -860,7 +879,9 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 		cout << char(195);
 		rlutil::locate(x + 6, y + 2 + registrosImpresos * 2);
 		cout << char(197);
-		rlutil::locate(x + 38, y + 2 + registrosImpresos * 2);
+		rlutil::locate(x + 30, y + 2 + registrosImpresos * 2);
+		cout << char(197);
+		rlutil::locate(x + 54, y + 2 + registrosImpresos * 2);
 		cout << char(197);
 		rlutil::locate(x + 69, y + 2 + registrosImpresos * 2);
 		cout << char(197);
@@ -871,7 +892,9 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 		cout << char(179);
 		rlutil::locate(x+6, y + 3 + registrosImpresos * 2);
 		cout << char(179);
-		rlutil::locate(x + 38, y + 3 + registrosImpresos * 2);
+		rlutil::locate(x + 30, y + 3 + registrosImpresos * 2);
+		cout << char(179);
+		rlutil::locate(x + 54, y + 3 + registrosImpresos * 2);
 		cout << char(179);
 		rlutil::locate(x + 69, y + 3 + registrosImpresos * 2);
 		cout << char(179);
@@ -882,18 +905,45 @@ int AutoController::ventanaAutosDisponibles(int x, int y)
 		cout << setw(4) << obj.getId();
 
 		rlutil::locate(x + 7, y + 3 + registrosImpresos * 2);
-		cout << setw(30) << obj.getMarca();
+		cout << setw(22) << obj.getMarca();
 
-		rlutil::locate(x + 39, y + 3 + registrosImpresos * 2);
-		cout << setw(29) << obj.getModelo();
+		rlutil::locate(x + 31, y + 3 + registrosImpresos * 2);
+		cout << setw(22) << obj.getModelo();
+
+		rlutil::locate(x + 55, y + 3 + registrosImpresos * 2);
+		cout << char(36);
+		float valor = (float)(obj.getPrecioDia() * (float)dias);
+		rlutil::locate(x + 56, y + 3 + registrosImpresos * 2);
+		cout.precision(2);
+    	cout.setf(std::ios::fixed);
+		cout << setw(12) << valor;
 
 		rlutil::locate(x + 70, y + 3 + registrosImpresos * 2);
 		cout << setw(5) << obj.getAnio();
 
-
 		registrosImpresos++;
 	}
 	return registrosImpresos;
+}
+
+bool AutoController::autoPeriodoReservado(Fecha fechaDesde, Fecha fechaHasta, int autoId)
+{
+	bool reservado = false;
+	AlquilerArchivo alquileres;
+	Alquiler alquiler;
+	for (int i = 1; i <= alquileres.getCantidadRegistros(); i++)
+	{
+		alquiler = alquileres.buscar(i);
+		if(alquiler.getAutoId() == autoId && 
+			(fechaDesde <= alquiler.getFechaDesde() && fechaHasta >= alquiler.getFechaDesde()) ||
+			(fechaDesde <= alquiler.getFechaHasta() && fechaHasta >= alquiler.getFechaHasta()) ||
+			(fechaDesde >= alquiler.getFechaDesde() && fechaHasta <= alquiler.getFechaHasta()) )
+		{
+			reservado = true;
+			break;
+		}
+	}
+	return reservado;
 }
 
 int AutoController::getAutosDisponibles()
@@ -907,7 +957,32 @@ int AutoController::getAutosDisponibles()
 	{
 		Auto obj;
 		obj = archivo.buscar(i);
-		if (obj.getEliminado() == 1 || obj.getEstado() != AutoEstado::Disponible)
+		if (obj.getEliminado() == 1 || obj.getEstado() == AutoEstado::FueraDeServicio)
+		{
+			continue;
+		}
+		reg++;
+	}
+	return reg;
+}
+
+int AutoController::getAutosDisponibles(Fecha fechaDesde, Fecha fechaHasta)
+{
+	AutoArchivo archivo;
+	int reg = 0;
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0) return 0;
+
+	for (int i = 1; i <= cant; i++)
+	{
+		Auto obj;
+		bool reservado = false;
+		obj = archivo.buscar(i);
+		if (obj.getEliminado() == 1 || obj.getEstado() == AutoEstado::FueraDeServicio)
+		{
+			continue;
+		}
+		if(obj.getEstado() == AutoEstado::Reservado  && autoPeriodoReservado(fechaDesde, fechaHasta, obj.getId()))
 		{
 			continue;
 		}

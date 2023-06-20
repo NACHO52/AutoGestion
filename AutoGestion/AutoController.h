@@ -1,5 +1,6 @@
 #pragma once
 #include "Auto.h"
+#include "Fecha.h"
 
 class AutoController
 {
@@ -18,7 +19,8 @@ public:
 	void listarPorEstado();
 	void mostrarMenu();
 	void mostrarRegistro(Auto obj);
-	int ventanaAutosDisponibles(int x, int y);
-	int getAutosDisponibles();
+	int ventanaAutosDisponibles(int x, int y, int dias, Fecha desde, Fecha hasta);
+    bool autoPeriodoReservado(Fecha fechaDesde, Fecha fechaHasta, int autoId);
+    int getAutosDisponibles();
+    int getAutosDisponibles(Fecha desde, Fecha hasta);
 };
-

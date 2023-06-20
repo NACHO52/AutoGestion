@@ -49,6 +49,11 @@ bool Auto::getEliminado()
 	return _eliminado;
 }
 
+std::string Auto::getEliminadoStr()
+{
+    return _eliminado ? "Si" : "No";
+}
+
 void Auto::setId(int id)
 {
 	_id = id;
@@ -84,6 +89,11 @@ void Auto::setEliminado(bool eliminado)
 	_eliminado = eliminado;
 }
 
+void Auto::setPrecioDia(float precio)
+{
+	_precioDia = precio;
+}
+
 std::string Auto::getEstadoStr()
 {
 	std::string cadena;
@@ -96,8 +106,8 @@ std::string Auto::getEstadoStr()
 	case FueraDeServicio:
 		cadena = "Fuera de servicio";
 		break;
-	case EnUso:
-		cadena = "En uso";
+	case Reservado:
+		cadena = "Reservado";
 		break;
 	default:
 		cadena = "";
@@ -107,4 +117,7 @@ std::string Auto::getEstadoStr()
 	return cadena;
 }
 
-
+float Auto::getPrecioDia()
+{
+    return _precioDia;
+}

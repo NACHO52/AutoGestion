@@ -5,7 +5,7 @@
 enum AutoEstado {
 	Disponible = 1,
 	FueraDeServicio = 2,
-	EnUso = 3
+	Reservado = 3
 };
 
 class Auto
@@ -18,6 +18,7 @@ private:
 	int _anio;
 	AutoEstado _estado;
 	bool _eliminado;
+	float _precioDia;
 
 public:
 	Auto();
@@ -28,7 +29,9 @@ public:
 	int getAnio();
 	AutoEstado getEstado();
 	bool getEliminado();
+	std::string getEliminadoStr();
 	std::string getEstadoStr();
+	float getPrecioDia();
 
 	void setId(int id);
 	void setPatente(std::string patente);
@@ -37,5 +40,6 @@ public:
 	void setAnio(int anio);
 	void setEstado(AutoEstado estado);
 	void setEliminado(bool eliminado);
+	void setPrecioDia(float precio);
 };
 

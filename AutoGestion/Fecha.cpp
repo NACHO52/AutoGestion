@@ -10,6 +10,12 @@ bool Fecha::esBisiesto() {
     }
     return false;
 }
+bool Fecha::esBisiesto(int anio) {
+    if ((anio % 4 == 0 && anio % 100 != 0) || anio % 400 == 0) {
+        return true;
+    }
+    return false;
+}
 
 void Fecha::agregarDias(int cantidadDias) {
 
@@ -108,11 +114,11 @@ Fecha::Fecha(int dia, int mes, int anio) {
     _hora = 0;
     _minutos = 0;
     _segundos = 0;
-    if (dia <= 0 || mes <= 0 || anio <= 0 || mes > 12) {
+    if (dia <= 0 || mes <= 0 || anio <= 1900 || mes > 12) {
         return;
     }
     else {
-        if (esBisiesto()) {
+        if (esBisiesto(anio)) {
             dias[1]++;
         }
 
@@ -183,4 +189,51 @@ int Fecha::diferenciaDias(Fecha desde, Fecha hasta)
         resultado++;
     }
     return resultado;
+}
+
+bool Fecha::fechasInvalidas(Fecha desde, Fecha hasta)
+{
+    if(desde.getAnio() > hasta.getAnio()) return true;
+    else if(desde.getAnio() == hasta.getAnio() && desde.getMes() > hasta.getMes()) return true;
+    else if(desde.getAnio() == hasta.getAnio() && desde.getMes()== hasta.getMes() && desde.getDia() > hasta.getDia()) return true;
+    else return false;
+}
+
+bool Fecha::operator==(Fecha aux)
+{
+    return (_dia == aux.getDia() && _mes == aux.getMes() && _anio == aux.getAnio());
+}
+
+bool Fecha::operator>(Fecha aux)
+{
+    if(_anio > aux.getAnio()) return true;
+    else if(_anio == aux.getAnio() && _mes > aux.getMes()) return true;
+    else if(_anio == aux.getAnio() && _mes == aux.getMes() && _dia > aux.getDia()) return true;
+    else return false;
+}
+
+bool Fecha::operator>=(Fecha aux)
+{
+    if(_anio > aux.getAnio()) return true;
+    else if(_anio == aux.getAnio() && _mes > aux.getMes()) return true;
+    else if(_anio == aux.getAnio() && _mes == aux.getMes() && _dia > aux.getDia()) return true;
+    else if(_dia == aux.getDia() && _mes == aux.getMes() && _anio == aux.getAnio()) return true;
+    else return false;
+}
+
+bool Fecha::operator<(Fecha aux)
+{
+    if(_anio < aux.getAnio()) return true;
+    else if(_anio == aux.getAnio() && _mes < aux.getMes()) return true;
+    else if(_anio == aux.getAnio() && _mes == aux.getMes() && _dia < aux.getDia()) return true;
+    else return false;
+}
+
+bool Fecha::operator<=(Fecha aux)
+{
+    if(_anio < aux.getAnio()) return true;
+    else if(_anio == aux.getAnio() && _mes < aux.getMes()) return true;
+    else if(_anio == aux.getAnio() && _mes == aux.getMes() && _dia < aux.getDia()) return true;
+    else if(_dia == aux.getDia() && _mes == aux.getMes() && _anio == aux.getAnio()) return true;
+    else return false;
 }

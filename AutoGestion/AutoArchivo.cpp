@@ -173,11 +173,11 @@ void AutoArchivo::ExportarDatos()
 
     int cant = getCantidadRegistros();
     if (cant == 0) return;
-    fout << "Id,Marca,Modelo,Patente,A�o,Estado\n";
+    fout << "Id,Marca,Modelo,Patente,Año,Estado,PrecioPorDía,Eliminado\n";
     for (int i = 1; i <= cant; i++)
     {
         Auto obj = buscar(i);
-        fout << obj.getId() << "," << obj.getMarca() << "," << obj.getModelo() << "," << obj.getPatente() << "," << obj.getAnio() << "," << obj.getEstadoStr() << "\n";
+        fout << obj.getId() << "," << obj.getMarca() << "," << obj.getModelo() << "," << obj.getPatente() << "," << obj.getAnio() << "," << obj.getEstadoStr() << "," << obj.getPrecioDia() << "," << obj.getEliminadoStr() <<"\n";
     }
     fout.close();
 }

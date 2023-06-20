@@ -113,9 +113,13 @@ void AlquilerController::crear()
 	rlutil::cls();
 
 	string dni;
-	int autoId, dia, mes, anio, empleadoId;
+	int autoId, diaDesde, mesDesde, anioDesde, diaHasta, mesHasta, anioHasta, empleadoId;
 	AutoController autoController;
 	float precio;
+	Fecha fechaDesde;
+	Fecha fechaHasta;
+	Fecha hoy;
+	hoy.hoy();
 
 	rlutil::locate(22, 2);
 	cout << "CREAR ALQUILER";
@@ -158,70 +162,152 @@ void AlquilerController::crear()
 		cliente = ClienteController().ventanaNuevoCliente(dni);
 
 	}
-	rlutil::locate(42, 4);
+	rlutil::locate(44, 4);
 	cout << cliente.getApellido() << ", " << cliente.getNombre();
 
-
-	int autosObtenidos = autoController.ventanaAutosDisponibles(4,8);
-	Auto obj;
-
-	bool errores;
+	bool errores = false;
 	do
 	{
-		rlutil::locate(20, 7);
-		cout << "                                                           ";
 		rlutil::locate(3, 6);
+		cout << "FECHA DESDE: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
+		rlutil::locate(21, 6);
+		cin >> diaDesde;
+		rlutil::locate(29, 6);
+		cin >> mesDesde;
+		rlutil::locate(37, 6);
+		cin >> anioDesde;
+
+		fechaDesde = Fecha(diaDesde,mesDesde,anioDesde);
+		if(fechaDesde.getAnio() != anioDesde || fechaDesde.getMes() != mesDesde || fechaDesde.getDia() != diaDesde || (fechaDesde < hoy))
+		{
+			rlutil::locate(20, 6);
+			cout << "                                                                  ";
+			rlutil::locate(21, 6);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "FECHA INV"<< char(181) <<"LIDA";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else
+			errores = false;
+	} while (errores);
+	
+
+	do
+	{
+		rlutil::locate(62, 6);
+		cout << "                                                                  ";
+		rlutil::locate(44, 6);
+		cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
+		rlutil::locate(62, 6);
+		cin >> diaHasta;
+		rlutil::locate(70, 6);
+		cin >> mesHasta;
+		rlutil::locate(78, 6);
+		cin >> anioHasta;
+		if(diaHasta == 0 && mesHasta == 0 && anioHasta == 0) return;
+
+		fechaHasta = Fecha(diaHasta,mesHasta,anioHasta);
+		if(fechaHasta.getAnio() != anioHasta || fechaHasta.getMes() != mesHasta || fechaHasta.getDia() != diaHasta)
+		{
+			rlutil::locate(62, 6);
+			cout << "                                                                  ";
+			rlutil::locate(62, 6);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "FECHA INV"<< char(181) <<"LIDA";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else if(Fecha().fechasInvalidas(fechaDesde, fechaHasta))
+		{
+			rlutil::locate(62, 6);
+			cout << "                                                                  ";
+			rlutil::locate(62, 6);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "FECHA \"DESDE\" MAYOR A \"FECHA HASTA\"";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else if (autoController.getAutosDisponibles(fechaDesde, fechaHasta) == 0)
+		{
+			rlutil::locate(62, 6);
+			cout << "                                                                      ";
+			rlutil::locate(62, 6);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "NO POSEE AUTOS PARA ALQUILAR DENTRO DE ESE RANGO DE FECHAS";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else
+			errores = false;
+	} while (errores);
+	
+
+	int dias = Fecha().diferenciaDias(fechaDesde, fechaHasta);
+	int autosObtenidos = autoController.ventanaAutosDisponibles(2,10, dias, fechaDesde, fechaHasta);
+	Auto obj;
+
+	do
+	{
+		rlutil::locate(12, 8);
+		cout << "                                                           ";
+		rlutil::locate(3, 8);
 		cout << "AUTO ID: ";
 
-		rlutil::locate(13, 6);
+		rlutil::locate(13, 8);
 		cin >> autoId;
 		obj = AutoArchivo().buscar(autoId);
-		if (obj.getId() == 0 || obj.getEstado() != AutoEstado::Disponible)
+		if (obj.getId() == 0 || obj.getEstado() == AutoEstado::FueraDeServicio || AutoController().autoPeriodoReservado(fechaDesde, fechaHasta, obj.getId()))
 		{
 
-			rlutil::locate(20, 7);
+			rlutil::locate(20, 9);
 			rlutil::setColor(rlutil::LIGHTRED);
 			cout << "EL ID INGRESADO NO PERTENECE A UN AUTO DE LA LISTA";
 			rlutil::setColor(rlutil::WHITE);
 			rlutil::anykey();
-			rlutil::locate(9, 6);
-			cout << "                                       ";
+			rlutil::locate(20, 9);
+			cout << "                                                     ";
 			errores = true;
 		}
 		else errores = false;
 		
 	} while (errores);
 	
-	autoController.limpiarVentanaAutosDisponibles(4, 8, autosObtenidos);
+	autoController.limpiarVentanaAutosDisponibles(2, 10, autosObtenidos);
 
-	rlutil::locate(42, 6);
+	rlutil::locate(44, 8);
 	cout << "PRECIO: $";
-	rlutil::locate(52, 6);
-	cin >> precio;
+	float valor = (float)(obj.getPrecioDia() * (float)dias);
+	cout.precision(2);
+	cout.setf(std::ios::fixed);
+	cout << setw(12) << valor;
+	precio = valor;
 
-
-
-	int empleadosObtenidos = EmpleadoController().ventanaEmpleadosDisponibles(4, 10);
+	int empleadosObtenidos = EmpleadoController().ventanaEmpleadosDisponibles(2, 12);
 	Empleado empleado;
 	do
 	{
-		rlutil::locate(52, 8);
+		rlutil::locate(13, 10);
 		cout << "        ";
-		rlutil::locate(42, 8);
+		rlutil::locate(3, 10);
 		cout << "EMPLEADO: ";
 
-		rlutil::locate(52, 8);
+		rlutil::locate(13, 10);
 		cin >> empleadoId;
 		empleado = EmpleadoArchivo().buscar(empleadoId);
 		if (empleado.getId() == 0 || empleado.getEstado() == EmpleadoEstado::Baja)
 		{
 
-			rlutil::locate(20, 9);
+			rlutil::locate(13, 11);
 			rlutil::setColor(rlutil::LIGHTRED);
 			cout << "EL ID INGRESADO NO PERTENECE A UN EMPLEADO DE LA LISTA";
 			rlutil::setColor(rlutil::WHITE);
 			rlutil::anykey();
-			rlutil::locate(20, 9);
+			rlutil::locate(13, 11);
 			cout << "                                                      ";
 			errores = true;
 		}
@@ -229,31 +315,21 @@ void AlquilerController::crear()
 
 	} while (errores);
 
-	EmpleadoController().limpiarVentanaEmpleaadosDisponibles(4, 10, empleadosObtenidos);
+	EmpleadoController().limpiarVentanaEmpleaadosDisponibles(2, 12, empleadosObtenidos);
 
-	rlutil::locate(3, 8);
-	cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
-	rlutil::locate(21, 8);
-	cin >> dia;
-	rlutil::locate(29, 8);
-	cin >> mes;
-	rlutil::locate(37, 8);
-	cin >> anio;
 
 
 
 	int opcion;
 	do
 	{
-		rlutil::locate(21, 13);
-		cout << "                                            ";
-		rlutil::locate(13, 10);
-		cout << "1 _ CREAR";
-		rlutil::locate(13, 11);
-		cout << "0 _ CANCELAR";
 		rlutil::locate(13, 13);
+		cout << "1 _ CREAR";
+		rlutil::locate(13, 14);
+		cout << "0 _ CANCELAR";
+		rlutil::locate(13, 15);
 		cout << "OPCI"<< char(224) <<"N: ";
-		rlutil::locate(21, 13);
+		rlutil::locate(21, 15);
 		cin >> opcion;
 
 		Alquiler alquiler;
@@ -264,12 +340,13 @@ void AlquilerController::crear()
 			alquiler.setAutoId(obj.getId());
 			alquiler.setClienteId(cliente.getId());
 			alquiler.setEmpleadoId(empleadoId);
-			alquiler.setFechaHasta(Fecha(dia,mes,anio));
+			alquiler.setFechaDesde(fechaDesde);
+			alquiler.setFechaHasta(fechaHasta);
 			alquiler.setPrecio(precio);
 			if (AlquilerArchivo().guardar(alquiler)) {
-				obj.setEstado(AutoEstado::EnUso);
+				obj.setEstado(AutoEstado::Reservado);
 				AutoArchivo().guardar(obj);
-				rlutil::locate(13, 15);
+				rlutil::locate(13, 20);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 				cout << "EL REGISTRO SE HA GUARDADO EXITOSAMENTE" << endl;
 				rlutil::setColor(rlutil::WHITE);
@@ -282,10 +359,12 @@ void AlquilerController::crear()
 			break;
 		default:
 			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(21, 13);
+			rlutil::locate(21, 15);
 			cout << "OPCI" << char(224) << "N INCORRECTA";
 			rlutil::setColor(rlutil::WHITE);
 			rlutil::anykey();
+			rlutil::locate(21, 15);
+			cout << "                                            ";
 			break;
 		}
 
