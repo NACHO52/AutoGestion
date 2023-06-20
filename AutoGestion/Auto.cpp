@@ -12,6 +12,7 @@ Auto::Auto()
 	_anio = 0;
 	_estado = AutoEstado::Disponible;
 	_eliminado = false;
+	_precioDia = 0;
 }
 
 int Auto::getId()

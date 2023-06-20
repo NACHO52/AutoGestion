@@ -6,6 +6,7 @@ Alquiler::Alquiler()
     _fechaDesde.hoy();
     _precio = 0;
     _estado = AlquilerEstado::Vigente;
+    _multa = 0;
 }
 
 int Alquiler::getId()

@@ -188,6 +188,8 @@ void AlquilerController::crear()
 			rlutil::setColor(rlutil::WHITE);
 			errores = true;
 			rlutil::anykey();
+			rlutil::locate(20, 6);
+			cout << "                                                                  ";
 		}
 		else if (fechaDesde < hoy)
 		{
@@ -199,6 +201,8 @@ void AlquilerController::crear()
 			rlutil::setColor(rlutil::WHITE);
 			errores = true;
 			rlutil::anykey();
+			rlutil::locate(20, 6);
+			cout << "                                                                  ";
 		}
 		else
 			errores = false;
@@ -820,6 +824,11 @@ void AlquilerController::mostrarRegistro(Alquiler obj, bool mostrarAuto, bool mo
 	rlutil::locate(50, 6);
 	cout << obj.getPrecio();
 
+	rlutil::locate(41, 8);
+	cout << "MULTA: ";
+	rlutil::locate(48, 8);
+	cout << obj.getMulta();
+
 
 
 	if (mostrarAuto)
@@ -871,6 +880,10 @@ void AlquilerController::mostrarRegistro(Alquiler obj, bool mostrarAuto, bool mo
 		cout << "PATENTE: ";
 		rlutil::locate(64, 10);
 		cout << aut.getPatente();
+		rlutil::locate(55, 11);
+		cout << "PRECIO: ";
+		rlutil::locate(64, 11);
+		cout << "$" << aut.getPrecioDia();
 	}
 
 	if (mostrarCliente)
@@ -1031,11 +1044,14 @@ void AlquilerController::editar()
 				nuevoEstado++;
 				Fecha hoy;
 				hoy.hoy();
-				if(obj.getFechaHasta() < hoy)
+				if(obj.getFechaHasta() < hoy && obj.getEstado() == AlquilerEstado::Vigente)
 				{
 					obj.setEstado(AlquilerEstado::TerminadoConVencimiento);
 					float diasPasados = Fecha().diferenciaDias(obj.getFechaHasta(), hoy);
-					obj.setMulta(diasPasados * aut.getPrecioDia() + diasPasados * aut.getPrecioDia() * 0.2);
+					float multa = diasPasados * aut.getPrecioDia() + diasPasados * aut.getPrecioDia() * 0.2;
+					obj.setMulta(multa);
+					rlutil::locate(48, 8);
+					cout << multa;
 				}
 				else
 				{
