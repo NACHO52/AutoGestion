@@ -19,42 +19,46 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		rlutil::locate(27, 22);
-		//cin >> opcion;
-		getline(cin, seleccion);
-		if (seleccion.length() > 0 && esNumero(seleccion)) opcion = stoi(seleccion);
+		do
+		{
+			rlutil::locate(27, 22);
+			cout << "                         ";
+			rlutil::locate(27, 22);
+			getline(cin, seleccion);
+		} while (seleccion.length() == 0 || !Funciones().esNumero(seleccion));
+		opcion = stoi(seleccion);
 
 		switch (opcion)
 		{
 		case 1:
 			rlutil::cls();
 			AutoController().mostrarMenu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 2:
 			rlutil::cls();
 			EmpleadoController().mostrarMenu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 3:
 			rlutil::cls();
 			AlquilerController().mostrarMenu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 4:
 			rlutil::cls();
 			ClienteController().mostrarMenu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 5:
 			rlutil::cls();
 			ReportesController().mostrarMenu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 6:
 			rlutil::cls();
 			Configuracion().Menu();
-			cin.ignore();
+			//cin.ignore();
 			break;
 		case 0:
 			break;

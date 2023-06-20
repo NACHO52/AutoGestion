@@ -13,14 +13,21 @@ using namespace std;
 
 void AutoController::mostrarMenu()
 {
-	int opcion;
+	int opcion = 99;
+	string seleccion = "";
 	do {
 		rlutil::cls();
 
 		dibujarMenu();
 
-		rlutil::locate(32, 15);
-		cin >> opcion;
+		do
+		{
+			rlutil::locate(32, 15);
+			cout << "                         ";
+			rlutil::locate(32, 15);
+			getline(cin, seleccion);
+		} while (seleccion.length() == 0 || !Funciones().esNumero(seleccion));
+		opcion = stoi(seleccion);
 
 		switch (opcion)
 		{
@@ -129,7 +136,7 @@ void AutoController::crear() {
 	cout << "A" << char(165) << "O: ";
 	
 	rlutil::locate(11, 12);
-	cout << "PRECIO POR D" << char(213) << "A: ";
+	cout << "PRECIO POR D" << char(214) << "A: ";
 
 	rlutil::locate(20, 4);
 	cin.ignore();
