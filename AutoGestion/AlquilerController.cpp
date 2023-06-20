@@ -178,13 +178,24 @@ void AlquilerController::crear()
 		cin >> anioDesde;
 
 		fechaDesde = Fecha(diaDesde,mesDesde,anioDesde);
-		if(fechaDesde.getAnio() != anioDesde || fechaDesde.getMes() != mesDesde || fechaDesde.getDia() != diaDesde || (fechaDesde < hoy))
+		if(fechaDesde.getAnio() != anioDesde || fechaDesde.getMes() != mesDesde || fechaDesde.getDia() != diaDesde)
 		{
 			rlutil::locate(20, 6);
 			cout << "                                                                  ";
 			rlutil::locate(21, 6);
 			rlutil::setColor(rlutil::LIGHTRED);
 			cout << "FECHA INV"<< char(181) <<"LIDA";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else if (fechaDesde < hoy)
+		{
+			rlutil::locate(20, 6);
+			cout << "                                                                  ";
+			rlutil::locate(21, 6);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "LA FECHA DEBE SER MAYOR A HOY";
 			rlutil::setColor(rlutil::WHITE);
 			errores = true;
 			rlutil::anykey();
