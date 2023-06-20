@@ -7,6 +7,7 @@
 #include "AlquilerController.h"
 #include "AlquilerArchivo.h"
 #include <cmath>
+#include "Funciones.h"
 
 using namespace std;
 
@@ -107,7 +108,7 @@ void AutoController::dibujarMenu() {
 
 void AutoController::crear() {
 	rlutil::cls();
-	string patente, marca, modelo;
+	string patente, marca, modelo, anioStr, precioStr;
 	int anio;
 	float precio;
 
@@ -128,7 +129,7 @@ void AutoController::crear() {
 	cout << "A" << char(165) << "O: ";
 	
 	rlutil::locate(11, 12);
-	cout << "PRECIO POR D" << char(161) << "A: ";
+	cout << "PRECIO POR D" << char(213) << "A: ";
 
 	rlutil::locate(20, 4);
 	cin.ignore();
@@ -137,10 +138,26 @@ void AutoController::crear() {
 	getline(cin, marca);
 	rlutil::locate(20, 8);
 	getline(cin, modelo);
-	rlutil::locate(20, 10);
-	cin >> anio;
-	rlutil::locate(28, 12);
-	cin >> precio;
+	
+	do
+	{
+		rlutil::locate(20, 10);
+		cout << "                                          ";
+		rlutil::locate(20, 10);
+		getline(cin, anioStr);
+	} while (anioStr.length() == 0 || !Funciones().esNumero(anioStr));
+	anio = stoi(anioStr);
+
+	
+	do
+	{
+		rlutil::locate(28, 12);
+		cout << "                                          ";
+		rlutil::locate(28, 12);
+		//cin >> precio;
+		getline(cin, precioStr);
+	} while (precioStr.length() == 0 || !Funciones().esNumero(precioStr));
+	precio = stof(precioStr);
 
 	int opcion;
 	do {

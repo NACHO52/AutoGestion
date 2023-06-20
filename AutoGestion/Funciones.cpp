@@ -144,9 +144,16 @@ void Funciones::DibujarMenu()
 
 bool Funciones::esNumero(string s)
 {
+	int cantidadDePuntos = 0;
 	for (int i = 0; i < s.length(); i++)
 	{
-		if (!isdigit(s[i])) return false;
+		if (s[i] == char(46))
+		{
+			cantidadDePuntos++;
+		}
+		else if (!isdigit(s[i])) return false;
+		else if (cantidadDePuntos > 1) return false;
+
 	}
 	return true;
 }
