@@ -32,3 +32,5 @@ AutoGestion/.vscode/tasks.json
 AutoGestion/main.exe
 AutoGestion/.vscode/settings.json
 *.exe
+~$Datos.xlsx
+Datos.xlsx

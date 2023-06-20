@@ -934,10 +934,10 @@ bool AutoController::autoPeriodoReservado(Fecha fechaDesde, Fecha fechaHasta, in
 	for (int i = 1; i <= alquileres.getCantidadRegistros(); i++)
 	{
 		alquiler = alquileres.buscar(i);
-		if(alquiler.getAutoId() == autoId && 
+		if(alquiler.getAutoId() == autoId && (
 			(fechaDesde <= alquiler.getFechaDesde() && fechaHasta >= alquiler.getFechaDesde()) ||
 			(fechaDesde <= alquiler.getFechaHasta() && fechaHasta >= alquiler.getFechaHasta()) ||
-			(fechaDesde >= alquiler.getFechaDesde() && fechaHasta <= alquiler.getFechaHasta()) )
+			(fechaDesde >= alquiler.getFechaDesde() && fechaHasta <= alquiler.getFechaHasta())) )
 		{
 			reservado = true;
 			break;

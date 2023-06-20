@@ -33,9 +33,19 @@ Fecha Alquiler::getFechaHasta()
     return _fechaHasta;
 }
 
+Fecha Alquiler::getFechaDevolucion()
+{
+    return _fechaDevolucion;
+}
+
 float Alquiler::getPrecio()
 {
     return _precio;
+}
+
+float Alquiler::getMulta()
+{
+    return _multa;
 }
 
 int Alquiler::getEmpleadoId()
@@ -93,9 +103,19 @@ void Alquiler::setFechaHasta(Fecha fechaHasta)
     _fechaHasta = fechaHasta;
 }
 
+void Alquiler::setFechaDevolucion(Fecha fechaDevolucion)
+{
+    _fechaDevolucion = fechaDevolucion;
+}
+
 void Alquiler::setPrecio(float precio)
 {
     _precio = precio;
+}
+
+void Alquiler::setMulta(float multa)
+{
+    _multa = multa;
 }
 
 void Alquiler::setEmpleadoId(int empleadoId)

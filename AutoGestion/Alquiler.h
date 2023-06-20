@@ -18,7 +18,9 @@ private:
 	int _autoId;
 	Fecha _fechaDesde;
 	Fecha _fechaHasta;
+	Fecha _fechaDevolucion;
 	float _precio;
+	float _multa;
 	int _empleadoId;
 	AlquilerEstado _estado;
 
@@ -29,7 +31,9 @@ public:
 	int getAutoId();
 	Fecha getFechaDesde();
 	Fecha getFechaHasta();
+	Fecha getFechaDevolucion();
 	float getPrecio();
+	float getMulta();
 	int getEmpleadoId();
 	AlquilerEstado getEstado();
 	std::string getEstadoStr();
@@ -39,7 +43,9 @@ public:
 	void setAutoId(int aId);
 	void setFechaDesde(Fecha fechaDesde);
 	void setFechaHasta(Fecha fechaHasta);
+	void setFechaDevolucion(Fecha fechaDevolucion);
 	void setPrecio(float precio);
+	void setMulta(float multa);
 	void setEmpleadoId(int empleadoId);
 	void setEstado(AlquilerEstado estado);
 };

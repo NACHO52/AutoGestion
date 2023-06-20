@@ -247,7 +247,7 @@ void AlquilerController::crear()
 	} while (errores);
 	
 
-	int dias = Fecha().diferenciaDias(fechaDesde, fechaHasta);
+	int dias = Fecha().diferenciaDias(fechaDesde, fechaHasta)+1;
 	int autosObtenidos = autoController.ventanaAutosDisponibles(2,10, dias, fechaDesde, fechaHasta);
 	Auto obj;
 
@@ -999,8 +999,8 @@ void AlquilerController::editar()
 
 		rlutil::locate(17, 19);
 		cout << "1 _ TERMINADO";
-		rlutil::locate(17, 20);
-		cout << "2 _ TERMINADO/VENCIDO";
+		// rlutil::locate(17, 20);
+		// cout << "2 _ TERMINADO/VENCIDO";
 		rlutil::locate(17, 21);
 		cout << "0 _ CANCELAR/VOLVER";
 
@@ -1012,13 +1012,25 @@ void AlquilerController::editar()
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(31, 23);
 			cin >> nuevoEstado;
-			if (nuevoEstado == 1 || nuevoEstado == 2)
+			if (nuevoEstado == 1 /*|| nuevoEstado == 2*/)
 			{
-				nuevoEstado++;
-				obj.setEstado((AlquilerEstado)nuevoEstado);
-				
 				AutoArchivo autoArchivo;
 				Auto aut = autoArchivo.buscar(obj.getAutoId());
+
+				nuevoEstado++;
+				Fecha hoy;
+				hoy.hoy();
+				if(obj.getFechaHasta() < hoy)
+				{
+					obj.setEstado(AlquilerEstado::TerminadoConVencimiento);
+					float diasPasados = Fecha().diferenciaDias(obj.getFechaHasta(), hoy);
+					obj.setMulta(diasPasados * aut.getPrecioDia() + diasPasados * aut.getPrecioDia() * 0.2);
+				}
+				else
+				{
+					obj.setEstado(AlquilerEstado::TerminadoCorrecto);
+				}
+				
 				if (aut.getId() > 0) 
 				{
 					aut.setEstado(AutoEstado::Disponible);
