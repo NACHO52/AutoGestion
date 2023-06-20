@@ -142,7 +142,7 @@ void Funciones::DibujarMenu()
 	}
 }
 
-bool Funciones::esNumero(string s)
+bool Funciones::esDecimal(string s)
 {
 	int cantidadDePuntos = 0;
 	for (int i = 0; i < s.length(); i++)
@@ -154,6 +154,15 @@ bool Funciones::esNumero(string s)
 		else if (!isdigit(s[i])) return false;
 		else if (cantidadDePuntos > 1) return false;
 
+	}
+	return true;
+}
+
+bool Funciones::esNumero(string s)
+{
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (!isdigit(s[i])) return false;
 	}
 	return true;
 }

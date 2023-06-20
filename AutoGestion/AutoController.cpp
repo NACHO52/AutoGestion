@@ -156,7 +156,7 @@ void AutoController::crear() {
 		rlutil::locate(28, 12);
 		//cin >> precio;
 		getline(cin, precioStr);
-	} while (precioStr.length() == 0 || !Funciones().esNumero(precioStr));
+	} while (precioStr.length() == 0 || !Funciones().esDecimal(precioStr));
 	precio = stof(precioStr);
 
 	int opcion;
