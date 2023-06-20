@@ -13,39 +13,48 @@ using namespace std;
 
 void Funciones::MenuPrincipal()
 {
-	int opcion = 0;
+	int opcion = 99;
+	string seleccion = "";
 	do
 	{
 		rlutil::cls();
 		DibujarMenu();
 		rlutil::locate(27, 22);
-		cin >> opcion;
+		//cin >> opcion;
+		getline(cin, seleccion);
+		if (seleccion.length() > 0 && esNumero(seleccion)) opcion = stoi(seleccion);
 
 		switch (opcion)
 		{
 		case 1:
 			rlutil::cls();
 			AutoController().mostrarMenu();
+			cin.ignore();
 			break;
 		case 2:
 			rlutil::cls();
 			EmpleadoController().mostrarMenu();
+			cin.ignore();
 			break;
 		case 3:
 			rlutil::cls();
 			AlquilerController().mostrarMenu();
+			cin.ignore();
 			break;
 		case 4:
 			rlutil::cls();
 			ClienteController().mostrarMenu();
+			cin.ignore();
 			break;
 		case 5:
 			rlutil::cls();
 			ReportesController().mostrarMenu();
+			cin.ignore();
 			break;
 		case 6:
 			rlutil::cls();
 			Configuracion().Menu();
+			cin.ignore();
 			break;
 		case 0:
 			break;
@@ -131,4 +140,13 @@ void Funciones::DibujarMenu()
 		rlutil::locate(55, 15 + i);
 		cout << char(186);
 	}
+}
+
+bool Funciones::esNumero(string s)
+{
+	for (int i = 0; i < s.length(); i++)
+	{
+		if (!isdigit(s[i])) return false;
+	}
+	return true;
 }
