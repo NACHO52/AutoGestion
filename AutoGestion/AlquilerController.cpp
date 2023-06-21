@@ -24,7 +24,7 @@ void AlquilerController::mostrarMenu()
 
 		rlutil::locate(32, 15);
 		//cin >> opcion;
-		opcion = Funciones().inputNumero(32,15);
+		opcion = Funciones().inputNumero(32,15,18);
 
 		switch (opcion)
 		{
@@ -153,7 +153,7 @@ void AlquilerController::crear()
 
 
 	rlutil::locate(19, 4);
-	cin.ignore();
+	//cin.ignore();
 	getline(cin, dni);
 
 	ClienteArchivo archivoCliente;
@@ -173,11 +173,11 @@ void AlquilerController::crear()
 		rlutil::locate(3, 6);
 		cout << "FECHA DESDE: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
 		rlutil::locate(21, 6);
-		diaDesde = Funciones().inputNumero(21,6);
+		diaDesde = Funciones().inputNumero(21,6,3);
 		rlutil::locate(29, 6);
-		mesDesde = Funciones().inputNumero(29,6);
+		mesDesde = Funciones().inputNumero(29,6,3);
 		rlutil::locate(37, 6);
-		anioDesde = Funciones().inputNumero(37,6);
+		anioDesde = Funciones().inputNumero(37,6,5);
 
 		fechaDesde = Fecha(diaDesde,mesDesde,anioDesde);
 		if(fechaDesde.getAnio() != anioDesde || fechaDesde.getMes() != mesDesde || fechaDesde.getDia() != diaDesde)
@@ -218,11 +218,11 @@ void AlquilerController::crear()
 		rlutil::locate(44, 6);
 		cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
 		rlutil::locate(62, 6);
-		diaHasta = Funciones().inputNumero(62,6);
+		diaHasta = Funciones().inputNumero(62,6,3);
 		rlutil::locate(70, 6);
-		mesHasta = Funciones().inputNumero(70,6);
+		mesHasta = Funciones().inputNumero(70,6,3);
 		rlutil::locate(78, 6);
-		anioHasta = Funciones().inputNumero(78,6);
+		anioHasta = Funciones().inputNumero(78,6,4);
 		if(diaHasta == 0 && mesHasta == 0 && anioHasta == 0) return;
 
 		fechaHasta = Fecha(diaHasta,mesHasta,anioHasta);
@@ -276,7 +276,7 @@ void AlquilerController::crear()
 		cout << "AUTO ID: ";
 
 		rlutil::locate(13, 8);
-		autoId = Funciones().inputNumero(13,8);
+		autoId = Funciones().inputNumero(13,8,40);
 		obj = AutoArchivo().buscar(autoId);
 		if (obj.getId() == 0 || obj.getEstado() == AutoEstado::FueraDeServicio || AutoController().autoPeriodoReservado(fechaDesde, fechaHasta, obj.getId()))
 		{
@@ -314,7 +314,7 @@ void AlquilerController::crear()
 		cout << "EMPLEADO: ";
 
 		rlutil::locate(13, 10);
-		empleadoId = Funciones().inputNumero(13,10);
+		empleadoId = Funciones().inputNumero(13,10,40);
 		empleado = EmpleadoArchivo().buscar(empleadoId);
 		if (empleado.getId() == 0 || empleado.getEstado() == EmpleadoEstado::Baja)
 		{
@@ -347,7 +347,7 @@ void AlquilerController::crear()
 		rlutil::locate(13, 15);
 		cout << "OPCI"<< char(224) <<"N: ";
 		rlutil::locate(21, 15);
-		opcion = Funciones().inputNumero(21,15);
+		opcion = Funciones().inputNumero(21,15,40);
 
 		Alquiler alquiler;
 
@@ -786,7 +786,7 @@ void AlquilerController::buscarPorId()
 	rlutil::locate(5, 2);
 	cout << "ID: ";
 	rlutil::locate(9, 2);
-	id = Funciones().inputNumero(9,2);
+	id = Funciones().inputNumero(9,2,60);
 
 	obj = archivo.buscar(id);
 	if (obj.getId() == 0)
@@ -1013,7 +1013,7 @@ void AlquilerController::editar()
 	rlutil::locate(5, 2);
 	cout << "ID: ";
 	rlutil::locate(9, 2);
-	id = Funciones().inputNumero(9,2);
+	id = Funciones().inputNumero(9,2,60);
 
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0)
@@ -1037,7 +1037,7 @@ void AlquilerController::editar()
 			rlutil::locate(17, 23);
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(31, 23);
-			nuevoEstado = Funciones().inputNumero(31,23);
+			nuevoEstado = Funciones().inputNumero(31,23,40);
 			if (nuevoEstado == 1 /*|| nuevoEstado == 2*/)
 			{
 				AutoArchivo autoArchivo;

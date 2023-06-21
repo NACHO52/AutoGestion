@@ -64,13 +64,13 @@ Cliente ClienteController::ventanaNuevoCliente(std::string dni)
 
     rlutil::locate(32, 11);
     //cin >> dia;
-    dia = Funciones().inputNumero(32,11);
+    dia = Funciones().inputNumero(32,11,3);
     rlutil::locate(40, 11);
     //cin >> mes;
-    mes = Funciones().inputNumero(40,11);
+    mes = Funciones().inputNumero(40,11,3);
     rlutil::locate(48, 11);
     //cin >> anio;
-    anio = Funciones().inputNumero(48,11);
+    anio = Funciones().inputNumero(48,11,4);
 
     Fecha fechaNacimiento(dia, mes, anio);
     
@@ -105,7 +105,7 @@ void ClienteController::mostrarMenu()
 
         rlutil::locate(32, 15);
         //cin >> opcion;
-        opcion = Funciones().inputNumero(32,15);
+        opcion = Funciones().inputNumero(32,15,15);
 
         switch (opcion)
         {
@@ -402,7 +402,7 @@ void ClienteController::buscarPorId()
     cout << "ID: ";
     rlutil::locate(13, 3);
     //cin >> id;
-    id = Funciones().inputNumero(13,3);
+    id = Funciones().inputNumero(13,3,60);
 
     obj = archivo.buscar(id);
     if (obj.getId() > 0)

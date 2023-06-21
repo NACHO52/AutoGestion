@@ -19,7 +19,7 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		opcion = inputNumero(27,22);
+		opcion = inputNumero(27,22,28);
 
 		switch (opcion)
 		{
@@ -158,26 +158,32 @@ bool Funciones::esNumero(string s)
 	return true;
 }
 
-int Funciones::inputNumero(int x, int y)
+int Funciones::inputNumero(int x, int y, int b)
 {
 	string s = "";
 	do
 	{
 		rlutil::locate(x, y);
-		cout << "           ";
+		for (int i = 0; i < b; i++)
+		{
+			cout << " ";
+		}
 		rlutil::locate(x, y);
 		getline(cin, s);
 	} while (s.length() == 0 || !Funciones().esNumero(s));
 	return stoi(s);
 }
 
-float Funciones::inputDecimal(int x, int y)
+float Funciones::inputDecimal(int x, int y, int b)
 {
 	string s = "";
 	do
 	{
 		rlutil::locate(x, y);
-		cout << "                ";
+		for (int i = 0; i < b; i++)
+		{
+			cout << " ";
+		}
 		rlutil::locate(x, y);
 		getline(cin, s);
 	} while (s.length() == 0 || !Funciones().esDecimal(s));

@@ -8,6 +8,6 @@ public:
 	void DibujarMenu();
 	bool esDecimal(std::string s);
 	bool esNumero(std::string s);
-    int inputNumero(int x, int y);
-    float inputDecimal(int x, int y);
+    int inputNumero(int x, int y, int b);
+    float inputDecimal(int x, int y, int b);
 };
