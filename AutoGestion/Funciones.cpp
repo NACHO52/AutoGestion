@@ -10,7 +10,6 @@
 
 using namespace std;
 
-
 void Funciones::MenuPrincipal()
 {
 	int opcion = 99;
@@ -19,7 +18,7 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		opcion = inputNumero(27,22,28);
+		opcion = inputNumero(27, 22, 28);
 
 		switch (opcion)
 		{
@@ -67,7 +66,6 @@ void Funciones::DibujarMenu()
 	rlutil::setBackgroundColor(rlutil::BLACK);
 	rlutil::setColor(rlutil::WHITE);
 
-
 	cout << "         ______   ___  ___ ________ ______" << endl;
 	cout << "       /  ___  \\ /  / /  //__   __//  __  \\" << endl;
 	cout << "      /  /  /  //  / /  /   /  /  /  / /  /" << endl;
@@ -81,7 +79,6 @@ void Funciones::DibujarMenu()
 	cout << "     / / /_  / / ____/___ \\  \\      /  /   /  / /  / /  / /  /| |/  /" << endl;
 	cout << "    / /_ _/ / / /____ \\  \\_/  /    /  /   /  / /  /_/  / /  / |    /" << endl;
 	cout << "   /_______/ /______/  \\_____/    /__/   /__/  \\______/ /__/  |___/" << endl;
-
 
 	rlutil::locate(14, 16);
 	cout << "1 _ AUTOS" << endl;
@@ -103,8 +100,6 @@ void Funciones::DibujarMenu()
 	rlutil::locate(16, 22);
 	cout << "SELECCI" << char(224) << "N: " << endl;
 
-
-
 	rlutil::locate(9, 14);
 	cout << char(201);
 	rlutil::locate(55, 14);
@@ -115,12 +110,11 @@ void Funciones::DibujarMenu()
 	rlutil::locate(55, 24);
 	cout << char(188);
 
-
 	for (int i = 0; i < 45; i++)
 	{
-		rlutil::locate(10+i, 14);
+		rlutil::locate(10 + i, 14);
 		cout << char(205);
-		rlutil::locate(10+i, 24);
+		rlutil::locate(10 + i, 24);
 		cout << char(205);
 	}
 
@@ -142,9 +136,10 @@ bool Funciones::esDecimal(string s)
 		{
 			cantidadDePuntos++;
 		}
-		else if (!isdigit(s[i])) return false;
-		else if (cantidadDePuntos > 1) return false;
-
+		if (cantidadDePuntos > 1)
+			return false;
+		if (s[i] != char(46) && !isdigit(s[i]))
+			return false;
 	}
 	return true;
 }
@@ -153,7 +148,8 @@ bool Funciones::esNumero(string s)
 {
 	for (int i = 0; i < s.length(); i++)
 	{
-		if (!isdigit(s[i])) return false;
+		if (!isdigit(s[i]))
+			return false;
 	}
 	return true;
 }
