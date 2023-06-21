@@ -4,6 +4,7 @@
 #include <iostream>
 #include <iomanip>
 #include "AlquilerController.h"
+#include "Funciones.h"
 
 using namespace std;
 
@@ -62,11 +63,14 @@ Cliente ClienteController::ventanaNuevoCliente(std::string dni)
     getline(cin, mail);
 
     rlutil::locate(32, 11);
-    cin >> dia;
+    //cin >> dia;
+    dia = Funciones().inputNumero(32,11);
     rlutil::locate(40, 11);
-    cin >> mes;
+    //cin >> mes;
+    mes = Funciones().inputNumero(40,11);
     rlutil::locate(48, 11);
-    cin >> anio;
+    //cin >> anio;
+    anio = Funciones().inputNumero(48,11);
 
     Fecha fechaNacimiento(dia, mes, anio);
     
@@ -100,7 +104,8 @@ void ClienteController::mostrarMenu()
         dibujarMenu();
 
         rlutil::locate(32, 15);
-        cin >> opcion;
+        //cin >> opcion;
+        opcion = Funciones().inputNumero(32,15);
 
         switch (opcion)
         {
@@ -396,7 +401,8 @@ void ClienteController::buscarPorId()
     rlutil::locate(9, 3);
     cout << "ID: ";
     rlutil::locate(13, 3);
-    cin >> id;
+    //cin >> id;
+    id = Funciones().inputNumero(13,3);
 
     obj = archivo.buscar(id);
     if (obj.getId() > 0)
