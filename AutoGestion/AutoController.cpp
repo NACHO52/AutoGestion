@@ -19,15 +19,7 @@ void AutoController::mostrarMenu()
 		rlutil::cls();
 
 		dibujarMenu();
-
-		do
-		{
-			rlutil::locate(32, 15);
-			cout << "                         ";
-			rlutil::locate(32, 15);
-			getline(cin, seleccion);
-		} while (seleccion.length() == 0 || !Funciones().esNumero(seleccion));
-		opcion = stoi(seleccion);
+		opcion = Funciones().inputNumero(32,15);
 
 		switch (opcion)
 		{
@@ -146,25 +138,9 @@ void AutoController::crear() {
 	rlutil::locate(20, 8);
 	getline(cin, modelo);
 	
-	do
-	{
-		rlutil::locate(20, 10);
-		cout << "                                          ";
-		rlutil::locate(20, 10);
-		getline(cin, anioStr);
-	} while (anioStr.length() == 0 || !Funciones().esNumero(anioStr));
-	anio = stoi(anioStr);
+	anio = Funciones().inputNumero(20,10);
 
-	
-	do
-	{
-		rlutil::locate(28, 12);
-		cout << "                                          ";
-		rlutil::locate(28, 12);
-		//cin >> precio;
-		getline(cin, precioStr);
-	} while (precioStr.length() == 0 || !Funciones().esDecimal(precioStr));
-	precio = stof(precioStr);
+	precio = Funciones().inputDecimal(28,12);
 
 	int opcion;
 	do {
@@ -187,8 +163,10 @@ void AutoController::crear() {
 		cout << "SELECCI" << char(224) << "N: " << endl;
 		rlutil::locate(22, 17);
 		cout << "                                                                                         ";
-		rlutil::locate(22, 17);
-		cin >> opcion;
+		// rlutil::locate(22, 17);
+		// cin >> opcion;
+		
+		opcion = Funciones().inputNumero(22,17);
 
 		AutoArchivo archivo;
 		int cantArchivos = 0;
@@ -255,7 +233,8 @@ void AutoController::editar()
 	int id;
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id;
+	id = Funciones().inputNumero(26,3);
 
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0)
@@ -304,7 +283,8 @@ void AutoController::editar()
 			rlutil::locate(10, registrosImpresos * 2 + 3 + 16);
 			cout << "NUEVO ESTADO: ";
 			rlutil::locate(24, registrosImpresos * 2 + 3 + 16);
-			cin >> nuevoEstado;
+			//cin >> nuevoEstado;
+			nuevoEstado = Funciones().inputNumero(24,registrosImpresos * 2 + 3 + 16);
 			if ((nuevoEstado == 1 || nuevoEstado == 2) && registrosImpresos == 0)
 			{
 				obj.setEstado((AutoEstado)nuevoEstado);
@@ -690,7 +670,8 @@ void AutoController::eliminar()
 
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id;
+	id = Funciones().inputNumero(26,3);
 	cout << endl;
 	int opcion;
 	obj = archivo.buscar(id);
@@ -733,7 +714,8 @@ void AutoController::eliminar()
 			rlutil::locate(11, 20);
 			cout << "SELECCI" << char(224) << "N: ";
 			rlutil::locate(23, 20);
-			cin >> opcion;
+			//cin >> opcion;
+			opcion = Funciones().inputNumero(23,20);
 
 			switch (opcion)
 			{
@@ -781,7 +763,8 @@ void AutoController::buscarPorId()
 	int id;
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id;
+	id = Funciones().inputNumero(26,3);
 
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0)

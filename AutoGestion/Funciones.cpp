@@ -19,46 +19,33 @@ void Funciones::MenuPrincipal()
 	{
 		rlutil::cls();
 		DibujarMenu();
-		do
-		{
-			rlutil::locate(27, 22);
-			cout << "                         ";
-			rlutil::locate(27, 22);
-			getline(cin, seleccion);
-		} while (seleccion.length() == 0 || !Funciones().esNumero(seleccion));
-		opcion = stoi(seleccion);
+		opcion = inputNumero(27,22);
 
 		switch (opcion)
 		{
 		case 1:
 			rlutil::cls();
 			AutoController().mostrarMenu();
-			//cin.ignore();
 			break;
 		case 2:
 			rlutil::cls();
 			EmpleadoController().mostrarMenu();
-			//cin.ignore();
 			break;
 		case 3:
 			rlutil::cls();
 			AlquilerController().mostrarMenu();
-			//cin.ignore();
 			break;
 		case 4:
 			rlutil::cls();
 			ClienteController().mostrarMenu();
-			//cin.ignore();
 			break;
 		case 5:
 			rlutil::cls();
 			ReportesController().mostrarMenu();
-			//cin.ignore();
 			break;
 		case 6:
 			rlutil::cls();
 			Configuracion().Menu();
-			//cin.ignore();
 			break;
 		case 0:
 			break;
@@ -169,4 +156,30 @@ bool Funciones::esNumero(string s)
 		if (!isdigit(s[i])) return false;
 	}
 	return true;
+}
+
+int Funciones::inputNumero(int x, int y)
+{
+	string s = "";
+	do
+	{
+		rlutil::locate(x, y);
+		cout << "           ";
+		rlutil::locate(x, y);
+		getline(cin, s);
+	} while (s.length() == 0 || !Funciones().esNumero(s));
+	return stoi(s);
+}
+
+int Funciones::inputDecimal(int x, int y)
+{
+	string s = "";
+	do
+	{
+		rlutil::locate(x, y);
+		cout << "                ";
+		rlutil::locate(x, y);
+		getline(cin, s);
+	} while (s.length() == 0 || !Funciones().esDecimal(s));
+	return stof(s);
 }
