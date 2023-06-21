@@ -171,7 +171,7 @@ int Funciones::inputNumero(int x, int y)
 	return stoi(s);
 }
 
-int Funciones::inputDecimal(int x, int y)
+float Funciones::inputDecimal(int x, int y)
 {
 	string s = "";
 	do

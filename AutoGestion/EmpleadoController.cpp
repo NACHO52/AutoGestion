@@ -4,6 +4,7 @@
 #include <string>
 #include "EmpleadoArchivo.h"
 #include <iomanip>
+#include "Funciones.h"
 
 using namespace std;
 
@@ -16,7 +17,8 @@ void EmpleadoController::mostrarMenu()
 		dibujarMenu();
 
 		rlutil::locate(32, 15);
-		cin >> opcion;
+		//cin >> opcion;
+		opcion = Funciones().inputNumero(32,15);
 
 		switch (opcion)
 		{
@@ -131,8 +133,8 @@ void EmpleadoController::crear() {
 	rlutil::locate(22, 8);
 	getline(cin, email);
 	rlutil::locate(22, 10);
-	cin >> sueldo;
-
+	//cin >> sueldo;
+	sueldo = Funciones().inputDecimal(22,10);
 	int opcion;
 	do {
 		rlutil::locate(12, 17);
@@ -155,7 +157,8 @@ void EmpleadoController::crear() {
 		rlutil::locate(22, 16);
 		cout << "                                                                                         ";
 		rlutil::locate(22, 16);
-		cin >> opcion;
+		//cin >> opcion;
+		opcion = Funciones().inputNumero(22,16);
 
 		EmpleadoArchivo archivo;
 		int cantArchivos = 0;
@@ -221,7 +224,8 @@ void EmpleadoController::editar()
 	int id;
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id
+	id = Funciones().inputNumero(26,3);;
 
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0)
@@ -254,7 +258,8 @@ void EmpleadoController::editar()
 			cout << "                                                       ";
 			rlutil::locate(11, 17);
 			cout << "NUEVO ESTADO: ";
-			cin >> nuevoEstado;
+			//cin >> nuevoEstado;
+			nuevoEstado = Funciones().inputNumero(26,17);
 			if (nuevoEstado == 1 || nuevoEstado == 2)
 			{
 				obj.setEstado((EmpleadoEstado)nuevoEstado);
@@ -738,7 +743,8 @@ void EmpleadoController::eliminar()
 
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id;
+	id = Funciones().inputNumero(26,3);
 	cout << endl;
 	int opcion;
 	obj = archivo.buscar(id);
@@ -762,7 +768,8 @@ void EmpleadoController::eliminar()
 			rlutil::locate(11, 21);
 			cout << "SELECCI" << char(224) << "N: ";
 			rlutil::locate(23, 21);
-			cin >> opcion;
+			//cin >> opcion;
+			opcion = Funciones().inputNumero(23,21);
 
 			switch (opcion)
 			{
@@ -809,7 +816,8 @@ void EmpleadoController::buscarPorId()
 	int id;
 	rlutil::locate(11, 3);
 	cout << "INGRESE EL ID: ";
-	cin >> id;
+	//cin >> id;
+	id = Funciones().inputNumero(26,3);
 
 	obj = archivo.buscar(id);
 	if (obj.getId() > 0)
