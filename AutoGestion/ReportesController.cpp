@@ -60,7 +60,7 @@ void ReportesController::dibujarMenu()
 		rlutil::locate(24, 7);
 		cout << "2 _ RECAUDACION POR CLIENTE" << endl;
 		rlutil::locate(24, 8);
-		cout << "3 _ AUTOS MAS ELEGIDOS" << endl;
+		cout << "3 _ RECAUDACION POR AUTO" << endl;
 		rlutil::locate(24, 13);
 		cout << "0 _ VOLVER" << endl;
 

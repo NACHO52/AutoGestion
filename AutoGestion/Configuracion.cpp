@@ -61,12 +61,15 @@ void Configuracion::Menu()
 		switch (opcion)
 		{
 		case 1:
+		    rlutil::cls();
 			MenuRealizarCopia();
 			break;
 		case 2:
+		    rlutil::cls();
 			MenuRestaurarCopia();
 			break;
 		case 3:
+		    rlutil::cls();
 			MenuExportarDatos();
 			break;
 		case 0:
