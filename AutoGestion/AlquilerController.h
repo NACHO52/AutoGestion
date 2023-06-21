@@ -16,6 +16,7 @@ public:
 	void buscarPorId();
 	void mostrarRegistro(Alquiler obj, bool mostrarAuto, bool mostrarCliente, bool mostrarEmpleado);
 	void editar();
+	bool reservado(int autoId);
 	int listarPorCliente(int x, int y, int clienteId);
 	int listarPorAuto(int x, int y, int autoId);
 };

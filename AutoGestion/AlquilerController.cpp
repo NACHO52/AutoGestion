@@ -1066,14 +1066,14 @@ void AlquilerController::editar()
 					obj.setEstado(AlquilerEstado::TerminadoCorrecto);
 					obj.setFechaDevolucion(hoy);
 				}
+				archivo.guardar(obj);
 				
-				if (aut.getId() > 0) 
+				if (aut.getId() > 0 && !reservado(aut.getId()))
 				{
 					aut.setEstado(AutoEstado::Disponible);
 					autoArchivo.guardar(aut);
 				}
 
-				archivo.guardar(obj);
 				rlutil::setColor(rlutil::LIGHTGREEN);
 
 				rlutil::locate(25, 24);
@@ -1103,4 +1103,19 @@ void AlquilerController::editar()
 		system("pause");
 	}
 
+}
+
+bool AlquilerController::reservado(int autoId)
+{
+	Alquiler alq;
+	AlquilerArchivo archivo;
+	int cantAlquileres = archivo.getCantidadRegistros();
+	if (cantAlquileres == 0) return false;
+	for (int i = 1; i <= cantAlquileres; i++)
+	{
+		alq = archivo.buscar(i);
+		if (alq.getAutoId() == autoId && alq.getEstado() == AlquilerEstado::Vigente)
+			return true;
+	}
+	return false;
 }
