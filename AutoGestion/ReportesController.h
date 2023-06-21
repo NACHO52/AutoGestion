@@ -6,7 +6,7 @@ public:
     void mostrarMenu();
 	void dibujarMenu();
     void recaudacionPorEmpleado();
-    void personasMasFrecuentes();
-    void autosMasElegidos();
+    void recaudacionPorCliente();
+    void reportePorAuto();
     void listarHeader();
 };

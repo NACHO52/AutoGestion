@@ -95,15 +95,7 @@ void Configuracion::MenuRealizarCopia()
 		cout << "REALIZAR COPIA DE SEGURIDAD" << endl;
 
 		rlutil::locate(24, 6);
-		cout << "1 _ AUTOS" << endl;
-		rlutil::locate(24, 7);
-		cout << "2 _ EMPLEADOS" << endl;
-		rlutil::locate(24, 8);
-		cout << "3 _ CLIENTES" << endl;
-		rlutil::locate(24, 9);
-		cout << "4 _ ALQUILERES" << endl;
-		rlutil::locate(24, 10);
-		cout << "5 _ TODOS" << endl;
+		cout << "1 _ TODOS" << endl;
 		rlutil::locate(24, 13);
 		cout << "0 _ VOLVER" << endl;
 
@@ -141,18 +133,6 @@ void Configuracion::MenuRealizarCopia()
 		switch (opcion)
 		{
 		case 1:
-			HacerCopia(opcion);
-			break;
-		case 2:
-			HacerCopia(opcion);
-			break;
-		case 3:
-			HacerCopia(opcion);
-			break;
-		case 4:
-			HacerCopia(opcion);
-			break;
-		case 5:
 			HacerCopia(opcion);
 			break;
 		case 0:
@@ -181,15 +161,7 @@ void Configuracion::MenuRestaurarCopia()
 		cout << "RESTAURAR COPIA DE SEGURIDAD" << endl;
 
 		rlutil::locate(24, 6);
-		cout << "1 _ AUTOS" << endl;
-		rlutil::locate(24, 7);
-		cout << "2 _ EMPLEADOS" << endl;
-		rlutil::locate(24, 8);
-		cout << "3 _ CLIENTES" << endl;
-		rlutil::locate(24, 9);
-		cout << "4 _ ALQUILERES" << endl;
-		rlutil::locate(24, 10);
-		cout << "5 _ TODOS" << endl;
+		cout << "1 _ TODOS" << endl;
 		rlutil::locate(24, 13);
 		cout << "0 _ VOLVER" << endl;
 
@@ -227,18 +199,6 @@ void Configuracion::MenuRestaurarCopia()
 		switch (opcion)
 		{
 		case 1:
-			RestaurarCopia(opcion);
-			break;
-		case 2:
-			RestaurarCopia(opcion);
-			break;
-		case 3:
-			RestaurarCopia(opcion);
-			break;
-		case 4:
-			RestaurarCopia(opcion);
-			break;
-		case 5:
 			RestaurarCopia(opcion);
 			break;
 		case 0:
@@ -267,15 +227,7 @@ void Configuracion::MenuExportarDatos()
 		cout << "EXPORTAR DATOS" << endl;
 
 		rlutil::locate(24, 6);
-		cout << "1 _ AUTOS" << endl;
-		rlutil::locate(24, 7);
-		cout << "2 _ EMPLEADOS" << endl;
-		rlutil::locate(24, 8);
-		cout << "3 _ CLIENTES" << endl;
-		rlutil::locate(24, 9);
-		cout << "4 _ ALQUILERES" << endl;
-		rlutil::locate(24, 10);
-		cout << "5 _ TODOS" << endl;
+		cout << "1 _ TODOS" << endl;
 		rlutil::locate(24, 13);
 		cout << "0 _ VOLVER" << endl;
 
@@ -315,38 +267,6 @@ void Configuracion::MenuExportarDatos()
 		{
 		case 1:
 			AutoArchivo().ExportarDatos();
-			rlutil::locate(11, 20);
-			rlutil::setColor(rlutil::LIGHTGREEN);
-			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-			break;
-		case 2:
-			EmpleadoArchivo().ExportarDatos();
-			rlutil::locate(11, 20);
-			rlutil::setColor(rlutil::LIGHTGREEN);
-			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-			break;
-		case 3:
-			ClienteArchivo().ExportarDatos();
-			rlutil::locate(11, 20);
-			rlutil::setColor(rlutil::LIGHTGREEN);
-			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-			break;
-		case 4:
-			AlquilerArchivo().ExportarDatos();
-			rlutil::locate(11, 20);
-			rlutil::setColor(rlutil::LIGHTGREEN);
-			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-			break;
-		case 5:
-			AutoArchivo().ExportarDatos();
 			EmpleadoArchivo().ExportarDatos();
 			ClienteArchivo().ExportarDatos();
 			AlquilerArchivo().ExportarDatos();
@@ -356,8 +276,8 @@ void Configuracion::MenuExportarDatos()
 			rlutil::setColor(rlutil::WHITE);
 			rlutil::anykey();
 			break;
-		case 0:
-			break;
+        case 0:
+            break;
 		default:
 			rlutil::setColor(rlutil::LIGHTRED);
 			rlutil::locate(23, 17);
@@ -379,19 +299,9 @@ void Configuracion::HacerCopia(int i)
 	switch (i)
 	{
 	case 1:
-		texto = "DE LOS AUTOS";
-		break;
-	case 2:
-		texto = "DE LOS EMPLEADOS";
-		break;
-	case 3:
-		texto = "DE LOS CLIENTES";
-		break;
-	case 4:
-		texto = "DE LOS ALQUILERES";
+		texto = "DE TODOS LOS ARCHIVOS";
 		break;
 	default:
-		texto = "DE TODOS LOS ARCHIVOS";
 		break;
 	}
 	rlutil::locate(5, 3);
@@ -420,18 +330,6 @@ void Configuracion::HacerCopia(int i)
 			switch (i)
 			{
 			case 1:
-				copiado = AutoArchivo().HacerCopiaDeSeguridad();
-				break;
-			case 2:
-				copiado = EmpleadoArchivo().HacerCopiaDeSeguridad();
-				break;
-			case 3:
-				copiado = ClienteArchivo().HacerCopiaDeSeguridad();
-				break;
-			case 4:
-				copiado = AlquilerArchivo().HacerCopiaDeSeguridad();
-				break;
-			case 5:
 				copiado = AutoArchivo().HacerCopiaDeSeguridad();
 				if(copiado) copiado = EmpleadoArchivo().HacerCopiaDeSeguridad();
 				if (copiado) copiado = ClienteArchivo().HacerCopiaDeSeguridad();
@@ -480,19 +378,9 @@ void Configuracion::RestaurarCopia(int i)
 	switch (i)
 	{
 	case 1:
-		texto = "DE LOS AUTOS";
-		break;
-	case 2:
-		texto = "DE LOS EMPLEADOS";
-		break;
-	case 3:
-		texto = "DE LOS CLIENTES";
-		break;
-	case 4:
-		texto = "DE LOS ALQUILERES";
+		texto = "DE TODOS LOS ARCHIVOS";
 		break;
 	default:
-		texto = "DE TODOS LOS ARCHIVOS";
 		break;
 	}
 	rlutil::locate(5, 3);
@@ -500,22 +388,12 @@ void Configuracion::RestaurarCopia(int i)
 
 	rlutil::locate(5, 5);
 	cout << char(168) << "DESEA CONTINUAR?";
-
-	/*srand((unsigned)time(NULL));*/
-	Fecha fecha;
-	fecha.ahora();
-	srand(fecha.getSegundos() * (fecha.getSegundos() + 1) );
-
-	int random = rand() % 9000 + 1000;
-
 	rlutil::locate(5, 7);
-	cout << random <<" _ RESTAURAR COPIA";
+	cout << "1 _ RESTAURAR COPIA";
 	rlutil::locate(5, 8);
-	cout << "   0 _ CANCELAR";
-	rlutil::locate(5, 10);
+	cout << "0 _ CANCELAR";
+	rlutil::locate(5, 9);
 	cout << "OPCI" << char(224) << "N: ";
-
-
 
 	int opcion;
 	do
@@ -524,33 +402,16 @@ void Configuracion::RestaurarCopia(int i)
 		cout << "                                                      ";
 		rlutil::locate(14, 10);
 		cin >> opcion;
-		if (opcion == random)
-		{
-			int copiado = false;
-
+		int copiado = false;
 			switch (i)
 			{
 			case 1:
-
-				copiado = AutoArchivo().RestaurarCopiaDeSeguridad();
-				break;
-			case 2:
-				copiado = EmpleadoArchivo().RestaurarCopiaDeSeguridad();
-				break;
-			case 3:
-				copiado = ClienteArchivo().RestaurarCopiaDeSeguridad();
-				break;
-			case 4:
-				copiado = AlquilerArchivo().RestaurarCopiaDeSeguridad();
-				break;
-			case 5:
 				copiado = AutoArchivo().RestaurarCopiaDeSeguridad();
 				if (copiado) copiado = EmpleadoArchivo().RestaurarCopiaDeSeguridad();
 				if (copiado) copiado = ClienteArchivo().RestaurarCopiaDeSeguridad();
 				if (copiado) copiado = AlquilerArchivo().RestaurarCopiaDeSeguridad();
 				break;
 			}
-
 
 			if (copiado)
 			{
@@ -571,15 +432,6 @@ void Configuracion::RestaurarCopia(int i)
 				rlutil::locate(2, 14);
 				system("pause");
 			}
-		}
-		else if (opcion != 0)
-		{
-			rlutil::locate(14, 10);
-			rlutil::setColor(rlutil::LIGHTRED);
-			cout << "OPCI" << char(224) << "N INCORRECTA";
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-		}
 	} while (opcion != 0);
 }
 

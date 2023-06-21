@@ -3,6 +3,7 @@
 #include "EmpleadoArchivo.h"
 #include "AlquilerArchivo.h"
 #include "ClienteArchivo.h"
+#include "AutoArchivo.h"
 #include <iomanip>
 
 using namespace std;
@@ -12,14 +13,52 @@ void ReportesController::mostrarMenu()
 	int opcion;
 	do {
 		rlutil::cls();
+        dibujarMenu();
 
-		rlutil::locate(29, 2);
+		rlutil::locate(32, 15);
+		cin >> opcion;
+
+		switch (opcion)
+		{
+		case 1:
+		    rlutil::cls();
+			recaudacionPorEmpleado();
+			system("pause");
+			break;
+		case 2:
+		    rlutil::cls();
+			recaudacionPorCliente();
+			system("pause");
+			break;
+		case 3:
+		    rlutil::cls();
+			reportePorAuto();
+			system("pause");
+			break;
+		case 0:
+			break;
+		default:
+			rlutil::setColor(rlutil::LIGHTRED);
+			rlutil::locate(23, 17);
+			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(40, 17);
+			rlutil::anykey();
+			break;
+		}
+
+	} while (opcion != 0);
+}
+
+void ReportesController::dibujarMenu()
+{
+        rlutil::locate(29, 2);
 		cout << "REPORTES" << endl;
 
 		rlutil::locate(24, 6);
 		cout << "1 _ RECAUDACION POR EMPLEADO" << endl;
 		rlutil::locate(24, 7);
-		cout << "2 _ PERSONAS MAS FRECUENTES" << endl;
+		cout << "2 _ RECAUDACION POR CLIENTE" << endl;
 		rlutil::locate(24, 8);
 		cout << "3 _ AUTOS MAS ELEGIDOS" << endl;
 		rlutil::locate(24, 13);
@@ -52,81 +91,6 @@ void ReportesController::mostrarMenu()
 			rlutil::locate(63, 5 + i);
 			cout << char(186);
 		}
-
-		rlutil::locate(32, 15);
-		cin >> opcion;
-
-		switch (opcion)
-		{
-		case 1:
-		    rlutil::cls();
-			recaudacionPorEmpleado();
-			system("pause");
-			break;
-		case 2:
-		    rlutil::cls();
-			personasMasFrecuentes();
-			system("pause");
-			break;
-//		case 3:
-//			autosMasElegidos();
-//			break;
-		case 0:
-			break;
-		default:
-			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(23, 17);
-			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::locate(40, 17);
-			rlutil::anykey();
-			break;
-		}
-
-	} while (opcion != 0);
-}
-
-void ReportesController::dibujarMenu()
-{
-	rlutil::locate(29, 2);
-	cout << "REPORTES" << endl;
-
-	rlutil::locate(24, 6);
-	cout << "1 _ RECAUDACION POR EMPLEADO" << endl;
-	rlutil::locate(24, 7);
-	cout << "2 _ PERSONAS MAS FRECUENTES" << endl;
-	rlutil::locate(24, 8);
-	cout << "3 _ AUTOS MAS ELEGIDOS" << endl;
-	rlutil::locate(24, 13);
-	cout << "0 _ VOLVER" << endl;
-
-	rlutil::locate(24, 15);
-	cout << "OPCI" << char(224) << "N: " << endl;
-
-	rlutil::locate(18, 4);
-	cout << char(201);
-	rlutil::locate(50, 4);
-	cout << char(187);
-
-	rlutil::locate(18, 18);
-	cout << char(200);
-	rlutil::locate(50, 18);
-	cout << char(188);
-
-	for (int i = 19; i < 50; i++)
-	{
-		rlutil::locate(i, 4);
-		cout << char(205);
-		rlutil::locate(i, 18);
-		cout << char(205);
-	}
-	for (int i = 5; i < 18; i++)
-	{
-		rlutil::locate(18, i);
-		cout << char(186);
-		rlutil::locate(50, i);
-		cout << char(186);
-	}
 }
 
 void ReportesController::recaudacionPorEmpleado()
@@ -170,7 +134,7 @@ void ReportesController::recaudacionPorEmpleado()
 	}
 }
 
-void ReportesController::personasMasFrecuentes()
+void ReportesController::recaudacionPorCliente()
 {
     listarHeader();
 
@@ -206,6 +170,46 @@ void ReportesController::personasMasFrecuentes()
         recaudacion=0;
 	}
 }
+
+void ReportesController::reportePorAuto()
+{
+    listarHeader();
+
+    AutoArchivo archivo;
+
+	int cant = archivo.getCantidadRegistros();
+	if (cant == 0) return;
+
+	AlquilerArchivo archivo2;
+
+	int cant2 = archivo2.getCantidadRegistros();
+	if (cant2 == 0) return;
+
+    Auto obj;
+    Alquiler obj2;
+
+    float recaudacion = 0;
+    for (int i = 1; i <= cant; i++)
+	{
+		obj = archivo.buscar(i);
+		for (int j = 1; j <= cant2; j++)
+            {
+                obj2 = archivo2.buscar(j);
+                if (obj.getId() == obj2.getAutoId())
+                {
+                    recaudacion += obj2.getPrecio();
+                }
+            }
+        cout<<endl;
+        cout<< obj.getMarca()<<endl;
+        cout<< obj.getModelo()<<endl;
+        cout<< obj.getPatente()<<endl;
+        cout<< obj.getAnio()<<endl;
+        cout<<"Recaudo: "<< recaudacion<<endl;
+        recaudacion=0;
+	}
+}
+
 
 void ReportesController::listarHeader()
 {
