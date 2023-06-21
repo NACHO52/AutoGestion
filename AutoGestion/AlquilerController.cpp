@@ -164,7 +164,7 @@ void AlquilerController::crear()
 		cliente = ClienteController().ventanaNuevoCliente(dni);
 
 	}
-	rlutil::locate(44, 4);
+	rlutil::locate(43, 4);
 	cout << cliente.getApellido() << ", " << cliente.getNombre();
 
 	bool errores = false;
@@ -215,14 +215,14 @@ void AlquilerController::crear()
 	{
 		rlutil::locate(62, 6);
 		cout << "                                                                  ";
-		rlutil::locate(44, 6);
+		rlutil::locate(43, 6);
 		cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
 		rlutil::locate(62, 6);
-		diaHasta = Funciones().inputNumero(62,6,3);
+		diaHasta = Funciones().inputNumero(61,6,3);
 		rlutil::locate(70, 6);
-		mesHasta = Funciones().inputNumero(70,6,3);
+		mesHasta = Funciones().inputNumero(69,6,3);
 		rlutil::locate(78, 6);
-		anioHasta = Funciones().inputNumero(78,6,4);
+		anioHasta = Funciones().inputNumero(77,6,4);
 		if(diaHasta == 0 && mesHasta == 0 && anioHasta == 0) return;
 
 		fechaHasta = Fecha(diaHasta,mesHasta,anioHasta);
@@ -296,7 +296,7 @@ void AlquilerController::crear()
 	
 	autoController.limpiarVentanaAutosDisponibles(2, 10, autosObtenidos);
 
-	rlutil::locate(44, 8);
+	rlutil::locate(43, 8);
 	cout << "PRECIO: $";
 	float valor = (float)(obj.getPrecioDia() * (float)dias);
 	cout.precision(2);
@@ -816,20 +816,27 @@ void AlquilerController::mostrarRegistro(Alquiler obj, bool mostrarAuto, bool mo
 	rlutil::locate(48, 4);
 	cout << obj.getFechaHasta().FechaStr();
 
-	rlutil::locate(5, 6);
+	rlutil::locate(41, 2);
 	cout << "ESTADO: ";
-	rlutil::locate(13, 6);
+	rlutil::locate(50, 2);
 	cout << obj.getEstadoStr();
 
-	rlutil::locate(41, 6);
+	rlutil::locate(5, 6);
 	cout << "PRECIO: $";
-	rlutil::locate(50, 6);
+	rlutil::locate(14, 6);
 	cout << obj.getPrecio();
 
 	rlutil::locate(41, 8);
 	cout << "MULTA: ";
 	rlutil::locate(48, 8);
 	cout << obj.getMulta();
+
+	rlutil::locate(41, 6);
+	cout << "DEVOLUCI"<<char(224)<<"N: ";
+	rlutil::locate(53, 6);
+	Fecha estandar;
+	if(obj.getFechaDevolucion() == estandar) cout << "--/--/----";
+	else cout << obj.getFechaDevolucion().FechaStr();
 
 
 
@@ -1042,10 +1049,9 @@ void AlquilerController::editar()
 			{
 				AutoArchivo autoArchivo;
 				Auto aut = autoArchivo.buscar(obj.getAutoId());
-
-				nuevoEstado++;
 				Fecha hoy;
 				hoy.hoy();
+				nuevoEstado++;
 				if(obj.getFechaHasta() < hoy && obj.getEstado() == AlquilerEstado::Vigente)
 				{
 					obj.setEstado(AlquilerEstado::TerminadoConVencimiento);
@@ -1058,6 +1064,7 @@ void AlquilerController::editar()
 				else
 				{
 					obj.setEstado(AlquilerEstado::TerminadoCorrecto);
+					obj.setFechaDevolucion(hoy);
 				}
 				
 				if (aut.getId() > 0) 
