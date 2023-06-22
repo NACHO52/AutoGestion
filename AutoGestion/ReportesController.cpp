@@ -174,7 +174,7 @@ void ReportesController::recaudacionPorEmpleado()
 	cout << "ID";
 	rlutil::locate(8,4);
 	cout << "NOMBRE";
-	rlutil::locate(27,4);
+	rlutil::locate(23,4);
 	cout << "APELLIDO";
 	rlutil::locate(39, 4);
 	cout << "ALQUILERES";
@@ -434,15 +434,15 @@ void ReportesController::recaudacionPorCliente()
 
     rlutil::locate(3, 4);
 	cout << "ID";
-	rlutil::locate(11,4);
+	rlutil::locate(8,4);
 	cout << "NOMBRE";
-	rlutil::locate(26,4);
+	rlutil::locate(23,4);
 	cout << "APELLIDO";
-	rlutil::locate(43, 4);
+	rlutil::locate(39, 4);
 	cout << "DNI";
-	rlutil::locate(59,4);
+	rlutil::locate(52,4);
 	cout << "MAIL";
-	rlutil::locate(73,4);
+	rlutil::locate(72,4);
 	cout << "TOTAL";
 
 	rlutil::locate(1, 3);
@@ -551,10 +551,10 @@ void ReportesController::recaudacionPorCliente()
         }
 
         cout << setw(11) << obj.getDni();
-		rlutil::locate(51, 6 + corrimiento * 2 );
-		cout << setw(8) << obj.getMail();
-		rlutil::locate(61, 6 + corrimiento * 2 );
-		cout << setw(16) << recaudacion;
+		rlutil::locate(52, 6 + corrimiento * 2 );
+		cout << setw(2) << obj.getMail();
+		rlutil::locate(71, 6 + corrimiento * 2 );
+		cout << setw(8) << recaudacion;
 
         rlutil::setColor(rlutil::WHITE);
 
@@ -1013,7 +1013,7 @@ void ReportesController::noHayRegistrosReporteEmpleados()
 	cout << char(193);
 	rlutil::locate(50, 5);
 	cout << char(193);
-	rlutil::locate(60, 5);
+	rlutil::locate(70, 5);
 	cout << char(193);
 
 
