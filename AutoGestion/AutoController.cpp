@@ -126,18 +126,26 @@ void AutoController::crear() {
 
 	rlutil::locate(11, 10);
 	cout << "A" << char(165) << "O: ";
-	
+
 	rlutil::locate(11, 12);
 	cout << "PRECIO POR D" << char(214) << "A: ";
 
 	rlutil::locate(20, 4);
 	//cin.ignore();
 	getline(cin, patente);
+	char patente2[50];
+	strcpy(patente2,patente.c_str());
+	if (existePatente(patente2)==true){
+	    rlutil::cls();
+        cout<<"Ya existe esa patente"<<endl;
+        system("pause");
+        return;
+	}
 	rlutil::locate(20, 6);
 	getline(cin, marca);
 	rlutil::locate(20, 8);
 	getline(cin, modelo);
-	
+
 	anio = Funciones().inputNumero(20,10,40);
 
 	precio = Funciones().inputDecimal(28,12,40);
@@ -165,7 +173,7 @@ void AutoController::crear() {
 		cout << "                                                                                         ";
 		// rlutil::locate(22, 17);
 		// cin >> opcion;
-		
+
 		opcion = Funciones().inputNumero(22,17,40);
 
 		AutoArchivo archivo;
@@ -519,7 +527,7 @@ void AutoController::listarPorEstado()
 {
 	rlutil::cls();
 	listaHeader();
-	
+
 	AutoArchivo archivo;
 	int registrosDisponibles = 0;
 	int cant = archivo.getCantidadRegistros();
@@ -538,7 +546,7 @@ void AutoController::listarPorEstado()
 			{
 				continue;
 			}
-			else if (obj.getEstado() == AutoEstado::Disponible) 
+			else if (obj.getEstado() == AutoEstado::Disponible)
 			{
 				DibujarFila(registrosDisponibles, obj);
 				registrosDisponibles++;
@@ -998,7 +1006,7 @@ int AutoController::getAutosDisponibles(Fecha fechaDesde, Fecha fechaHasta)
 	return reg;
 }
 
-void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros) 
+void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros)
 {
 	rlutil::locate(x, y);
 	for (int i = 0; i < (3 + registros * 2); i++)
@@ -1010,8 +1018,21 @@ void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros)
 		}
 	}
 }
-//1 =>  5 = 1 + 4 = 1 + 3 + 1 = 3 +  2 = 3 + 2 * 1 
+//1 =>  5 = 1 + 4 = 1 + 3 + 1 = 3 +  2 = 3 + 2 * 1
 //2 =>  7 = 2 + 5 = 2 + 3 + 2 = 3 +  4 = 3 + 2 * 2
 //3 =>  9 = 3 + 6 = 3 + 3 + 3 = 3 +  6 = 3 + 2 * 3
 //4 => 11 = 4 + 7 = 4 + 3 + 4 = 3 +  8 = 3 + 2 * 4
 //5 => 13 = 5 + 8 = 5 + 3 + 5 = 3 + 10 = 3 + 2 * 5
+
+bool AutoController::existePatente(char _patente[])
+{
+    AutoArchivo archivo;
+    Auto obj;
+    int cant = archivo.getCantidadRegistros();
+    for (int i=0;i<cant;i++){
+        obj = archivo.buscar(i);
+        if (_patente==obj.getPatente())
+            return true;
+    }
+    return false;
+}

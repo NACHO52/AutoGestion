@@ -23,4 +23,5 @@ public:
     bool autoPeriodoReservado(Fecha fechaDesde, Fecha fechaHasta, int autoId);
     int getAutosDisponibles();
     int getAutosDisponibles(Fecha desde, Fecha hasta);
+    bool existePatente(char _patente[]);
 };
