@@ -110,7 +110,7 @@ void EmpleadoController::crear() {
 	float sueldo;
 
 	rlutil::locate(37, 2);
-	cout << "CREAR EMLPEADO";
+	cout << "CREAR EMPLEADO";
 
 
 	rlutil::locate(11, 4);
