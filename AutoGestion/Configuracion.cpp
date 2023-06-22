@@ -6,6 +6,7 @@
 #include "ClienteArchivo.h"
 #include "EmpleadoArchivo.h"
 #include <cstdlib>
+#include "Funciones.h"
 
 using namespace std;
 
@@ -62,11 +63,11 @@ void Configuracion::Menu()
 		{
 		case 1:
 		    rlutil::cls();
-			MenuRealizarCopia();
+			HacerCopia();
 			break;
 		case 2:
 		    rlutil::cls();
-			MenuRestaurarCopia();
+			RestaurarCopia();
 			break;
 		case 3:
 		    rlutil::cls();
@@ -87,7 +88,7 @@ void Configuracion::Menu()
 	} while (opcion != 0);
 }
 
-void Configuracion::MenuRealizarCopia()
+void Configuracion::HacerCopia()
 {
 	rlutil::cls();
 	int opcion;
@@ -96,249 +97,30 @@ void Configuracion::MenuRealizarCopia()
 
 		rlutil::locate(29, 2);
 		cout << "REALIZAR COPIA DE SEGURIDAD" << endl;
+		rlutil::locate(5, 3);
+		cout << "SE GUARDAR" << char(181) << "N TODOS LOS DATOS DE TODOS LOS ARCHIVOS HASTA ESTE MOMENTO";
 
-		rlutil::locate(24, 6);
-		cout << "1 _ TODOS" << endl;
-		rlutil::locate(24, 13);
-		cout << "0 _ VOLVER" << endl;
+		
+		rlutil::locate(5, 5);
+		cout << char(168) << "DESEA CONTINUAR?";
+		rlutil::locate(5, 7);
+		cout << "1 _ HACER COPIA";
+		rlutil::locate(5, 8);
+		cout << "0 _ CANCELAR";
+		rlutil::locate(5, 9);
+		cout << "OPCI" << char(224) << "N: ";
 
-		rlutil::locate(24, 15);
-		cout << "OPCI" << char(224) << "N: " << endl;
-
-		rlutil::locate(15, 4);
-		cout << char(201);
-		rlutil::locate(47, 4);
-		cout << char(187);
-
-		rlutil::locate(15, 18);
-		cout << char(200);
-		rlutil::locate(47, 18);
-		cout << char(188);
-
-		for (int i = 0; i < 31; i++)
-		{
-			rlutil::locate(16 + i, 4);
-			cout << char(205);
-			rlutil::locate(16 + i, 18);
-			cout << char(205);
-		}
-		for (int i = 0; i < 13; i++)
-		{
-			rlutil::locate(15, 5 + i);
-			cout << char(186);
-			rlutil::locate(47, 5 + i);
-			cout << char(186);
-		}
-
-		rlutil::locate(32, 15);
-		cin >> opcion;
-
-		switch (opcion)
-		{
-		case 1:
-			HacerCopia(opcion);
-			break;
-		case 0:
-			break;
-		default:
-			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(23, 17);
-			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::locate(40, 17);
-			rlutil::anykey();
-			break;
-		}
-
-	} while (opcion != 0);
-}
-
-void Configuracion::MenuRestaurarCopia()
-{
-	rlutil::cls();
-	int opcion;
-	do {
-		rlutil::cls();
-
-		rlutil::locate(29, 2);
-		cout << "RESTAURAR COPIA DE SEGURIDAD" << endl;
-
-		rlutil::locate(24, 6);
-		cout << "1 _ TODOS" << endl;
-		rlutil::locate(24, 13);
-		cout << "0 _ VOLVER" << endl;
-
-		rlutil::locate(24, 15);
-		cout << "OPCI" << char(224) << "N: " << endl;
-
-		rlutil::locate(15, 4);
-		cout << char(201);
-		rlutil::locate(47, 4);
-		cout << char(187);
-
-		rlutil::locate(15, 18);
-		cout << char(200);
-		rlutil::locate(47, 18);
-		cout << char(188);
-
-		for (int i = 0; i < 31; i++)
-		{
-			rlutil::locate(16 + i, 4);
-			cout << char(205);
-			rlutil::locate(16 + i, 18);
-			cout << char(205);
-		}
-		for (int i = 0; i < 13; i++)
-		{
-			rlutil::locate(15, 5 + i);
-			cout << char(186);
-			rlutil::locate(47, 5 + i);
-			cout << char(186);
-		}
-
-		rlutil::locate(32, 15);
-		cin >> opcion;
-
-		switch (opcion)
-		{
-		case 1:
-			RestaurarCopia(opcion);
-			break;
-		case 0:
-			break;
-		default:
-			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(23, 17);
-			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::locate(40, 17);
-			rlutil::anykey();
-			break;
-		}
-
-	} while (opcion != 0);
-}
-
-void Configuracion::MenuExportarDatos()
-{
-	rlutil::cls();
-	int opcion;
-	do {
-		rlutil::cls();
-
-		rlutil::locate(29, 2);
-		cout << "EXPORTAR DATOS" << endl;
-
-		rlutil::locate(24, 6);
-		cout << "1 _ TODOS" << endl;
-		rlutil::locate(24, 13);
-		cout << "0 _ VOLVER" << endl;
-
-		rlutil::locate(24, 15);
-		cout << "OPCI" << char(224) << "N: " << endl;
-
-
-		rlutil::locate(15, 4);
-		cout << char(201);
-		rlutil::locate(47, 4);
-		cout << char(187);
-
-		rlutil::locate(15, 18);
-		cout << char(200);
-		rlutil::locate(47, 18);
-		cout << char(188);
-
-		for (int i = 0; i < 31; i++)
-		{
-			rlutil::locate(16 + i, 4);
-			cout << char(205);
-			rlutil::locate(16 + i, 18);
-			cout << char(205);
-		}
-		for (int i = 0; i < 13; i++)
-		{
-			rlutil::locate(15, 5 + i);
-			cout << char(186);
-			rlutil::locate(47, 5 + i);
-			cout << char(186);
-		}
-
-		rlutil::locate(32, 15);
-		cin >> opcion;
-
-		switch (opcion)
-		{
-		case 1:
-			AutoArchivo().ExportarDatos();
-			EmpleadoArchivo().ExportarDatos();
-			ClienteArchivo().ExportarDatos();
-			AlquilerArchivo().ExportarDatos();
-			rlutil::locate(11, 20);
-			rlutil::setColor(rlutil::LIGHTGREEN);
-			cout << "LOS ARCHIVOS SE HAN EXPORTADO EXITOSAMENTE" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::anykey();
-			break;
-        case 0:
-            break;
-		default:
-			rlutil::setColor(rlutil::LIGHTRED);
-			rlutil::locate(23, 17);
-			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
-			rlutil::setColor(rlutil::WHITE);
-			rlutil::locate(40, 17);
-			rlutil::anykey();
-			break;
-		}
-
-	} while (opcion != 0);
-}
-
-void Configuracion::HacerCopia(int i)
-{
-	rlutil::cls();
-
-	std::string texto = "";
-	switch (i)
-	{
-	case 1:
-		texto = "DE TODOS LOS ARCHIVOS";
-		break;
-	default:
-		break;
-	}
-	rlutil::locate(5, 3);
-	cout << "SE GUARDAR" << char(181) << "N TODOS LOS DATOS " << texto << " HASTA ESTE MOMENTO";
-
-	rlutil::locate(5, 5);
-	cout << char(168) << "DESEA CONTINUAR?";
-	rlutil::locate(5, 7);
-	cout << "1 _ HACER COPIA";
-	rlutil::locate(5, 8);
-	cout << "0 _ CANCELAR";
-	rlutil::locate(5, 9);
-	cout << "OPCI" << char(224) << "N: ";
-
-	int opcion;
-	do
-	{
 		rlutil::locate(13, 9);
-		cout << "                                                      ";
-		rlutil::locate(14, 9);
-		cin >> opcion;
-		if (opcion == 1)
-		{
-			int copiado = false;
+		opcion = Funciones().inputNumero(13,9,40);
 
-			switch (i)
-			{
-			case 1:
-				copiado = AutoArchivo().HacerCopiaDeSeguridad();
-				if(copiado) copiado = EmpleadoArchivo().HacerCopiaDeSeguridad();
-				if (copiado) copiado = ClienteArchivo().HacerCopiaDeSeguridad();
-				if (copiado) copiado = AlquilerArchivo().HacerCopiaDeSeguridad();
-				break;
-			}
+		int copiado = false;
+		switch (opcion)
+		{
+		case 1:
+			copiado = AutoArchivo().HacerCopiaDeSeguridad();
+			if(copiado) copiado = EmpleadoArchivo().HacerCopiaDeSeguridad();
+			if (copiado) copiado = ClienteArchivo().HacerCopiaDeSeguridad();
+			if (copiado) copiado = AlquilerArchivo().HacerCopiaDeSeguridad();
 
 
 			if (copiado)
@@ -360,61 +142,62 @@ void Configuracion::HacerCopia(int i)
 				rlutil::locate(2, 14);
 				system("pause");
 			}
-		}
-		else if (opcion != 0)
-		{
-			rlutil::locate(14, 9);
+			break;
+		case 0:
+			break;
+		default:
 			rlutil::setColor(rlutil::LIGHTRED);
-			cout << "OPCI" << char(224) << "N INCORRECTA";
+			rlutil::locate(32, 15);
+			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
 			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(32, 15);
 			rlutil::anykey();
+			cout << "                                      " << endl;
+			break;
 		}
-	} while (opcion != 0);
 
+	} while (opcion != 0);
 }
 
-void Configuracion::RestaurarCopia(int i)
+void Configuracion::RestaurarCopia()
 {
 	rlutil::cls();
-
-	std::string texto = "";
-	switch (i)
-	{
-	case 1:
-		texto = "DE TODOS LOS ARCHIVOS";
-		break;
-	default:
-		break;
-	}
-	rlutil::locate(5, 3);
-	cout << "SE RESTAURAR" << char(181) << "N TODOS LOS DATOS " << texto << " HASTA ESTE MOMENTO";
-
-	rlutil::locate(5, 5);
-	cout << char(168) << "DESEA CONTINUAR?";
-	rlutil::locate(5, 7);
-	cout << "1 _ RESTAURAR COPIA";
-	rlutil::locate(5, 8);
-	cout << "0 _ CANCELAR";
-	rlutil::locate(5, 9);
-	cout << "OPCI" << char(224) << "N: ";
-
 	int opcion;
-	do
-	{
-		rlutil::locate(13, 10);
-		cout << "                                                      ";
-		rlutil::locate(14, 10);
-		cin >> opcion;
+	do {
+		rlutil::cls();
+
+		rlutil::locate(29, 2);
+		cout << "RESTAURAR COPIA DE SEGURIDAD" << endl;
+
+		rlutil::locate(5, 3);
+		cout << "SE RESTAURAR" << char(181) << "N TODOS LOS DATOS DE TODOS LOS ARCHIVOS HASTA ESTE MOMENTO";
+
+		rlutil::locate(5, 5);
+		cout << char(168) << "DESEA CONTINUAR?";
+
+		/*srand((unsigned)time(NULL));*/
+		Fecha fecha;
+		fecha.ahora();
+		srand(fecha.getSegundos() * (fecha.getSegundos() + 1) );
+		int random = rand() % 9000 + 1000;
+		
+		rlutil::locate(5, 7);
+		cout << random  << " _ RESTAURAR COPIA";
+		rlutil::locate(5, 8);
+		cout << "0 _ CANCELAR";
+		rlutil::locate(5, 9);
+		cout << "OPCI" << char(224) << "N: ";
+
+		opcion = Funciones().inputNumero(13,9,60);
+
 		int copiado = false;
-			switch (i)
-			{
-			case 1:
-				copiado = AutoArchivo().RestaurarCopiaDeSeguridad();
-				if (copiado) copiado = EmpleadoArchivo().RestaurarCopiaDeSeguridad();
-				if (copiado) copiado = ClienteArchivo().RestaurarCopiaDeSeguridad();
-				if (copiado) copiado = AlquilerArchivo().RestaurarCopiaDeSeguridad();
-				break;
-			}
+
+		if(opcion == random)
+		{
+			copiado = AutoArchivo().RestaurarCopiaDeSeguridad();
+			if (copiado) copiado = EmpleadoArchivo().RestaurarCopiaDeSeguridad();
+			if (copiado) copiado = ClienteArchivo().RestaurarCopiaDeSeguridad();
+			if (copiado) copiado = AlquilerArchivo().RestaurarCopiaDeSeguridad();
 
 			if (copiado)
 			{
@@ -435,6 +218,120 @@ void Configuracion::RestaurarCopia(int i)
 				rlutil::locate(2, 14);
 				system("pause");
 			}
+		}
+		else if (opcion != 0)
+		{
+			rlutil::locate(14, 10);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "OPCI" << char(224) << "N INCORRECTA";
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+		}
+
 	} while (opcion != 0);
 }
 
+void Configuracion::MenuExportarDatos()
+{
+	rlutil::cls();
+	int opcion;
+	do {
+		rlutil::cls();
+		rlutil::locate(29, 2);
+		cout << "EXPORTAR DATOS" << endl;
+		rlutil::locate(24, 6);
+		cout << "1 _ AUTOS" << endl;
+		rlutil::locate(24, 7);
+		cout << "2 _ EMPLEADOS" << endl;
+		rlutil::locate(24, 8);
+		cout << "3 _ CLIENTES" << endl;
+		rlutil::locate(24, 9);
+		cout << "4 _ ALQUILERES" << endl;
+		rlutil::locate(24, 10);
+		cout << "5 _ TODOS" << endl;
+		rlutil::locate(24, 13);
+		cout << "0 _ VOLVER" << endl;
+		rlutil::locate(24, 15);
+		cout << "OPCI" << char(224) << "N: " << endl;
+		rlutil::locate(15, 4);
+		cout << char(201);
+		rlutil::locate(47, 4);
+		cout << char(187);
+		rlutil::locate(15, 18);
+		cout << char(200);
+		rlutil::locate(47, 18);
+		cout << char(188);
+		for (int i = 0; i < 31; i++)
+		{
+			rlutil::locate(16 + i, 4);
+			cout << char(205);
+			rlutil::locate(16 + i, 18);
+			cout << char(205);
+		}
+		for (int i = 0; i < 13; i++)
+		{
+			rlutil::locate(15, 5 + i);
+			cout << char(186);
+			rlutil::locate(47, 5 + i);
+			cout << char(186);
+		}
+		rlutil::locate(32, 15);
+		cin >> opcion;
+		switch (opcion)
+		{
+		case 1:
+			AutoArchivo().ExportarDatos();
+			rlutil::locate(11, 20);
+			rlutil::setColor(rlutil::LIGHTGREEN);
+			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			break;
+		case 2:
+			EmpleadoArchivo().ExportarDatos();
+			rlutil::locate(11, 20);
+			rlutil::setColor(rlutil::LIGHTGREEN);
+			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			break;
+		case 3:
+			ClienteArchivo().ExportarDatos();
+			rlutil::locate(11, 20);
+			rlutil::setColor(rlutil::LIGHTGREEN);
+			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			break;
+		case 4:
+			AlquilerArchivo().ExportarDatos();
+			rlutil::locate(11, 20);
+			rlutil::setColor(rlutil::LIGHTGREEN);
+			cout << "EL ARCHIVO SE HA EXPORTADO EXITOSAMENTE" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			break;
+		case 5:
+			AutoArchivo().ExportarDatos();
+			EmpleadoArchivo().ExportarDatos();
+			ClienteArchivo().ExportarDatos();
+			AlquilerArchivo().ExportarDatos();
+			rlutil::locate(11, 20);
+			rlutil::setColor(rlutil::LIGHTGREEN);
+			cout << "LOS ARCHIVOS SE HAN EXPORTADO EXITOSAMENTE" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			break;
+		case 0:
+			break;
+		default:
+			rlutil::setColor(rlutil::LIGHTRED);
+			rlutil::locate(23, 17);
+			cout << "OPCI" << char(224) << "N INCORRECTA" << endl;
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::locate(40, 17);
+			rlutil::anykey();
+			break;
+		}
+	} while (opcion != 0);
+}
