@@ -27,7 +27,6 @@ void ReportesController::mostrarMenu()
         case 2:
             rlutil::cls();
             recaudacionPorCliente();
-            system("pause");
             break;
         case 3:
             reportePorAuto();
@@ -93,7 +92,7 @@ void ReportesController::dibujarMenu()
 void ReportesController::recaudacionPorEmpleado()
 {
     rlutil::cls();
-	
+
     rlutil::locate(30, 1);
 	cout << "RECAUDACI"<< char(224) <<"N POR EMPLEADO";
 	bool errores = false;
@@ -125,7 +124,7 @@ void ReportesController::recaudacionPorEmpleado()
 			rlutil::locate(20, 2);
 			cout << "                                                                  ";
 		}
-		
+
 		else
 			errores = false;
 	} while (errores);
@@ -292,7 +291,7 @@ void ReportesController::recaudacionPorEmpleado()
 			for (int j = 1; j <= cantAlquileres; j++)
 			{
 				alquiler = alquilerArchivo.buscar(j);
-				if (alquiler.getEmpleadoId() == empleado.getId() && alquiler.getEstado() != AlquilerEstado::Vigente && 
+				if (alquiler.getEmpleadoId() == empleado.getId() && alquiler.getEstado() != AlquilerEstado::Vigente &&
                     (( fechaHasta >= alquiler.getFechaDesde() && alquiler.getFechaDesde() >= fechaDesde) || (fechaDesde <= alquiler.getFechaHasta() && alquiler.getFechaHasta() <= fechaHasta)))
 				{
 					alquileres++;
@@ -321,7 +320,7 @@ void ReportesController::recaudacionPorEmpleado()
 		cout << char(179);
 		rlutil::locate(60, 6 + corrimiento * 2 );
 		cout << char(179);
-		
+
 
 
 		for (int j = 0; j < 78; j++)
@@ -354,19 +353,153 @@ void ReportesController::recaudacionPorEmpleado()
 
 void ReportesController::recaudacionPorCliente()
 {
-    listarHeader();
+    rlutil::cls();
+
+    rlutil::locate(30, 1);
+	cout << "RECAUDACI"<< char(224) <<"N POR CLIENTE";
+	bool errores = false;
+    int diaDesde, mesDesde, anioDesde, diaHasta, mesHasta, anioHasta;
+    Fecha fechaDesde, fechaHasta;
+    do
+	{
+		rlutil::locate(3, 2);
+		cout << "FECHA DESDE: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
+		rlutil::locate(21, 2);
+		diaDesde = Funciones().inputNumero(21,2,3);
+		rlutil::locate(29, 2);
+		mesDesde = Funciones().inputNumero(29,2,3);
+		rlutil::locate(37, 2);
+		anioDesde = Funciones().inputNumero(37,2,5);
+
+		fechaDesde = Fecha(diaDesde,mesDesde,anioDesde);
+
+		if(fechaDesde.getAnio() != anioDesde || fechaDesde.getMes() != mesDesde || fechaDesde.getDia() != diaDesde)
+		{
+			rlutil::locate(20, 2);
+			cout << "                                                                  ";
+			rlutil::locate(21, 2);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "FECHA INV"<< char(181) <<"LIDA";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+			rlutil::locate(20, 2);
+			cout << "                                                                  ";
+		}
+
+		else
+			errores = false;
+	} while (errores);
+
+    do
+	{
+		rlutil::locate(62, 2);
+		cout << "                                                                  ";
+		rlutil::locate(43, 2);
+		cout << "FECHA HASTA: D" << char(214) << "A:    MES:    A" << char(165) << "O: ";
+		rlutil::locate(62, 2);
+		diaHasta = Funciones().inputNumero(61,2,3);
+		rlutil::locate(70, 2);
+		mesHasta = Funciones().inputNumero(69,2,3);
+		rlutil::locate(78, 2);
+		anioHasta = Funciones().inputNumero(77,2,4);
+		if(diaHasta == 0 && mesHasta == 0 && anioHasta == 0) return;
+
+		fechaHasta = Fecha(diaHasta,mesHasta,anioHasta);
+		if(fechaHasta.getAnio() != anioHasta || fechaHasta.getMes() != mesHasta || fechaHasta.getDia() != diaHasta)
+		{
+			rlutil::locate(62, 2);
+			cout << "                                                                  ";
+			rlutil::locate(62, 2);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "FECHA INV"<< char(181) <<"LIDA";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else if(Fecha().fechasInvalidas(fechaDesde, fechaHasta))
+		{
+			rlutil::locate(62, 2);
+			cout << "                                                                  ";
+			rlutil::locate(62, 2);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "\"FECHA DESDE\" MAYOR A \"FECHA HASTA\"";
+			rlutil::setColor(rlutil::WHITE);
+			errores = true;
+			rlutil::anykey();
+		}
+		else
+			errores = false;
+	} while (errores);
+
+    rlutil::locate(3, 4);
+	cout << "ID";
+	rlutil::locate(11,4);
+	cout << "NOMBRE";
+	rlutil::locate(26,4);
+	cout << "APELLIDO";
+	rlutil::locate(43, 4);
+	cout << "DNI";
+	rlutil::locate(59,4);
+	cout << "MAIL";
+	rlutil::locate(73,4);
+	cout << "TOTAL";
+
+	rlutil::locate(1, 3);
+	cout << char(218);
+	for (int i = 0; i < 78; i++)
+	{
+		rlutil::locate(2 + i, 3);
+		cout << char(196);
+		rlutil::locate(2 + i, 5);
+		cout << char(196);
+	}
+	rlutil::locate(79, 3);
+	cout << char(191);
+
+	rlutil::locate(1, 4);
+	cout << char(179);
+	rlutil::locate(6, 4);
+	cout << char(179);
+	rlutil::locate(21, 4);
+	cout << char(179);
+	rlutil::locate(37, 4);
+	cout << char(179);
+	rlutil::locate(50, 4);
+	cout << char(179);
+	rlutil::locate(70, 4);
+	cout << char(179);
+	rlutil::locate(79, 4);
+	cout << char(179);
+
+
+	rlutil::locate(6, 3);
+	cout << char(194);
+	rlutil::locate(21, 3);
+	cout << char(194);
+	rlutil::locate(37, 3);
+	cout << char(194);
+	rlutil::locate(50, 3);
+	cout << char(194);
+	rlutil::locate(70, 3);
+	cout << char(194);
+
+
+	int corrimiento = 0;
 
     AlquilerArchivo archivo;
 
     int cant = archivo.getCantidadRegistros();
     if (cant == 0)
-        return;
+	{
+		noHayRegistrosReporteEmpleados();
+		system("pause");
+		return;
+	}
 
     ClienteArchivo archivo2;
 
     int cant2 = archivo2.getCantidadRegistros();
-    if (cant2 == 0)
-        return;
 
     Cliente obj;
     Alquiler obj2;
@@ -375,20 +508,97 @@ void ReportesController::recaudacionPorCliente()
     for (int i = 1; i <= cant2; i++)
     {
         obj = archivo2.buscar(i);
-        for (int j = 1; j <= cant; j++)
+        rlutil::locate(1, 5 + corrimiento * 2 );
+		cout << char(195);
+		rlutil::locate(79, 5 + corrimiento * 2);
+		cout << char(180);
+
+		rlutil::locate(1, 6 + corrimiento * 2 );
+		cout << char(179);
+		rlutil::locate(79, 6 + corrimiento * 2 );
+		cout << char(179);
+
+		rlutil::locate(6, 5 + corrimiento * 2 );
+		cout << char(197);
+		rlutil::locate(21, 5 + corrimiento * 2 );
+		cout << char(197);
+		rlutil::locate(37, 5 + corrimiento * 2);
+		cout << char(197);
+		rlutil::locate(50, 5 + corrimiento * 2 );
+		cout << char(197);
+		rlutil::locate(70, 5 + corrimiento * 2 );
+		cout << char(197);
+
+        rlutil::setColor(rlutil::LIGHTGREEN);
+
+		rlutil::locate(2, 6 + corrimiento * 2 );
+		cout << setw(4) << obj.getId();
+		rlutil::locate(7, 6 + corrimiento * 2 );
+		cout << setw(13) << obj.getNombre();
+		rlutil::locate(22, 6 + corrimiento * 2 );
+		cout << setw(14) << obj.getApellido();
+		rlutil::locate(38, 6 + corrimiento * 2);
+		if (cant > 0 )
         {
-            obj2 = archivo.buscar(j);
-            if (obj.getId() == obj2.getClienteId())
+            for (int j = 1; j <= cant; j++)
             {
-                recaudacion += obj2.getPrecio();
+                obj2 = archivo.buscar(j);
+                if (obj.getId() == obj2.getClienteId())
+                {
+                    recaudacion += obj2.getPrecio();
+                }
             }
         }
-        cout << endl;
-        cout << obj.getNombre() << endl;
-        cout << obj.getApellido() << endl;
-        cout << recaudacion << endl;
-        recaudacion = 0;
+
+        cout << setw(11) << obj.getDni();
+		rlutil::locate(51, 6 + corrimiento * 2 );
+		cout << setw(8) << obj.getMail();
+		rlutil::locate(61, 6 + corrimiento * 2 );
+		cout << setw(16) << recaudacion;
+
+        rlutil::setColor(rlutil::WHITE);
+
+		rlutil::locate(1, 6 + corrimiento * 2);
+		cout << char(179);
+		rlutil::locate(6, 6 + corrimiento * 2 );
+		cout << char(179);
+		rlutil::locate(21, 6 + corrimiento * 2 );
+		cout << char(179);
+		rlutil::locate(37, 6 + corrimiento * 2);
+		cout << char(179);
+		rlutil::locate(50, 6 + corrimiento * 2 );
+		cout << char(179);
+		rlutil::locate(70, 6 + corrimiento * 2 );
+		cout << char(179);
+
+
+
+		for (int j = 0; j < 78; j++)
+		{
+			rlutil::locate(2 + j, 7 + corrimiento * 2 );
+			cout << char(196);
+		}
+		rlutil::locate(1, 7 + corrimiento * 2);
+		cout << char(192);
+		rlutil::locate(79, 7 + corrimiento * 2);
+		cout << char(217);
+
+		rlutil::locate(6, 7 + corrimiento * 2 );
+		cout << char(193);
+		rlutil::locate(21, 7 + corrimiento * 2 );
+		cout << char(193);
+		rlutil::locate(37, 7 + corrimiento * 2);
+		cout << char(193);
+		rlutil::locate(50, 7 + corrimiento * 2 );
+		cout << char(193);
+		rlutil::locate(70, 7 + corrimiento * 2 );
+		cout << char(193);
+
+		corrimiento++;
     }
+
+    rlutil::locate(1, corrimiento * 2 + 8);
+	system("pause");
 }
 
 void ReportesController::reportePorAuto()
@@ -425,7 +635,7 @@ void ReportesController::reportePorAuto()
 			rlutil::locate(20, 2);
 			cout << "                                                                  ";
 		}
-		
+
 		else
 			errores = false;
 	} while (errores);
@@ -607,8 +817,8 @@ void ReportesController::reportePorAuto()
 				for (int j = 1; j <= cantAlquileres; j++)
 				{
 					alquiler = alquilerArchivo.buscar(j);
-					if (alquiler.getAutoId() == aut.getId() && alquiler.getEstado() != AlquilerEstado::Vigente && 
-                    (( fechaHasta >= alquiler.getFechaDesde() && alquiler.getFechaDesde() >= fechaDesde) || (fechaDesde <= alquiler.getFechaHasta() && alquiler.getFechaHasta() <= fechaHasta))) 
+					if (alquiler.getAutoId() == aut.getId() && alquiler.getEstado() != AlquilerEstado::Vigente &&
+                    (( fechaHasta >= alquiler.getFechaDesde() && alquiler.getFechaDesde() >= fechaDesde) || (fechaDesde <= alquiler.getFechaHasta() && alquiler.getFechaHasta() <= fechaHasta)))
 					{
 						alquileres++;
 						total += alquiler.getPrecio();
@@ -761,7 +971,7 @@ void ReportesController::noHayRegistrosReporteAutos()
 	cout << char(193);
 	rlutil::locate(67, 5);
 	cout << char(193);
-	
+
 
 	rlutil::locate(1, 8);
 	cout << char(192);
@@ -805,7 +1015,7 @@ void ReportesController::noHayRegistrosReporteEmpleados()
 	cout << char(193);
 	rlutil::locate(60, 5);
 	cout << char(193);
-	
+
 
 	rlutil::locate(1, 8);
 	cout << char(192);
