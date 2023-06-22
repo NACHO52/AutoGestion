@@ -492,7 +492,7 @@ void ReportesController::recaudacionPorCliente()
     int cant = archivo.getCantidadRegistros();
     if (cant == 0)
 	{
-		noHayRegistrosReporteEmpleados();
+		cout<<"No hay registros cargados";
 		system("pause");
 		return;
 	}
