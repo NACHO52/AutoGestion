@@ -130,17 +130,30 @@ void AutoController::crear() {
 	rlutil::locate(11, 12);
 	cout << "PRECIO POR D" << char(214) << "A: ";
 
-	rlutil::locate(20, 4);
-	//cin.ignore();
-	getline(cin, patente);
-	char patente2[50];
-	strcpy(patente2,patente.c_str());
-	if (existePatente(patente2)==true){
-	    rlutil::cls();
-        cout<<"Ya existe esa patente"<<endl;
-        system("pause");
-        return;
-	}
+	bool errores = false;
+	do
+	{
+		rlutil::locate(20, 4);
+		cout << "                                  ";
+		rlutil::locate(20, 4);
+		//cin.ignore();
+		getline(cin, patente);
+		
+		if (existePatente(patente))
+		{
+			rlutil::locate(20, 4);
+			cout << "                                  ";
+			rlutil::locate(20, 4);
+			rlutil::setColor(rlutil::LIGHTRED);
+			cout << "YA EXISTE ESA PATENTE";
+			rlutil::setColor(rlutil::WHITE);
+			rlutil::anykey();
+			errores = true;
+		}
+		else errores = false;
+	} while (errores);
+	
+
 	rlutil::locate(20, 6);
 	getline(cin, marca);
 	rlutil::locate(20, 8);
@@ -1024,14 +1037,15 @@ void AutoController::limpiarVentanaAutosDisponibles(int x, int y, int registros)
 //4 => 11 = 4 + 7 = 4 + 3 + 4 = 3 +  8 = 3 + 2 * 4
 //5 => 13 = 5 + 8 = 5 + 3 + 5 = 3 + 10 = 3 + 2 * 5
 
-bool AutoController::existePatente(char _patente[])
+bool AutoController::existePatente(string patente)
 {
     AutoArchivo archivo;
     Auto obj;
     int cant = archivo.getCantidadRegistros();
-    for (int i=0;i<cant;i++){
+
+    for (int i = 1; i <= cant; i++){
         obj = archivo.buscar(i);
-        if (_patente==obj.getPatente())
+        if (strcmp(patente.c_str(), obj.getPatente().c_str()) == 0 && !obj.getEliminado())
             return true;
     }
     return false;

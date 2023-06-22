@@ -1,6 +1,7 @@
 #pragma once
 #include "Auto.h"
 #include "Fecha.h"
+#include <string>
 
 class AutoController
 {
@@ -23,5 +24,5 @@ public:
     bool autoPeriodoReservado(Fecha fechaDesde, Fecha fechaHasta, int autoId);
     int getAutosDisponibles();
     int getAutosDisponibles(Fecha desde, Fecha hasta);
-    bool existePatente(char _patente[]);
+    bool existePatente(std::string patente);
 };
