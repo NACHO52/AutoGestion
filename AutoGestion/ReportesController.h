@@ -9,4 +9,6 @@ public:
     void recaudacionPorCliente();
     void reportePorAuto();
     void listarHeader();
+    void noHayRegistrosReporteAutos();
+    void noHayRegistrosReporteEmpleados();
 };
