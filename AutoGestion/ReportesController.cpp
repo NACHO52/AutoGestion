@@ -543,7 +543,7 @@ void ReportesController::recaudacionPorCliente()
             for (int j = 1; j <= cant; j++)
             {
                 obj2 = archivo.buscar(j);
-                if (obj.getId() == obj2.getClienteId())
+                if (obj.getId() == obj2.getClienteId() && obj2.getEstado() != AlquilerEstado::Vigente)
                 {
                     recaudacion += obj2.getPrecio();
                 }
