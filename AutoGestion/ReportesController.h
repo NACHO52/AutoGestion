@@ -11,4 +11,5 @@ public:
     void listarHeader();
     void noHayRegistrosReporteAutos();
     void noHayRegistrosReporteEmpleados();
+    void noHayRegistrosReporteCliente();
 };

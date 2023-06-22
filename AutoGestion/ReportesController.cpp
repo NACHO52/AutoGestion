@@ -492,7 +492,7 @@ void ReportesController::recaudacionPorCliente()
     int cant = archivo.getCantidadRegistros();
     if (cant == 0)
 	{
-		cout<<"No hay registros cargados";
+		noHayRegistrosReporteCliente();
 		system("pause");
 		return;
 	}
@@ -1003,6 +1003,50 @@ void ReportesController::noHayRegistrosReporteAutos()
 void ReportesController::noHayRegistrosReporteEmpleados()
 {
     rlutil::locate(30, 7);
+	cout << "No hay registros cargados.";
+
+	rlutil::locate(6, 5);
+	cout << char(193);
+	rlutil::locate(21, 5);
+	cout << char(193);
+	rlutil::locate(37, 5);
+	cout << char(193);
+	rlutil::locate(50, 5);
+	cout << char(193);
+	rlutil::locate(60, 5);
+	cout << char(193);
+
+
+	rlutil::locate(1, 8);
+	cout << char(192);
+	rlutil::locate(1, 6);
+	cout << char(179);
+	rlutil::locate(1, 7);
+	cout << char(179);
+	rlutil::locate(79, 6);
+	cout << char(179);
+	rlutil::locate(79, 7);
+	cout << char(179);
+	rlutil::locate(79, 8);
+	cout << char(217);
+
+	rlutil::locate(1, 5);
+	cout << char(195);
+
+	rlutil::locate(79, 5);
+	cout << char(180);
+	for (int i = 0; i < 77; i++)
+	{
+		rlutil::locate(2 + i, 8);
+		cout << char(196);
+	}
+
+	cout << endl;
+}
+
+void ReportesController::noHayRegistrosReporteCliente()
+{
+	rlutil::locate(30, 7);
 	cout << "No hay registros cargados.";
 
 	rlutil::locate(6, 5);
