@@ -169,7 +169,11 @@ bool EmpleadoArchivo::RestaurarCopiaDeSeguridad() {
 void EmpleadoArchivo::ExportarDatos()
 {
     std::fstream fout;
-    fout.open("empleados.csv", std::ios::out);
+    std::string archivo = "empleados";
+    Fecha ahora;
+    ahora.ahora();
+    archivo = archivo + "_" + ahora.ahoraFormato() + ".csv";
+    fout.open(archivo, std::ios::out);
 
     int cant = getCantidadRegistros();
     if (cant == 0) return;

@@ -197,7 +197,11 @@ bool ClienteArchivo::RestaurarCopiaDeSeguridad() {
 void ClienteArchivo::ExportarDatos()
 {
     std::fstream fout;
-    fout.open("clientes.csv", std::ios::out);
+    std::string archivo = "clientes";
+    Fecha ahora;
+    ahora.ahora();
+    archivo = archivo + "_" + ahora.ahoraFormato() + ".csv";
+    fout.open(archivo, std::ios::out);
 
     int cant = getCantidadRegistros();
     if (cant == 0) return;

@@ -101,7 +101,7 @@ std::string Fecha::ahoraFormato()
     if (_minutos < 10) minutos = "0" + std::to_string(_minutos);
     if (_segundos < 10) segundos = "0" + std::to_string(_segundos);
 
-    formato = anio + mes + dia + "_" + hora + minutos + segundos;
+    formato = anio + mes + dia + hora + minutos + segundos;
 
     return formato;
 }

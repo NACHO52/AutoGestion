@@ -169,7 +169,11 @@ bool AlquilerArchivo::RestaurarCopiaDeSeguridad() {
 void AlquilerArchivo::ExportarDatos()
 {
     std::fstream fout;
-    fout.open("alquileres.csv", std::ios::out);
+    std::string archivo = "alquileres";
+    Fecha ahora;
+    ahora.ahora();
+    archivo = archivo + "_" + ahora.ahoraFormato() + ".csv";
+    fout.open(archivo, std::ios::out);
 
     int cant = getCantidadRegistros();
     if (cant == 0) return;

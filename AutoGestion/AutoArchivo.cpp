@@ -169,7 +169,11 @@ bool AutoArchivo::RestaurarCopiaDeSeguridad() {
 void AutoArchivo::ExportarDatos()
 {
     std::fstream fout;
-    fout.open("autos.csv", std::ios::out);
+    std::string archivo = "autos";
+    Fecha ahora;
+    ahora.ahora();
+    archivo = archivo + "_" + ahora.ahoraFormato() + ".csv";
+    fout.open(archivo, std::ios::out);
 
     int cant = getCantidadRegistros();
     if (cant == 0) return;
